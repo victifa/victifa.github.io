@@ -1,0 +1,750 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#dae9f4">
+  <meta name="author" content="Victifa">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="以下对于以太坊主网，使用公用 rpc 节点，对于测试网 Sepolia，使用自己的 API key。 12345const INFURA_ID &#x3D; &#x27;&#x2F;* 你的 API key *&#x2F;&#x27;;const providerSepolia &#x3D; new ethers.JsonRpcProvider(&#96;https:&#x2F;&#x2F;sepolia.infura.io&#x2F;v3&#x2F;$&#123;INFURA_ID">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ethers.js">
+<meta property="og:url" content="http://example.com/2025/01/12/ethers-js/index.html">
+<meta property="og:site_name" content="Victifa">
+<meta property="og:description" content="以下对于以太坊主网，使用公用 rpc 节点，对于测试网 Sepolia，使用自己的 API key。 12345const INFURA_ID &#x3D; &#x27;&#x2F;* 你的 API key *&#x2F;&#x27;;const providerSepolia &#x3D; new ethers.JsonRpcProvider(&#96;https:&#x2F;&#x2F;sepolia.infura.io&#x2F;v3&#x2F;$&#123;INFURA_ID">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-01-12T14:45:44.000Z">
+<meta property="article:modified_time" content="2025-01-12T14:53:26.003Z">
+<meta property="article:author" content="Victifa">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>ethers.js - Victifa</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":3},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>myBlog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="ethers.js"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-01-12 22:45" pubdate>
+          2025年1月12日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">ethers.js</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>以下对于以太坊主网，使用公用 rpc 节点，对于测试网 Sepolia，使用自己的 API key。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">INFURA_ID</span> = <span class="hljs-string">&#x27;/* 你的 API key */&#x27;</span>;<br><span class="hljs-keyword">const</span> providerSepolia = <span class="hljs-keyword">new</span> ethers.<span class="hljs-title class_">JsonRpcProvider</span>(<span class="hljs-string">`https://sepolia.infura.io/v3/<span class="hljs-subst">$&#123;INFURA_ID&#125;</span>`</span>);<br><br><span class="hljs-keyword">const</span> <span class="hljs-variable constant_">ALCHEMY_MAINNET_URL</span> = <span class="hljs-string">&#x27;https://rpc.ankr.com/eth&#x27;</span>;<br><span class="hljs-keyword">const</span> providerETH = <span class="hljs-keyword">new</span> ethers.<span class="hljs-title class_">JsonRpcProvider</span>(<span class="hljs-variable constant_">ALCHEMY_MAINNET_URL</span>);<br></code></pre></td></tr></table></figure>
+<h1 id="1-Provider-类"><a href="#1-Provider-类" class="headerlink" title="1. Provider 类"></a>1. <code>Provider</code> 类</h1><p><code>provider</code> 有以下几个简单的运用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">main</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-keyword">const</span> <span class="hljs-title class_">MyAddr</span> = <span class="hljs-string">&#x27;0xCba28960338E1953b2b4C1750D326729029C82d3&#x27;</span>;<br><br>    <span class="hljs-comment">// 对于钱包信息的查询</span><br>        <span class="hljs-comment">/* 1. 查询余额：getBalance(地址) */</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;1. 余额&#x27;</span>);<br>    <span class="hljs-keyword">const</span> <span class="hljs-title class_">BalanceOfVitalik</span> = <span class="hljs-keyword">await</span> providerETH.<span class="hljs-title function_">getBalance</span>(<span class="hljs-string">&#x27;vitalik.eth&#x27;</span>);<br>    <span class="hljs-keyword">const</span> <span class="hljs-title class_">BalanceOfVitalikETH</span> = ethers.<span class="hljs-title function_">formatEther</span>(<span class="hljs-title class_">BalanceOfVitalik</span>);<br>    <span class="hljs-keyword">const</span> <span class="hljs-title class_">MyBalance</span> = <span class="hljs-keyword">await</span> providerSepolia.<span class="hljs-title function_">getBalance</span>(<span class="hljs-title class_">MyAddr</span>);<br>    <span class="hljs-keyword">const</span> <span class="hljs-title class_">MyBalanceETH</span> = ethers.<span class="hljs-title function_">formatEther</span>(<span class="hljs-title class_">MyBalance</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`vitalik:<span class="hljs-subst">$&#123;BalanceOfVitalikETH&#125;</span>\n我:<span class="hljs-subst">$&#123;MyBalanceETH&#125;</span>`</span>);<br>        <span class="hljs-comment">/* 2. 查询历史交易次数：getTransactionCount(地址) */</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;\n2. 交易次数&#x27;</span>);<br>    <span class="hljs-keyword">const</span> <span class="hljs-title class_">CountOfVitalik</span> = <span class="hljs-keyword">await</span> providerETH.<span class="hljs-title function_">getTransactionCount</span>(<span class="hljs-string">&#x27;vitalik.eth&#x27;</span>);<br>    <span class="hljs-keyword">const</span> <span class="hljs-title class_">MyCount</span> = <span class="hljs-keyword">await</span> providerSepolia.<span class="hljs-title function_">getTransactionCount</span>(<span class="hljs-title class_">MyAddr</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`vitalik:<span class="hljs-subst">$&#123;CountOfVitalik&#125;</span>\n我:<span class="hljs-subst">$&#123;MyCount&#125;</span>`</span>);<br><br>    <span class="hljs-comment">//对于 provider 本身的查询 </span><br>        <span class="hljs-comment">/* 1.  查询 provider 所连接的链：getNetwork() */</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;\n3. provider 连接到的链&#x27;</span>);<br>    <span class="hljs-keyword">const</span> mainNet = <span class="hljs-keyword">await</span> providerETH.<span class="hljs-title function_">getNetwork</span>();<br>    <span class="hljs-keyword">const</span> testNet = <span class="hljs-keyword">await</span> providerSepolia.<span class="hljs-title function_">getNetwork</span>();<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(mainNet.<span class="hljs-title function_">toJSON</span>());<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(testNet.<span class="hljs-title function_">toJSON</span>()); <br>        <span class="hljs-comment">/* 2. 查询建议的 gas 设置： getFeeData() */</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;\n4. gas 设置&#x27;</span>);<br>    <span class="hljs-keyword">const</span> mainnetFee = <span class="hljs-keyword">await</span> providerETH.<span class="hljs-title function_">getFeeData</span>();<br>    <span class="hljs-keyword">const</span> testnetFee = <span class="hljs-keyword">await</span> providerSepolia.<span class="hljs-title function_">getFeeData</span>();<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(mainnetFee);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(testnetFee);<br>        <span class="hljs-comment">/* 3. 查询当前网络的区块高度： getBlockNumber()  */</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;\n5. 当前区块高度&#x27;</span>);<br>    <span class="hljs-keyword">const</span> mainnetNum = <span class="hljs-keyword">await</span> providerETH.<span class="hljs-title function_">getBlockNumber</span>();<br>    <span class="hljs-keyword">const</span> testnetNum = <span class="hljs-keyword">await</span> providerSepolia.<span class="hljs-title function_">getBlockNumber</span>();<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(mainnetNum);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(testnetNum);<br>   <br>    <span class="hljs-comment">// 对于区块信息的查询</span><br>        <span class="hljs-comment">/* 1. 查询区块信息： getBlock(区块高度) */</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;\n6. 区块信息&#x27;</span>);<br>    <span class="hljs-keyword">const</span> mainnetBlock = <span class="hljs-keyword">await</span> providerETH.<span class="hljs-title function_">getBlock</span>(<span class="hljs-number">0</span>);<br>    <span class="hljs-keyword">const</span> testnetBlock = <span class="hljs-keyword">await</span> providerSepolia.<span class="hljs-title function_">getBlock</span>(<span class="hljs-number">100</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(mainnetBlock);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(testnetBlock);<br>        <span class="hljs-comment">/* 2. 查询合约的 bytecode：getCode(&#x27;合约地址&#x27;) */</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&quot;\n7. 合约的 bytecode( 主网用的WETH地址, 测试网自己布置 )&quot;</span>);<br>    <span class="hljs-keyword">const</span> mainnetCode = <span class="hljs-keyword">await</span> providerETH.<span class="hljs-title function_">getCode</span>(<span class="hljs-string">&quot;0xc778417e063141139fce010982780140aa0cd5ab&quot;</span>);<br>    <span class="hljs-keyword">const</span> testnetCode = <span class="hljs-keyword">await</span> providerSepolia.<span class="hljs-title function_">getCode</span>(<span class="hljs-string">&quot;0x4f28177481A9fB5b5a7E5DAFF067c99fdA4cA9f8&quot;</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;主网:&#x27;</span> + mainnetCode);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;测试网:&#x27;</span> + testnetCode);<br>&#125;<br><span class="hljs-title function_">main</span>();<br></code></pre></td></tr></table></figure>
+<h1 id="2-以只读方式获取合约信息"><a href="#2-以只读方式获取合约信息" class="headerlink" title="2. 以只读方式获取合约信息"></a>2. 以只读方式获取合约信息</h1><p>通过 <code>Contract</code> 类可以与合约进行交互。<code>Contract</code> 对象分为 <strong><em>只读</em></strong> 和 <strong><em>可读写</em></strong> 两类，其创造方式不同。</p>
+<ul>
+<li><p>只读：<code>const example01 = new ethers.Contract(addr, abi, provider)</code></p>
+<p>这样创造出的对象仅能与合约中的 <code>pure</code> 或 <code>view</code> 标记的函数交互。（<code>public</code> 变量会自动生成同名的 <code>view</code> 的函数，<code>private</code> 不会）</p>
+</li>
+<li><p>可读写：<code>const example02 = new ethers.Contract(addr, abi, signer)</code></p>
+</li>
+</ul>
+<p>这里先看只读的，假设我们部署了如下合约。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: MIT<br>pragma solidity ^0.8.0;<br><br>contract Test &#123;<br>    string public name = &quot;victifa&quot;;<br>    uint8 private password;<br>    uint256 public number = 1;<br><br>    constructor(uint8 pw) &#123;<br>        password = pw;<br>    &#125;<br><br>    function anywayJustEnjoy() public pure returns(string memory) &#123;<br>        return (&quot;It&#x27;s time to ENJOY! &quot;);<br>    &#125;<br><br>    function JustSing(uint8 _password) public view returns(string memory) &#123;<br>        if (password == _password) &#123;<br>            return (unicode&quot;朋友的情义呀比天还高比地还辽阔💃🏻💃🏻💃🏻那些岁月我们一定会记得~~💃🏻💃🏻💃🏻朋友的情义呀我们今生最大的难得~💃🏻💃🏻💃🏻像一杯酒👍🏻👍🏻~~像一首老歌~👍🏻👍🏻👍🏻💃🏻💃🏻💃🏻💃🏻💃🏻💃🏻💃🏻💃🏻💃🏻💃🏻&quot;);<br>        &#125;<br>        else &#123;<br>            return (&quot;Darkest night, I&#x27;ll confront you here.&quot;);<br>        &#125;<br>    &#125;<br><br>    function YouCantUseIt() public &#123;<br>        number++;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="1-创建只读-Contract-对象"><a href="#1-创建只读-Contract-对象" class="headerlink" title="1. 创建只读 Contract 对象"></a>1. 创建只读 <code>Contract</code> 对象</h2><p>有 3 个参数。<code>addr</code> 是合约地址， <code>provider</code> 是自己创的或者用公用的，<code>abi</code> 有如下两者获取方式：</p>
+<ol>
+<li><p>直接在 Remix 里编译好，去 <code>./artifacts/合约名_metadata.json</code> 里找复制下来。比如上方合约的 <code>abi</code> 即为（仅一部分）：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> abiMethod01 = <span class="hljs-string">&#x27;[&#123;&quot;inputs&quot;: [&#123;&quot;internalType&quot;: &quot;uint8&quot;,&quot;name&quot;: &quot;pw&quot;,&quot;type&quot;: &quot;uint8&quot;&#125;],&quot;stateMutability&quot;: &quot;nonpayable&quot;,&quot;type&quot;: &quot;constructor&quot;&#125;, 后面省略&#x27;</span>;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>由于该结果不友好，我们可以通过函数和事件的签名来手动给出 <code>abi</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> abiMethod02 = [<br>        <span class="hljs-string">&quot;function name() view returns (string)&quot;</span>,<br>        <span class="hljs-string">&quot;function number() view returns (uint256)&quot;</span>,<br>        <span class="hljs-string">&quot;function anywayJustEnjoy() pure returns(string)&quot;</span>,<br>        <span class="hljs-string">&quot;function JustSing(uint8) view returns(string)&quot;</span>,<br>        <span class="hljs-string">&quot;event noUseJustTest(string)&quot;</span>,<br>];<br></code></pre></td></tr></table></figure>
+<p>对于我们不要的函数 / 事件，可以直接不写，如事件 <code>noUseJustTest</code> 不用，那不写进去也可以。</p>
+</li>
+</ol>
+<h2 id="2-调用实例获取信息"><a href="#2-调用实例获取信息" class="headerlink" title="2. 调用实例获取信息"></a>2. 调用实例获取信息</h2><p>直接 <code>example01.函数名</code>。下面是对已部署合约信息的完整获取方法：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">privacy</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-keyword">const</span> addrTest = <span class="hljs-string">&#x27;0x2Af5932a3aBFee25720a726e31b36c10ca759d27&#x27;</span>;<br>    <span class="hljs-keyword">const</span> abiMethod01 = <span class="hljs-string">&#x27;[&#123;&quot;inputs&quot;: [&#123;&quot;internalType&quot;: &quot;uint8&quot;,&quot;name&quot;: &quot;pw&quot;,&quot;type&quot;: &quot;uint8&quot;&#125;],&quot;stateMutability&quot;: &quot;nonpayable&quot;,&quot;type&quot;: &quot;constructor&quot;&#125;,&#123;&quot;anonymous&quot;: false,&quot;inputs&quot;: [&#123;&quot;indexed&quot;: false,&quot;internalType&quot;: &quot;string&quot;,&quot;name&quot;: &quot;&quot;,&quot;type&quot;: &quot;string&quot;&#125;],&quot;name&quot;: &quot;noUseJustTest&quot;,&quot;type&quot;: &quot;event&quot;&#125;,&#123;&quot;inputs&quot;: [&#123;&quot;internalType&quot;: &quot;uint8&quot;,&quot;name&quot;: &quot;_password&quot;,&quot;type&quot;: &quot;uint8&quot;&#125;],&quot;name&quot;: &quot;JustSing&quot;,&quot;outputs&quot;: [&#123;&quot;internalType&quot;: &quot;string&quot;,&quot;name&quot;: &quot;&quot;,&quot;type&quot;: &quot;string&quot;&#125;],&quot;stateMutability&quot;: &quot;view&quot;,&quot;type&quot;: &quot;function&quot;&#125;,&#123;&quot;inputs&quot;: [],&quot;name&quot;: &quot;YouCantUseIt&quot;,&quot;outputs&quot;: [],&quot;stateMutability&quot;: &quot;nonpayable&quot;,&quot;type&quot;: &quot;function&quot;&#125;,&#123;&quot;inputs&quot;: [],&quot;name&quot;: &quot;anywayJustEnjoy&quot;,&quot;outputs&quot;: [&#123;&quot;internalType&quot;: &quot;string&quot;,&quot;name&quot;: &quot;&quot;,&quot;type&quot;: &quot;string&quot;&#125;],&quot;stateMutability&quot;: &quot;pure&quot;,&quot;type&quot;: &quot;function&quot;&#125;,&#123;&quot;inputs&quot;: [],&quot;name&quot;: &quot;name&quot;,&quot;outputs&quot;: [&#123;&quot;internalType&quot;: &quot;string&quot;,&quot;name&quot;: &quot;&quot;,&quot;type&quot;: &quot;string&quot;&#125;],&quot;stateMutability&quot;: &quot;view&quot;,&quot;type&quot;: &quot;function&quot;&#125;,&#123;&quot;inputs&quot;: [],&quot;name&quot;: &quot;number&quot;,&quot;outputs&quot;: [&#123;&quot;internalType&quot;: &quot;uint256&quot;,&quot;name&quot;: &quot;&quot;,&quot;type&quot;: &quot;uint256&quot;&#125;],&quot;stateMutability&quot;: &quot;view&quot;,&quot;type&quot;: &quot;function&quot;&#125;]&#x27;</span>;			<span class="hljs-comment">// 确实讨厌</span><br>    <span class="hljs-keyword">const</span> abiMethod02 = [<br>        <span class="hljs-string">&quot;function name() view returns (string)&quot;</span>,<br>        <span class="hljs-string">&quot;function number() view returns (uint256)&quot;</span>,<br>        <span class="hljs-string">&quot;function anywayJustEnjoy() pure returns(string)&quot;</span>,<br>        <span class="hljs-string">&quot;function JustSing(uint8) view returns(string)&quot;</span>,<br>        <span class="hljs-string">&quot;event noUseJustTest(string)&quot;</span>,<br>    ];<br>    <span class="hljs-keyword">const</span> contractTest = <span class="hljs-keyword">new</span> ethers.<span class="hljs-title class_">Contract</span>(addrTest, abiMethod02<span class="hljs-comment">/* 或abiMethod01 */</span>, providerSepolia);<br>    <span class="hljs-keyword">const</span> nameTest = <span class="hljs-keyword">await</span> contractTest.<span class="hljs-title function_">name</span>();<br>    <span class="hljs-keyword">const</span> numberTest = <span class="hljs-keyword">await</span> contractTest.<span class="hljs-title function_">number</span>();<br>    <span class="hljs-keyword">const</span> enjoyTest = <span class="hljs-keyword">await</span> contractTest.<span class="hljs-title function_">anywayJustEnjoy</span>();<br>    <span class="hljs-keyword">const</span> <span class="hljs-title class_">JustSingTest</span> = <span class="hljs-keyword">await</span> contractTest.<span class="hljs-title class_">JustSing</span>(<span class="hljs-number">22</span>);	<span class="hljs-comment">// 括号里的数是给调用合约的参数</span><br>    <span class="hljs-comment">// 会报错：const useTest = await contractTest.YouCantUseIt(); </span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`name:<span class="hljs-subst">$&#123;nameTest&#125;</span>`</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`number:<span class="hljs-subst">$&#123;numberTest&#125;</span>`</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`调用函数 anywayJustEnjoy 的结果:<span class="hljs-subst">$&#123;enjoyTest&#125;</span>`</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`调用函数 JustSing 的结果:<span class="hljs-subst">$&#123;JustSingTest&#125;</span>`</span>);<br>&#125;<br><span class="hljs-title function_">privacy</span>();<br></code></pre></td></tr></table></figure>
+<h1 id="3-钱包相关"><a href="#3-钱包相关" class="headerlink" title="3. 钱包相关"></a>3. 钱包相关</h1><p>主要涉及两个类：<code>Signer</code> 和 <code>Wallet</code> 类。其中 <code>Signer</code> 类是抽象的，<code>Wallet</code> 类是它的继承，可以实例化。</p>
+<h2 id="1-Wallet-对象的创建"><a href="#1-Wallet-对象的创建" class="headerlink" title="1. Wallet 对象的创建"></a>1. <code>Wallet</code> 对象的创建</h2><ol>
+<li><p>随机生成</p>
+<p>先通过 <code>ethers.Wallet.createRandom()</code> 随机生成一个，再通过 <code>provider</code> 连上以太坊节点。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> wallet1 = ethers.<span class="hljs-property">Wallet</span>.<span class="hljs-title function_">createRandom</span>();<br><span class="hljs-keyword">const</span> wallet1WithProvider = wallet1.<span class="hljs-title function_">connect</span>(providerSepolia);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>通过私钥</p>
+<p>去自己的钱包账户里查一下私钥，通过 <code>ethers.Wallet(私钥, provider)</code> new 一个出来。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> privateKey = <span class="hljs-string">&#x27;&#x27;</span>;<br><span class="hljs-keyword">const</span> wallet2 = <span class="hljs-keyword">new</span> ethers.<span class="hljs-title class_">Wallet</span>(privateKey, providerSepolia);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>通过助记词</p>
+<p>去自己钱包查，或者就用上面 <code>wallet1</code> 的，通过 <code>ethers.Wallet.fromPhrase(助记词)</code> 直接创建。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> secrteRecoveryPhrases = wallet1.<span class="hljs-property">mnemonic</span>.<span class="hljs-property">phrase</span>;<br><span class="hljs-keyword">const</span> wallet3 = ethers.<span class="hljs-property">Wallet</span>.<span class="hljs-title function_">fromPhrase</span>(secrteRecoveryPhrases);<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="2-一些简单的小交互"><a href="#2-一些简单的小交互" class="headerlink" title="2. 一些简单的小交互"></a>2. 一些简单的小交互</h2><p>包括获取钱包地址，助记词（通过私钥创的无法获取），私钥等。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> addr1 = <span class="hljs-keyword">await</span> wallet1.<span class="hljs-title function_">getAddress</span>();<br><span class="hljs-keyword">const</span> addr2 = <span class="hljs-keyword">await</span> wallet2.<span class="hljs-title function_">getAddress</span>();<br><span class="hljs-keyword">const</span> addr3 = <span class="hljs-keyword">await</span> wallet3.<span class="hljs-title function_">getAddress</span>();<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`wallet1: <span class="hljs-subst">$&#123;addr1&#125;</span>`</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`wallet2: <span class="hljs-subst">$&#123;addr2&#125;</span>`</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`wallet3: <span class="hljs-subst">$&#123;addr3&#125;</span>`</span>);<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`wallet1的助记词: <span class="hljs-subst">$&#123;secrteRecoveryPhrases&#125;</span>`</span>);<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`wallet2的私钥: <span class="hljs-subst">$&#123;wallet2.privateKey&#125;</span>`</span>);<br></code></pre></td></tr></table></figure>
+<h2 id="3-发送交易"><a href="#3-发送交易" class="headerlink" title="3. 发送交易"></a>3. 发送交易</h2><ol>
+<li><p>首先要有一个简单的发送请求，至少包含：接收地址 <code>to</code>，和发送金额 <code>value</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> tx = &#123;<br> <span class="hljs-attr">to</span>: addr1,<br> <span class="hljs-attr">value</span>: ethers.<span class="hljs-title function_">parseEther</span>(<span class="hljs-string">&#x27;0.000000001&#x27;</span>),	<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>发送</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> receipt = <span class="hljs-keyword">await</span> wallet2.<span class="hljs-title function_">sendTransaction</span>(tx);	<span class="hljs-comment">// 发送交易</span><br><span class="hljs-keyword">await</span> receipt.<span class="hljs-title function_">wait</span>();	<span class="hljs-comment">// 等一等</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(receipt);	<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="4-完整交易过程"><a href="#4-完整交易过程" class="headerlink" title="4. 完整交易过程"></a>4. 完整交易过程</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">wallets</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-keyword">const</span> wallet1 = ethers.<span class="hljs-property">Wallet</span>.<span class="hljs-title function_">createRandom</span>();<br>    <span class="hljs-keyword">const</span> wallet1WithProvider = wallet1.<span class="hljs-title function_">connect</span>(providerSepolia);<br><br>    <span class="hljs-keyword">const</span> privateKey = <span class="hljs-string">&#x27;&#x27;</span>;<br>    <span class="hljs-keyword">const</span> wallet2 = <span class="hljs-keyword">new</span> ethers.<span class="hljs-title class_">Wallet</span>(privateKey, providerSepolia);<br><br>    <span class="hljs-keyword">const</span> tx = &#123;<br>        <span class="hljs-attr">to</span>: addr1,<br>        <span class="hljs-attr">value</span>: <span class="hljs-string">&#x27;1&#x27;</span>,		<span class="hljs-comment">// 发个 1wei 意思意思就行了</span><br>    &#125;<br><br>    <span class="hljs-comment">// 发送前余额及交易次数</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`wallet1: <span class="hljs-subst">$&#123;ethers.formatEther( <span class="hljs-keyword">await</span> providerSepolia.getBalance(wallet1WithProvider) )&#125;</span> ETH`</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`wallet2: <span class="hljs-subst">$&#123;ethers.formatEther( <span class="hljs-keyword">await</span> providerSepolia.getBalance(wallet2) )&#125;</span> ETH`</span>);<br><br>    <span class="hljs-comment">// 发出</span><br>    <span class="hljs-keyword">const</span> receipt = <span class="hljs-keyword">await</span> wallet2.<span class="hljs-title function_">sendTransaction</span>(tx);<br>    <span class="hljs-keyword">await</span> receipt.<span class="hljs-title function_">wait</span>();<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(receipt);<br><br>    <span class="hljs-comment">// 看看情况</span><br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`wallet1: <span class="hljs-subst">$&#123;ethers.formatEther( <span class="hljs-keyword">await</span> providerSepolia.getBalance(wallet1WithProvider) )&#125;</span> ETH`</span>);<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`wallet2: <span class="hljs-subst">$&#123;ethers.formatEther( <span class="hljs-keyword">await</span> providerSepolia.getBalance(wallet2) )&#125;</span> ETH`</span>);<br>&#125;<br><br><span class="hljs-title function_">wallets</span>();<br></code></pre></td></tr></table></figure>
+<h1 id="4-合约交互"><a href="#4-合约交互" class="headerlink" title="4. 合约交互"></a>4. 合约交互</h1><h2 id="1-可读写-Contract-对象的创建"><a href="#1-可读写-Contract-对象的创建" class="headerlink" title="1. 可读写 Contract 对象的创建"></a>1. 可读写 <code>Contract</code> 对象的创建</h2><p>有两种办法创建。</p>
+<ol>
+<li><p>通过 new 一个 <code>ethers.Contract(addr, abi, signer)</code> 直接生成。其中 <code>addr</code> 是合约地址，<code>abi</code> 是合约abi接口，<code>signer</code> 是一个 <code>wallet</code> 对象（就是用了来和合约交互的钱包），以之前的 <code>Test</code> 合约为例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> addrTest = <span class="hljs-string">&#x27;0x2Af5932a3aBFee25720a726e31b36c10ca759d27&#x27;</span>;<br><span class="hljs-keyword">const</span> abiTest = [<br>    <span class="hljs-string">&quot;function number() view returns (uint256)&quot;</span>,<br>    <span class="hljs-string">&quot;function YouCantUseIt()&quot;</span>,<br>];<br><span class="hljs-keyword">const</span> privateKey = <span class="hljs-string">&#x27;&#x27;</span>;<br><span class="hljs-keyword">const</span> wallet = <span class="hljs-keyword">new</span> ethers.<span class="hljs-title class_">Wallet</span>(privateKey, providerSepolia);<br><span class="hljs-keyword">const</span> contractTestNew = <span class="hljs-keyword">new</span> ethers.<span class="hljs-title class_">Contract</span>(addrTest, abiTest, wallet);<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>对已有的只读 <code>Contract</code> 对象，使用 <code>ObjName.connect(signer)</code> 搞出来。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> contractTestOld = <span class="hljs-keyword">new</span> ethers.<span class="hljs-title class_">Contract</span>(addrTest, abiTest, providerSepolia);<br><span class="hljs-keyword">const</span> contractTestNew = contractTestOld.<span class="hljs-title function_">connect</span>(wallet);<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="2-合约交互"><a href="#2-合约交互" class="headerlink" title="2. 合约交互"></a>2. 合约交互</h2><p>格式如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> tx = <span class="hljs-keyword">await</span> contractObjName.<span class="hljs-title function_">METHOD_NAME</span>(args, [overrides])<br><span class="hljs-keyword">await</span> tx.<span class="hljs-title function_">wait</span>();<br></code></pre></td></tr></table></figure>
+<ul>
+<li><p><code>contractObjName</code>：创建的 <code>Contract</code> 对象名。</p>
+</li>
+<li><p><code>METHOD_NAME</code>：调用的函数名。</p>
+</li>
+<li><p><code>args</code>：传给函数的参数。</p>
+</li>
+<li><p><code>[overrides]</code>：（可选的）传入数据，包括：</p>
+<ul>
+<li><code>gasPrice</code>：gas价格</li>
+<li><code>gasLimit</code>：gas上限</li>
+<li><code>value</code>：调用时传入的ether（单位是wei）</li>
+<li><code>nonce</code></li>
+</ul>
+<p>四种，以传参数<code>&quot;hi&quot;</code> 和 1 ether 为例，写为：<code>( &quot;hi&quot;, &#123;value: ethers.parseEther(&quot;1&quot;)&#125; )</code>。</p>
+</li>
+</ul>
+<p>以调用 <code>Test</code> 合约的 <code>YouCantUseIt</code> 为例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;<span class="hljs-keyword">await</span> contractTestNew.number()&#125;</span>`</span>)<br><span class="hljs-keyword">const</span> tx = <span class="hljs-keyword">await</span> contractTestNew.<span class="hljs-title class_">YouCantUseIt</span>();<br><span class="hljs-keyword">await</span> tx.<span class="hljs-title function_">wait</span>();<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`<span class="hljs-subst">$&#123;<span class="hljs-keyword">await</span> contractTestNew.number()&#125;</span>`</span>)<br></code></pre></td></tr></table></figure>
+<p>可以发现 <code>number</code> 加了1。</p>
+<h3 id="返回值处理"><a href="#返回值处理" class="headerlink" title="返回值处理"></a>返回值处理</h3><p>由于这种方式无法接收返回值，需要时可以在函数里加个 <code>event</code>，然后在上面的 <code>tx</code> 里找。</p>
+<h1 id="5-合约部署及事件检索"><a href="#5-合约部署及事件检索" class="headerlink" title="5. 合约部署及事件检索"></a>5. 合约部署及事件检索</h1><h2 id="合约部署"><a href="#合约部署" class="headerlink" title="合约部署"></a>合约部署</h2><p>通过 <code>ContractFactory</code> 类实现。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> contractFactoryExample = <span class="hljs-keyword">new</span> ethers.<span class="hljs-title class_">ContractFactory</span>(abi, bytecode, signer);<br></code></pre></td></tr></table></figure>
+<p>若有构造函数，则 <code>abi</code> 中要包含构造函数。<code>bytecode</code> 直接在 Remix 里复制。</p>
+<p> 然后通过这两行实现部署。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> contractExample = <span class="hljs-keyword">await</span> contractFactoryExample.<span class="hljs-title function_">deploy</span>(构造函数的参数);<br><span class="hljs-keyword">await</span> contractExample.<span class="hljs-title function_">waitForDeployment</span>();<br></code></pre></td></tr></table></figure>
+<h2 id="事件检索"><a href="#事件检索" class="headerlink" title="事件检索"></a>事件检索</h2><p>通过 <code>queryFilter()</code> 类实现。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><br></code></pre></td></tr></table></figure>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><p>以下面这个 <code>Test</code> 合约为例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract Test &#123;<br>    uint8 password;<br>    uint256 public number = 1;<br><br>    constructor(uint8 pw) payable &#123;<br>        password = pw;<br>    &#125;<br><br>    event getReturn(uint256 indexed num);<br>    event txReceive(string);<br><br>    function YouCanUseIt() public returns(uint256) &#123;<br>        number++;<br>        emit getReturn(number);<br>        return number;<br>    &#125;<br><br>    function transfer(address payable to, uint256 amount) public payable &#123;<br>        (bool success, ) = to.call&#123;value: amount&#125;(&quot;&quot;);<br>        if (!success) &#123;<br>            revert(&quot;Failed.&quot;);<br>        &#125;<br>    &#125;<br><br>    function getBalance() view public returns(uint256)&#123;<br>        return address(this).balance;<br>    &#125;<br><br>    receive() external payable &#123;<br>        emit txReceive(&quot;Has received.&quot;);<br>    &#125;<br><br>    fallback() external payable &#123;<br>        emit txReceive(&quot;Has fallbacked.&quot;);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>我们进行以下操作：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">contractDeploy</span> = <span class="hljs-keyword">async</span> (<span class="hljs-params"></span>) =&gt; &#123;<br>    <span class="hljs-comment">// 部署合约 Test，构造函数设置 paasword = 2，并转入1 wei </span><br>    <span class="hljs-keyword">const</span> abiTest = [<br>        <span class="hljs-string">&quot;constructor(uint8 pw) payable&quot;</span>,<br>        <span class="hljs-string">&quot;function YouCanUseIt() public returns(uint256)&quot;</span>,<br>        <span class="hljs-string">&quot;function transfer(address payable to, uint256 amount) public payable&quot;</span>,<br>        <span class="hljs-string">&quot;function getBalance() public view returns(uint256)&quot;</span>,<br>        <span class="hljs-string">&quot;function password() external view returns(uint8)&quot;</span>,<br>        <span class="hljs-string">&quot;function number() external view returns(uint8)&quot;</span>,<br>        <span class="hljs-string">&quot;event getReturn(uint256 indexed num)&quot;</span>,<br>        <span class="hljs-string">&quot;event txReceive(string)&quot;</span>,<br>    ]<br>    <span class="hljs-keyword">const</span> bytecodeTest = <span class="hljs-string">&quot;略&quot;</span>;<br>    <span class="hljs-keyword">const</span> contractFactoryTest = <span class="hljs-keyword">new</span> ethers.<span class="hljs-title class_">ContractFactory</span>(abiTest, bytecodeTest, myWallet);<br>    <span class="hljs-keyword">const</span> contractTest = <span class="hljs-keyword">await</span> contractFactoryTest.<span class="hljs-title function_">deploy</span>(<span class="hljs-number">22</span>, &#123;<span class="hljs-attr">value</span>:<span class="hljs-number">1</span>&#125;);<br>    <span class="hljs-keyword">await</span> contractTest.<span class="hljs-title function_">waitForDeployment</span>();<br>    <span class="hljs-comment">// 获取合约地址</span><br>    <span class="hljs-keyword">const</span> addressTest = contractTest.<span class="hljs-property">target</span>;<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`合约地址: <span class="hljs-subst">$&#123;addressTest&#125;</span>`</span>);<br>    <span class="hljs-comment">// 获取余额</span><br>    <span class="hljs-keyword">const</span> balance = <span class="hljs-keyword">await</span> contractTest.<span class="hljs-title function_">getBalance</span>();<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(balance);<br>&#125;<br><br><span class="hljs-title function_">contractDeploy</span>();<br></code></pre></td></tr></table></figure>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>ethers.js</div>
+      <div>http://example.com/2025/01/12/ethers-js/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Victifa</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年1月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/12/22/javaScript%E7%AC%94%E8%AE%B0/" title="javaScript笔记">
+                        <span class="hidden-mobile">javaScript笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"wHTYi0mKgiheGQgyxHkEi3nE-MdYXbMMI","appKey":"lkxJFZpLfQmmGvh5ogFI55hJ","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://whtyi0mk.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
