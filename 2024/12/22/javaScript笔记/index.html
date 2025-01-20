@@ -1,0 +1,1249 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#dae9f4">
+  <meta name="author" content="Victifa">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="为 ethers.js 的 JavaScript 入门，主要参考：  WTF Academy JavaScript | MDN 微软官方 JavaScript 入门教程 JS 异步编程  1. 变量声明方式主要有三种：var，let 和 const。其中 var 不推荐使用。 1. var在函数中，作用域为整个函数；函数外则为全局。 不推荐使用，因为会造成全局对象的污染。 123456789101">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaScript笔记">
+<meta property="og:url" content="http://example.com/2024/12/22/javaScript%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Victifa">
+<meta property="og:description" content="为 ethers.js 的 JavaScript 入门，主要参考：  WTF Academy JavaScript | MDN 微软官方 JavaScript 入门教程 JS 异步编程  1. 变量声明方式主要有三种：var，let 和 const。其中 var 不推荐使用。 1. var在函数中，作用域为整个函数；函数外则为全局。 不推荐使用，因为会造成全局对象的污染。 123456789101">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-12-22T14:34:47.000Z">
+<meta property="article:modified_time" content="2024-12-22T17:43:02.202Z">
+<meta property="article:author" content="Victifa">
+<meta property="article:tag" content="js">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>javaScript笔记 - Victifa</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":3},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>myBlog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="javaScript笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-22 22:34" pubdate>
+          2024年12月22日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          32 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">javaScript笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>为 <code>ethers.js</code> 的 <code>JavaScript</code> 入门，主要参考：</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.wtf.academy/docs/javascript-101/">WTF Academy</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript">JavaScript | MDN</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV18a4y1L7kD/?p=48&amp;share_source=copy_web&amp;vd_source=30458d0272bcd4393973b9abe093fff8">微软官方 JavaScript 入门教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1b14y1w7Mg/?share_source=copy_web&amp;vd_source=30458d0272bcd4393973b9abe093fff8">JS 异步编程</a></li>
+</ul>
+<h1 id="1-变量声明方式"><a href="#1-变量声明方式" class="headerlink" title="1. 变量声明方式"></a>1. 变量声明方式</h1><p>主要有三种：<code>var</code>，<code>let</code> 和 <code>const</code>。其中 <code>var</code> 不推荐使用。</p>
+<h2 id="1-var"><a href="#1-var" class="headerlink" title="1. var"></a>1. <code>var</code></h2><p>在函数中，作用域为整个函数；函数外则为全局。</p>
+<p>不推荐使用，因为会造成全局对象的污染。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Test</span> (<span class="hljs-params"></span>){<br>    <span class="hljs-keyword">var</span> a = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) {<br>        <span class="hljs-keyword">var</span> a = <span class="hljs-number">1</span>;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"In if, a = %d"</span>, a);<br>    }<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"a = %d"</span>, a);<br>}<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"%d"</span>, a);<br><span class="hljs-keyword">var</span> a = <span class="hljs-number">100</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"%d"</span>, a);<br><span class="hljs-title class_">Test</span>();<br><span class="hljs-comment">/*输出为：</span><br><span class="hljs-comment">NaN</span><br><span class="hljs-comment">100</span><br><span class="hljs-comment">In if, a = 1</span><br><span class="hljs-comment">a = 1</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+<p>第一处输出为 <code>NaN</code>，也表明了此时变量 <code>a</code> 已存在（只是未赋值），表明了 <code>var</code> 的作用域为全局作用域（<code>function</code> 外的所有地方）。</p>
+<h2 id="2-let"><a href="#2-let" class="headerlink" title="2. let"></a>2. <code>let</code></h2><p>作用域为块级（也就是一对 <code>{}</code> 的范围内）。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Test</span> (<span class="hljs-params"></span>){<br>    <span class="hljs-keyword">let</span> a = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) {<br>        <span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>;<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"In if, a = %d"</span>, a);<br>    }<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"a = %d"</span>, a);<br>}<br><br><span class="hljs-keyword">let</span> a = <span class="hljs-number">100</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"%d"</span>, a);<br><span class="hljs-title class_">Test</span>();<br><span class="hljs-comment">/*输出为：</span><br><span class="hljs-comment">100</span><br><span class="hljs-comment">In if, a = 1</span><br><span class="hljs-comment">a = 0</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+<p>显然， <code>if</code> 中的变量 <code>a</code> 仅在 <code>if</code> 内生效，且对 <code>a</code> 的改变不影响外部的另一个 <code>a</code>。（但应尽量避免这种脑溢血行为）</p>
+<h2 id="3-const"><a href="#3-const" class="headerlink" title="3. const"></a>3. <code>const</code></h2><p>与 <code>let</code> 类似，但必须在声明时赋值，且无法改变。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> a = <span class="hljs-number">0</span>;<br><br><span class="hljs-comment">// 这样是不对的，必须在声明时赋值</span><br><span class="hljs-keyword">const</span> b;<br>b = <span class="hljs-number">1</span>;<br><br><span class="hljs-comment">// 这样也是不可以的，常量的值无法改变</span><br>a = <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+<h1 id="2-数据类型"><a href="#2-数据类型" class="headerlink" title="2. 数据类型"></a>2. 数据类型</h1><p>主要分为：</p>
+<ol>
+<li>值类型（7个基本类型）：<code>Number</code>，<code>BigInt</code>（任意大整数），<code>String</code>，<code>Boolean</code>，<code>Null</code>（空，故意的空值），<code>Undefined</code>（未定义，暂未赋值），<code>Symbol</code>。</li>
+<li>引用数据类型（对象类型）：<code>Array</code>，<code>Function</code>，<code>Object</code>，<code>Date</code>，<code>RegExp</code>（正则）等。</li>
+</ol>
+<h2 id="基本类型"><a href="#基本类型" class="headerlink" title="基本类型"></a>基本类型</h2><h3 id="1-Number"><a href="#1-Number" class="headerlink" title="1. Number"></a>1. <code>Number</code></h3><p>整数或双精度浮点数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> a = <span class="hljs-number">1</span>;<br><span class="hljs-keyword">let</span> b = <span class="hljs-number">1.23</span>;<br><span class="hljs-keyword">let</span> c = <span class="hljs-number">1e5</span>;<br></code></pre></td></tr></table></figure>
+<h4 id="NaN，Infinity-和-Infinity"><a href="#NaN，Infinity-和-Infinity" class="headerlink" title="NaN，Infinity 和 -Infinity"></a><code>NaN</code>，<code>Infinity</code> 和 <code>-Infinity</code></h4><p>三个特殊的值。</p>
+<ol>
+<li><p><code>NaN</code>（Not A Number）：当运算结果不能表示为数字时出现。如：<code>let d = 0 / 0;</code> 结果就是 <code>NaN</code>。</p>
+</li>
+<li><p><code>Infinity</code>：正无穷。大于 <code>Number.MAX_VALUE</code>（<mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="8.416ex" height="2.09ex" role="img" focusable="false" viewBox="0 -841.7 3719.7 923.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msup"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="TeXAtom" transform="translate(533,363) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z" transform="translate(500,0)"></path><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(1000,0)"></path><path data-c="34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z" transform="translate(1500,0)"></path></g></g></g><g data-mml-node="mo" transform="translate(2219.4,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(3219.7,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g></svg></mjx-container>）的值将被记为 <code>Infinity</code>。</p>
+<p>如下两种情况结果均为 <code>Infinity</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> e = <span class="hljs-number">1</span> / <span class="hljs-number">0</span>;<br><span class="hljs-keyword">let</span> f = <span class="hljs-number">2e1024</span>;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>-Infinity</code>：负无穷。小于 <code>-Number.MAX_VALUE</code> 的值被记为 <code>-Infinity</code>。</p>
+<p>如下两种情况结果均为 <code>-Infinity</code>。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> g = <span class="hljs-number">1</span> / (-<span class="hljs-number">0</span>);<br><span class="hljs-keyword">let</span> h = -(<span class="hljs-number">2e1024</span>);<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h3 id="2-BigInt"><a href="#2-BigInt" class="headerlink" title="2. BigInt"></a>2. <code>BigInt</code></h3><p>可以表示任意大小的<strong>整数</strong>。</p>
+<p>通过在整数末尾加 <code>n</code> 或使用 <code>BigInt()</code> 函数创建。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> i = <span class="hljs-title class_">BigInt</span>(<span class="hljs-title class_">Number</span>.<span class="hljs-property">MAX_VALUE</span>);<br><span class="hljs-keyword">let</span> j = i + <span class="hljs-number">1n</span>;<br></code></pre></td></tr></table></figure>
+<h3 id="3-String"><a href="#3-String" class="headerlink" title="3. String"></a>3. <code>String</code></h3><h4 id="字符串的创建"><a href="#字符串的创建" class="headerlink" title="字符串的创建"></a>字符串的创建</h4><p>使用 <code>''</code> 或 <code>""</code> 创建。一但创建就不可修改。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> k = <span class="hljs-string">"Hello?"</span>;	<span class="hljs-comment">// 一般使用 const 创建</span><br>k[<span class="hljs-number">2</span>] = <span class="hljs-string">'L'</span>;		<span class="hljs-comment">// 这步无法执行</span><br></code></pre></td></tr></table></figure>
+<h4 id="字符串的访问"><a href="#字符串的访问" class="headerlink" title="字符串的访问"></a>字符串的访问</h4><p>可以使用 <code>[]</code> 或 <code>charAt()</code> 来访问字符串中的某个字符。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> l = k[<span class="hljs-number">2</span>];<br><span class="hljs-keyword">const</span> m = k.<span class="hljs-title function_">charAt</span>(<span class="hljs-number">2</span>);<br></code></pre></td></tr></table></figure>
+<p>结果均为 <code>l</code>。</p>
+<h4 id="字符串的拼接与比较"><a href="#字符串的拼接与比较" class="headerlink" title="字符串的拼接与比较"></a>字符串的拼接与比较</h4><p>可以通过 <code>+</code> 直接拼接。</p>
+<p>可以直接通过 <code>&gt;</code>，<code>&lt;</code>，<code>==</code>，<code>===</code> 等进行比较。比较时区分大小写。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"a"</span> == <span class="hljs-string">"A"</span>);	          <span class="hljs-comment">// false</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">'a'</span> &gt;= <span class="hljs-string">'a'</span>);			  <span class="hljs-comment">// true</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"CUIT"</span> &lt; <span class="hljs-string">"cuit"</span>);         <span class="hljs-comment">// true</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"CUI"</span> + <span class="hljs-string">'T'</span> === <span class="hljs-string">'CUIT'</span>);  <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+<h4 id="模板字符串"><a href="#模板字符串" class="headerlink" title="模板字符串"></a>模板字符串</h4><p>通过y一对反引号 <code>`` </code> 创建的字符串为模板字符串。</p>
+<p>模板字符串中可以通过 <code>${}</code> 插入变量并解析。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> <span class="hljs-title class_">Name</span> = <span class="hljs-string">"victifa"</span>;<br><span class="hljs-keyword">const</span> <span class="hljs-title class_">Age</span> = <span class="hljs-number">18</span>;<br><span class="hljs-keyword">const</span> msg = <span class="hljs-string">`姓名：<span class="hljs-subst">${Name}</span>，年龄：<span class="hljs-subst">${Age}</span>`</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(msg);<br></code></pre></td></tr></table></figure>
+<p>最终输出：<code>姓名：victifa，年龄：18</code>。</p>
+<h3 id="4-Boolean"><a href="#4-Boolean" class="headerlink" title="4. Boolean"></a>4. <code>Boolean</code></h3><p><code>true</code> 或 <code>false</code>。</p>
+<h3 id="5-Null"><a href="#5-Null" class="headerlink" title="5. Null"></a>5. <code>Null</code></h3><p>表示不存在或无效的对象或地址引用。（通常是有意为之）</p>
+<h3 id="6-Undefined"><a href="#6-Undefined" class="headerlink" title="6. Undefined"></a>6. <code>Undefined</code></h3><p>自动赋给刚声明的变量。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> n;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(n, o);	<span class="hljs-comment">// 均为 undefined</span><br><span class="hljs-keyword">var</span> o = <span class="hljs-number">12</span>;<br></code></pre></td></tr></table></figure>
+<h3 id="7-Symbol"><a href="#7-Symbol" class="headerlink" title="7. Symbol"></a>7. <code>Symbol</code></h3><p>一种唯一且不可变的值，目的是创建唯一的属性键，保证不与代码中的其他键冲突。</p>
+<p>通过 <code>Symbol([description])</code> 创建。其中，<code>description</code> 可以没有。</p>
+<p>每一个通过 <code>Symbol()</code> 返回的值都是唯一的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> sym = <span class="hljs-title class_">Symbol</span>(<span class="hljs-string">"cuit"</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(sym === <span class="hljs-title class_">Symbol</span>(<span class="hljs-string">"cuit"</span>));	<span class="hljs-comment">// false</span><br></code></pre></td></tr></table></figure>
+<h2 id="对象类型"><a href="#对象类型" class="headerlink" title="对象类型"></a>对象类型</h2><h3 id="1-数组-Array"><a href="#1-数组-Array" class="headerlink" title="1. 数组 Array"></a>1. 数组 <code>Array</code></h3><h4 id="数组的声明和读写"><a href="#数组的声明和读写" class="headerlink" title="数组的声明和读写"></a>数组的声明和读写</h4><p>我们可以将不同类型的数据存在同一个数组里。</p>
+<p>数组声明时，不需要指明长度。</p>
+<p>如下三种声明方式都是可以的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> arr1 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];<br><span class="hljs-keyword">let</span> arr2 = [<span class="hljs-number">1</span>, <span class="hljs-string">"vic"</span>, <span class="hljs-literal">true</span>, [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>], arr1];<br><span class="hljs-keyword">let</span> arr3 = [];<br></code></pre></td></tr></table></figure>
+<p>正常读写即可：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js">arr2[<span class="hljs-number">1</span>] = <span class="hljs-string">"victifa"</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr2);						<span class="hljs-comment">// 输出：[ 1, 'victifa', true, [ 1, 2, 3 ], [ 1, 2, 3, 4 ] ]</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr2[<span class="hljs-number">1</span>][<span class="hljs-number">3</span>], arr2[<span class="hljs-number">4</span>][<span class="hljs-number">2</span>]);	<span class="hljs-comment">// 输出：t 3</span><br><span class="hljs-comment">// 对于超出现有长度的更改，会自动地添加空槽来使数组变长</span><br>arr3[<span class="hljs-number">4</span>] = <span class="hljs-number">4</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr3);						<span class="hljs-comment">// 输出：[ &lt;4 empty items&gt;, 4 ]</span><br></code></pre></td></tr></table></figure>
+<h4 id="数组的成员"><a href="#数组的成员" class="headerlink" title="数组的成员"></a>数组的成员</h4><h5 id="1-arr-length"><a href="#1-arr-length" class="headerlink" title="1. arr.length"></a>1. <code>arr.length</code></h5><p>数组的长度。</p>
+<p>数组的 <code>length</code> 属性与数值属性是相连接的。具体体现在：</p>
+<ul>
+<li>增加 <code>length</code> 会通过添加空槽来扩展数组，而不是创建任何新元素——甚至不会是 <code>undefined</code>。</li>
+<li>减小 <code>length</code> 会截断数组。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> arr4 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>];<br>arr4.<span class="hljs-property">length</span> = <span class="hljs-number">2</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr4);	<span class="hljs-comment">// [ 1, 2 ]</span><br>arr4.<span class="hljs-property">length</span> = <span class="hljs-number">10</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr4);	<span class="hljs-comment">// [ 1, 2, &lt;8 empty items&gt; ]</span><br></code></pre></td></tr></table></figure>
+<h5 id="2-arr-pop-和-arr-push"><a href="#2-arr-pop-和-arr-push" class="headerlink" title="2. arr.pop() 和 arr.push()"></a>2. <code>arr.pop()</code> 和 <code>arr.push()</code></h5><p><code>arr.push()</code> 可以在数组末尾添加至少一个元素，<code>arr.pop()</code> 可以删除数组最后一个元素，并返回它（空数组返回 <code>undefined</code>）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> arr5 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];<br>arr5.<span class="hljs-title function_">push</span>(<span class="hljs-number">4</span>);<br>arr5.<span class="hljs-title function_">push</span>(<span class="hljs-number">5</span>,<span class="hljs-number">6</span>);<br>arr5.<span class="hljs-title function_">push</span>([<span class="hljs-number">7</span>, <span class="hljs-number">8</span>]);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr5);		<span class="hljs-comment">// 输出：[ 1, 2, 3, 4, 5, 6, [ 7, 8 ] ]</span><br><span class="hljs-keyword">let</span> tmp = arr5.<span class="hljs-title function_">pop</span>();<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(tmp, arr5);	<span class="hljs-comment">// 输出：[ 7, 8 ] [ 1, 2, 3, 4, 5, 6 ]</span><br></code></pre></td></tr></table></figure>
+<h5 id="3-arr-slice"><a href="#3-arr-slice" class="headerlink" title="3. arr.slice()"></a>3. <code>arr.slice()</code></h5><p>用法： <code>arr.slice(start, end)</code>，返回一个数组（原数组从 <code>start</code> 到 <code>end</code> 的一个切片，但 <code>end</code> 不取）</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> arr6 = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>];<br>arr6.<span class="hljs-property">length</span> = <span class="hljs-number">4</span>;<br>arr6.<span class="hljs-title function_">push</span>(<span class="hljs-number">5</span>, <span class="hljs-number">6</span>);<br><span class="hljs-comment">// [ 1, 2 , empty, empty, 5, 6 ], arr6.length = 6</span><br></code></pre></td></tr></table></figure>
+<p>参数 <code>end</code> 和 <code>start</code> 均为可选项，均不写返回完整的原数组，只写一个默认为 <code>start</code>，均存在时：</p>
+<ol>
+<li><p><code>start</code>：起始处的索引</p>
+<ul>
+<li><code>start &lt; 0</code>， 从数组末尾开始取，等价于 <code>start + arr.length</code></li>
+<li>大于数组长度，不提去任何元素</li>
+<li><code>&lt; -arr.length</code> 或没写，默认为 0</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr6.<span class="hljs-title function_">slice</span>(-<span class="hljs-number">6</span>,<span class="hljs-number">5</span>));  	<span class="hljs-comment">// 相当于取索引 [0,5) 的值：[ 2, &lt;2 empty items&gt;, 5 ]</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr6.<span class="hljs-title function_">slice</span>(<span class="hljs-number">7</span>, <span class="hljs-number">2</span>));		<span class="hljs-comment">// 大于数组长度，不取了：[]</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr6.<span class="hljs-title function_">slice</span>(-<span class="hljs-number">7</span>, <span class="hljs-number">2</span>));		<span class="hljs-comment">// 相当于取 [0,2) 的值：[ 1, 2 ]</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr6.<span class="hljs-title function_">slice</span>(<span class="hljs-string">''</span>,<span class="hljs-string">'2'</span>));	<span class="hljs-comment">// 同上</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p><code>end</code>：终止处的索引</p>
+<ul>
+<li><code>start &lt; 0</code>， 从数组末尾开始取</li>
+<li><code>&gt;= arr.length</code> 或没写，默认提取到数组末尾</li>
+<li><code>&lt; -arr.length</code> 时，使用 0</li>
+<li>通过上述三种方式规范后，若 <code>end &lt;= start</code>，则不提取</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr6.<span class="hljs-title function_">slice</span>(<span class="hljs-number">0</span>, -<span class="hljs-number">3</span>));		<span class="hljs-comment">// 相当于索引 [0, 3) 的值：[ 1, 2, &lt;1 empty item&gt; ]</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr6.<span class="hljs-title function_">slice</span>(<span class="hljs-number">0</span>, <span class="hljs-number">7</span>));		<span class="hljs-comment">// 相当于索引 [0, 6] 的值：[ 1, 2, &lt;2 empty items&gt;, 5, 6 ]</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr6.<span class="hljs-title function_">slice</span>(<span class="hljs-number">0</span>, ));		<span class="hljs-comment">// 相当于索引 [0, 6] 的值：[ 1, 2, &lt;2 empty items&gt;, 5, 6 ]</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(arr6.<span class="hljs-title function_">slice</span>(<span class="hljs-number">0</span>, -<span class="hljs-number">7</span>));		<span class="hljs-comment">// 相当于索引 [0, 0) 的值：[]</span><br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h5 id="4-arr-splice"><a href="#4-arr-splice" class="headerlink" title="4. arr.splice()"></a>4. <code>arr.splice()</code></h5><p>用法：<code>splice(start, deleteCount, item1, item2, ···, itemN)</code>，用于就地移除数组元素并添加新的元素，或仅移除，仅添加，饭回删除的元素。</p>
+<p>参数中， <code>start</code> 必须有，其余为可选项。</p>
+<p>一下每一次输出均以原 <code>arr6</code>（<code>[ 1, 2 , empty, empty, 5, 6 ]</code>，length = 6） 为基础</p>
+<ol>
+<li><code>start</code>：开始改变的位置的索引<ul>
+<li><code>&lt; 0</code> 或 <code>&lt; -arr.length</code>，同上进行规范化</li>
+<li><code>&gt;= arr.length</code>，默认到数组末尾，表现为无法删除元素，仅能添加</li>
+</ul>
+</li>
+<li><code>deleteCount</code>：从 <code>start</code> 开始，删除的元素数量<ul>
+<li>不写，或大于等于从 <code>start</code> 开始到结束的元素的数量，则从 <code>start</code> 开始到结束的所有元素均删除</li>
+<li><code>&lt;= 0</code>，不删除，但应至少指定一个新元素</li>
+</ul>
+</li>
+<li><code>item</code>：从 <code>start</code> 开始，加入数组的元素。</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> tmp = arr6.<span class="hljs-title function_">splice</span>(<span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-string">"Design"</span>, <span class="hljs-string">"ant."</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(tmp, arr6);<br><span class="hljs-comment">// 删除:[ &lt;2 empty items&gt;, 5 ]，结果：[ 1, 2, 'Design', 'ant.', 6 ]</span><br><br><span class="hljs-comment">// 还是原来的 arr6</span><br><span class="hljs-keyword">let</span> tmp = arr6.<span class="hljs-title function_">splice</span>(-<span class="hljs-number">5</span>, <span class="hljs-number">0</span>, <span class="hljs-string">"Designant"</span>, <span class="hljs-string">'.'</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(tmp, arr6);<br><span class="hljs-comment">// 删除：[]，结果：[ 1, 'Designant', '.', 2, &lt;2 empty items&gt;, 5, 6 ]</span><br><br><span class="hljs-keyword">let</span> tmp = arr6.<span class="hljs-title function_">splice</span>(-<span class="hljs-number">7</span>, <span class="hljs-title class_">Infinity</span>, <span class="hljs-string">"Swan Song"</span>, <span class="hljs-string">"Astral Quantization"</span>, <span class="hljs-string">"Designant."</span> );<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(tmp, arr6);<br><span class="hljs-comment">// 删除：[ 1, 2, &lt;2 empty items&gt;, 5, 6 ]，结果：[ 'Swan Song', 'Astral Quantization', 'Designant.' ]</span><br></code></pre></td></tr></table></figure>
+<h5 id="5-arr-indexOf"><a href="#5-arr-indexOf" class="headerlink" title="5. arr.indexOf()"></a>5. <code>arr.indexOf()</code></h5><p>用法：<code>indexOf(searchElement, fromIndex)</code>，返回数组中第一次出现给定元素的下标（使用 <code>===</code> 判断，<code>empty</code> 会被跳过），不存在返回 -1。</p>
+<p>两个参数中，<code>searchElement</code> 必须有，<code>fromIndex</code> 同上两种一样规范化。</p>
+<p>以下展示了一个简单的应用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">updateSongList</span>(<span class="hljs-params">songList, songName</span>) {<br>	<span class="hljs-keyword">if</span> (songList.<span class="hljs-title function_">indexOf</span>(songName) === -<span class="hljs-number">1</span>) {<br>		songList.<span class="hljs-title function_">push</span>(songName);<br>		<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`"<span class="hljs-subst">${songName}</span>" is now added to the collection.`</span>);<br>	}<br>	<span class="hljs-keyword">else</span> {<br>		<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`"<span class="hljs-subst">${songName}</span>" is already in the collection.`</span>);<br>	}<br>}<br><br><span class="hljs-keyword">let</span> songList = [ <span class="hljs-string">"Dual Doom Deathmatch"</span>, <span class="hljs-string">"Waltz for Lorelei"</span>, <span class="hljs-string">"Inverted World"</span>, <span class="hljs-string">"MVURBD"</span> ];<br><span class="hljs-title function_">updateSongList</span>(songList, <span class="hljs-string">"Vulcanus"</span>);<br><span class="hljs-title function_">updateSongList</span>(songList, <span class="hljs-string">"Inverted World"</span>);<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(songList);<br><span class="hljs-comment">/* 输出</span><br><span class="hljs-comment">"Vulcanus" is now added to the collection.</span><br><span class="hljs-comment">"Inverted World" is already in the collection.</span><br><span class="hljs-comment">[</span><br><span class="hljs-comment">  'Dual Doom Deathmatch',</span><br><span class="hljs-comment">  'Waltz for Lorelei',</span><br><span class="hljs-comment">  'Inverted World',</span><br><span class="hljs-comment">  'MVURBD',</span><br><span class="hljs-comment">  'Vulcanus'</span><br><span class="hljs-comment">]</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+<h3 id="2-函数-Function"><a href="#2-函数-Function" class="headerlink" title="2. 函数 Function"></a>2. 函数 <code>Function</code></h3><p>一个简单的函数的声明和使用见上方 <code>updateSongList</code> 函数即可。</p>
+<p>下面着重看函数表达式和箭头函数。</p>
+<h4 id="函数表达式"><a href="#函数表达式" class="headerlink" title="函数表达式"></a>函数表达式</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> function_expression = <span class="hljs-keyword">function</span> [name]([param1[, param2[, ..., paramN]]]) {<br>   <span class="hljs-comment">/* statements */</span><br>};<br></code></pre></td></tr></table></figure>
+<p>其中， <code>[name]</code> 可以省略，从而创建匿名函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> factorial = <span class="hljs-keyword">function</span> (<span class="hljs-params">num</span>) {<br>    <span class="hljs-keyword">if</span> (num === <span class="hljs-number">0</span>) {<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    }<br>    <span class="hljs-keyword">else</span> {<br>        <span class="hljs-keyword">let</span> res = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= num; i++) {<br>            res *= i;<br>        }<br>        <span class="hljs-keyword">return</span> res;<br>    }<br>}<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">factorial</span>(<span class="hljs-number">10</span>));<br></code></pre></td></tr></table></figure>
+<p>具体使用与普通的函数没什么差别。</p>
+<h4 id="箭头函数表达式"><a href="#箭头函数表达式" class="headerlink" title="箭头函数表达式"></a>箭头函数表达式</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">funcName</span> = (<span class="hljs-params">param1, ···, paramN</span>) =&gt; {<br>  <span class="hljs-comment">/* statements */</span><br>}<br></code></pre></td></tr></table></figure>
+<p>当只有一个简单参时，可以省略参数的括号，简化为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">funcName</span> = param =&gt; {<br>  <span class="hljs-comment">/* statements */</span><br>}<br></code></pre></td></tr></table></figure>
+<p>当函数直接返回表达式时，可以省去大括号：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">funcName</span> = (<span class="hljs-params">a, b</span>) =&gt; a + b;<br></code></pre></td></tr></table></figure>
+<p>如下是一个简单的箭头函数应用：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> <span class="hljs-title function_">fact</span> = num =&gt; {<br>	<span class="hljs-keyword">if</span> (num === <span class="hljs-number">0</span>) {<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;<br>    }<br>    <span class="hljs-keyword">else</span> {<br>        <span class="hljs-keyword">let</span> res = <span class="hljs-number">1</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">1</span>; i &lt;= num; i++) {<br>            res *= i;<br>        }<br>        <span class="hljs-keyword">return</span> res;<br>    }<br>}<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-title function_">fact</span>(<span class="hljs-number">10</span>));<br></code></pre></td></tr></table></figure>
+<h3 id="3-对象-Object"><a href="#3-对象-Object" class="headerlink" title="3. 对象 Object"></a>3. 对象 <code>Object</code></h3><p>把一堆键值对包裹起来，类似于字典。其中，属性键可以是字符串或 <code>Symbol</code> 类型，属性值任意。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> empty = {};<br><span class="hljs-keyword">const</span> sym = <span class="hljs-title class_">Symbol</span>(<span class="hljs-string">"cuit"</span>);<br><span class="hljs-keyword">const</span> example = {<br>	<span class="hljs-attr">name</span>: <span class="hljs-string">"vic"</span>,<br>	<span class="hljs-attr">sym</span>: <span class="hljs-literal">true</span>,<br>	<span class="hljs-attr">hi</span>: <span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) { <span class="hljs-keyword">return</span> <span class="hljs-string">"Hello"</span>; },<br>}<br></code></pre></td></tr></table></figure>
+<h4 id="对象的读写"><a href="#对象的读写" class="headerlink" title="对象的读写"></a>对象的读写</h4><p>读取：<code>对象名['键名']</code> 或 <code>对象名.键名</code></p>
+<p>写入：读取不存在的键时会添加这个键，并写入给出的值。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js">example.<span class="hljs-property">name</span> = <span class="hljs-string">"victifa"</span>;<br>exapmle.<span class="hljs-property">age</span> = <span class="hljs-number">18</span>;<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(example.<span class="hljs-property">age</span>);			<span class="hljs-comment">// 18</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(example[<span class="hljs-string">'name'</span>]);		<span class="hljs-comment">// victifa</span><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(example.<span class="hljs-title function_">hi</span>());			<span class="hljs-comment">// Hello</span><br></code></pre></td></tr></table></figure>
+<h4 id="遍历"><a href="#遍历" class="headerlink" title="遍历"></a>遍历</h4><ol>
+<li>使用 <code>for-in</code> 遍历</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> example) {<br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`example.<span class="hljs-subst">${key}</span>: <span class="hljs-subst">${example[key]}</span>`</span>);<br>}<br><span class="hljs-comment">/* 输出：</span><br><span class="hljs-comment">example.name: victifa</span><br><span class="hljs-comment">example.sym: true</span><br><span class="hljs-comment">example.hi: function() { return "Hello"; }</span><br><span class="hljs-comment">example.age: 18</span><br><span class="hljs-comment">*/</span><br></code></pre></td></tr></table></figure>
+<ol>
+<li>使用 <code>Object.keys(对象名)</code> 获取所有键名</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> keys = <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(example);<br><span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; keys.<span class="hljs-property">length</span>; i++) {<br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`example.<span class="hljs-subst">${keys[i]}</span>: <span class="hljs-subst">${example[keys[i]]}</span>`</span>);<br>}<br><span class="hljs-comment">// 输出同上</span><br></code></pre></td></tr></table></figure>
+<h4 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h4><p>使用 <code>delete</code> 删除键值对</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">delete</span> example.<span class="hljs-property">age</span>;<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>( <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">keys</span>(example) );<br><span class="hljs-comment">// [ 'name', 'sym', 'hi' ]</span><br></code></pre></td></tr></table></figure>
+<h1 id="3-运算"><a href="#3-运算" class="headerlink" title="3. 运算"></a>3. 运算</h1><h2 id="数学运算"><a href="#数学运算" class="headerlink" title="数学运算"></a>数学运算</h2><p>区别较大的为除法 <code>/</code>，表示数学意义上的除法，向下取整需要使用 <code>Math.floor()</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> p = <span class="hljs-number">114</span> / <span class="hljs-number">514</span>;					<span class="hljs-comment">// 0.22178988326848248</span><br><span class="hljs-keyword">let</span> q = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(<span class="hljs-number">114</span> / <span class="hljs-number">514</span>);	    <span class="hljs-comment">// 0</span><br><span class="hljs-keyword">let</span> r = <span class="hljs-title class_">Math</span>.<span class="hljs-title function_">floor</span>(<span class="hljs-number">114</span> / <span class="hljs-number">514</span>) + <span class="hljs-number">1</span>;  <span class="hljs-comment">// 1</span><br></code></pre></td></tr></table></figure>
+<h2 id="比较运算"><a href="#比较运算" class="headerlink" title="比较运算"></a>比较运算</h2><p>特殊的为 <code>===</code>（严格等于）和 <code>!==</code> （严格不等于）。</p>
+<p>由于 javaScript 是弱类型语言，使用 <code>==</code>，<code>!=</code> 比较不同类型数据时会进行隐式转换，有时会导致意料之外的结果。如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-number">5</span> == <span class="hljs-string">'5'</span>;	<span class="hljs-comment">// true</span><br><span class="hljs-string">''</span> == <span class="hljs-string">'0'</span>;	<span class="hljs-comment">// false</span><br><span class="hljs-string">''</span> == <span class="hljs-number">0</span>;    <span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+<p>因此引入严格判断：</p>
+<ul>
+<li><code>===</code>：数据类型与数据均相等时才为 <code>true</code>。</li>
+<li><code>!==</code>：数据类型或数据有一个不同就为 <code>true</code>。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-number">5</span> === <span class="hljs-string">'5'</span>;	<span class="hljs-comment">// false</span><br><span class="hljs-string">''</span> === <span class="hljs-string">'0'</span>	<span class="hljs-comment">// false</span><br><span class="hljs-string">''</span> === <span class="hljs-number">0</span>	<span class="hljs-comment">// false</span><br><span class="hljs-string">'5'</span> !== <span class="hljs-number">5</span>	<span class="hljs-comment">// true</span><br></code></pre></td></tr></table></figure>
+<h1 id="4-异步"><a href="#4-异步" class="headerlink" title="4. 异步"></a>4. 异步</h1><h2 id="同步模式"><a href="#同步模式" class="headerlink" title="同步模式"></a>同步模式</h2><p>单线程下，程序按编写顺序排队进行。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"Let's start!"</span>);<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">a</span>(<span class="hljs-params"></span>) {<br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"a"</span>);<br>}<br><br><span class="hljs-keyword">function</span> <span class="hljs-title function_">b</span>(<span class="hljs-params"></span>) {<br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"b"</span>);<br>	<span class="hljs-title function_">a</span>();<br>}<br><br><span class="hljs-title function_">b</span>();<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"World Ender"</span>);<br></code></pre></td></tr></table></figure>
+<p>大致执行顺序如下：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">调用栈的情况</th>
+<th style="text-align:center">操作</th>
+<th style="text-align:left">console</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>(anoymous)</code> （匿名调用）</td>
+<td style="text-align:center">全代码打包作为匿名调用压入栈</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>console.log("Let's start!")</code><br><code>(anoymous)</code></td>
+<td style="text-align:center"><code>console.log("Let's start!")</code> 入栈执行</td>
+<td style="text-align:left">Let’s start!</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(anoymous)</code></td>
+<td style="text-align:center"><code>console.log("Let's start!")</code> 出栈</td>
+<td style="text-align:left">Let’s start!</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>b()</code><br><code>(anoymous)</code></td>
+<td style="text-align:center"><code>b()</code> 入栈</td>
+<td style="text-align:left">Let’s start!</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>console.log("b")</code> <br><code>b()</code><br><code>(anoymous)</code></td>
+<td style="text-align:center"><code>console.log("b")</code> 入栈执行</td>
+<td style="text-align:left">Let’s start!<br>b</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>b()</code><br><code>`(anoymous)</code> `</td>
+<td style="text-align:center"><code>console.log("b")</code> 出栈</td>
+<td style="text-align:left">Let’s start!<br>b</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>a()</code><br><code>b()</code><br><code>(anoymous)</code></td>
+<td style="text-align:center"><code>a()</code> 入栈</td>
+<td style="text-align:left">Let’s start!<br>b</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>console.log("a")</code> <br><code>a()</code><br><code>b()</code><br><code>(anoymous)</code></td>
+<td style="text-align:center"><code>console.log("a")</code> 入栈执行</td>
+<td style="text-align:left">Let’s start!<br>b<br>a</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>a()</code><br><code>b()</code><br><code>(anoymous)</code></td>
+<td style="text-align:center"><code>console.log("a")</code> 出栈</td>
+<td style="text-align:left">Let’s start!<br>b<br>a</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>b()</code><br><code>(anoymous)</code></td>
+<td style="text-align:center"><code>a()</code> 出栈</td>
+<td style="text-align:left">Let’s start!<br>b<br>a</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(anoymous)</code></td>
+<td style="text-align:center"><code>b()</code> 出栈</td>
+<td style="text-align:left">Let’s start!<br>b<br>a</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>console.log("World Ender")</code><br><code>(anoymous)</code></td>
+<td style="text-align:center"><code>console.log("World Ender")</code> 入栈执行</td>
+<td style="text-align:left">Let’s start!<br>b<br>a<br>World Ender</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>(anoymous)</code></td>
+<td style="text-align:center"><code>console.log("World Ender")</code> 出栈</td>
+<td style="text-align:left">Let’s start!<br>b<br>a<br>World Ender</td>
+</tr>
+<tr>
+<td style="text-align:left"></td>
+<td style="text-align:center">函数执行完毕，调用栈清空</td>
+<td style="text-align:left">Let’s start!<br>b<br>a<br>World Ender</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="异步模式"><a href="#异步模式" class="headerlink" title="异步模式"></a>异步模式</h2><h3 id="setTimeout"><a href="#setTimeout" class="headerlink" title="setTimeout()"></a><code>setTimeout()</code></h3><p><code>setTimeot(func, time)</code> 指在经过 time(ms) 后，再执行 <code>func</code> 函数（回调函数）的内容，期间可以执行程序中的其他步骤。</p>
+<p>下方展示了一个简单的例子。输出效果为：</p>
+<p>“Let’s start!”  <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.025ex;" xmlns="http://www.w3.org/2000/svg" width="2.262ex" height="2.058ex" role="img" focusable="false" viewBox="0 -898.8 1000 909.8"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mover"><g data-mml-node="mstyle"><g data-mml-node="mo"><path data-c="2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z"></path></g></g><g data-mml-node="mpadded" transform="translate(205.5,798.8) scale(0.707)"><g transform="translate(278,-200)"><g data-mml-node="mspace"></g></g></g></g></g></g></svg></mjx-container>  “World Ender”  <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="2.883ex" height="3.127ex" role="img" focusable="false" viewBox="0 -1300.3 1274.2 1382.3"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mover"><g data-mml-node="mstyle"><g data-mml-node="mo"><path data-c="2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z" transform="translate(274.2,0)"></path><svg width="374.2" height="865" x="0" y="-182" viewBox="93.6 -182 374.2 865"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" transform="scale(0.721,1)"></path></svg></g></g><g data-mml-node="mpadded" transform="translate(0,870.8) scale(0.707)"><g transform="translate(278,-200)"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mi" transform="translate(500,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mspace" transform="translate(969,0)"></g></g></g></g></g></g></svg></mjx-container>  “timer 2”  <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="4.127ex" height="3.127ex" role="img" focusable="false" viewBox="0 -1300.3 1824.3 1382.3"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mover"><g data-mml-node="mstyle"><g data-mml-node="mo"><path data-c="2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z" transform="translate(824.3,0)"></path><svg width="924.3" height="865" x="0" y="-182" viewBox="231.1 -182 924.3 865"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" transform="scale(1.782,1)"></path></svg></g></g><g data-mml-node="mpadded" transform="translate(0,870.8) scale(0.707)"><g transform="translate(278,-200)"><g data-mml-node="mn"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" transform="translate(500,0)"></path><path data-c="38" d="M70 417T70 494T124 618T248 666Q319 666 374 624T429 515Q429 485 418 459T392 417T361 389T335 371T324 363L338 354Q352 344 366 334T382 323Q457 264 457 174Q457 95 399 37T249 -22Q159 -22 101 29T43 155Q43 263 172 335L154 348Q133 361 127 368Q70 417 70 494ZM286 386L292 390Q298 394 301 396T311 403T323 413T334 425T345 438T355 454T364 471T369 491T371 513Q371 556 342 586T275 624Q268 625 242 625Q201 625 165 599T128 534Q128 511 141 492T167 463T217 431Q224 426 228 424L286 386ZM250 21Q308 21 350 55T392 137Q392 154 387 169T375 194T353 216T330 234T301 253T274 270Q260 279 244 289T218 306L210 311Q204 311 181 294T133 239T107 157Q107 98 150 60T250 21Z" transform="translate(778,0)"></path></g><g data-mml-node="mi" transform="translate(1278,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mspace" transform="translate(1747,0)"></g></g></g></g></g></g></svg></mjx-container>  “timer 1”  <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="4.127ex" height="3.127ex" role="img" focusable="false" viewBox="0 -1300.3 1824.3 1382.3"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mover"><g data-mml-node="mstyle"><g data-mml-node="mo"><path data-c="2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z" transform="translate(824.3,0)"></path><svg width="924.3" height="865" x="0" y="-182" viewBox="231.1 -182 924.3 865"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" transform="scale(1.782,1)"></path></svg></g></g><g data-mml-node="mpadded" transform="translate(0,870.8) scale(0.707)"><g transform="translate(278,-200)"><g data-mml-node="mn"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" transform="translate(500,0)"></path><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z" transform="translate(778,0)"></path></g><g data-mml-node="mi" transform="translate(1278,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mspace" transform="translate(1747,0)"></g></g></g></g></g></g></svg></mjx-container>  “Inside timer 2”</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"Let's start!"</span>);<br><br><span class="hljs-built_in">setTimeout</span>( <span class="hljs-function">() =&gt;</span> {<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"timer 1"</span>);<br>}, <span class="hljs-number">1800</span>);<br><br><span class="hljs-built_in">setTimeout</span>( <span class="hljs-function">() =&gt;</span> {<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"timer 2"</span>);<br>    <span class="hljs-built_in">setTimeout</span>( <span class="hljs-function">() =&gt;</span> {<br>        <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"Inside timer 2"</span>);<br>    }, <span class="hljs-number">1000</span>);<br>}, <span class="hljs-number">1000</span>);<br><br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"World Ender"</span>);<br></code></pre></td></tr></table></figure>
+<p>我们使用 <code>Timer 1</code>，<code>Timer 2</code> 和 <code>Inside</code> 来代指三个匿名函数。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Queue</th>
+<th style="text-align:center">Web API</th>
+<th style="text-align:left">调用栈的情况</th>
+<th style="text-align:center">操作</th>
+<th>Console</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">待办队列</td>
+<td style="text-align:center">这次中就是计时器</td>
+<td style="text-align:left"><code>(anoymous)</code></td>
+<td style="text-align:center">全代码打包作为匿名调用压入栈</td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:left"><code>(anoymous)</code></td>
+<td style="text-align:center"><code>console.log("Let's start!")</code> <br>入栈，执行，出栈</td>
+<td>Let’s start!</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"><strong>1.8s 倒计时开始</strong></td>
+<td style="text-align:left"><code>setTimeout(Timer 1)</code> <br><code>(anoymous)</code></td>
+<td style="text-align:center"><code>setTimeout(Timer 1)</code> 入栈</td>
+<td>Let’s start!</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">1.8s 倒计时进行</td>
+<td style="text-align:left"><code>(anoymous)</code></td>
+<td style="text-align:center"><code>setTimeout(Timer 1)</code> 出栈</td>
+<td>Let’s start!</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">1.8s 倒计时进行<br><strong>1s 倒计时开始</strong></td>
+<td style="text-align:left"><code>setTimeout(Timer 2)</code> <br><code>(anoymous)</code></td>
+<td style="text-align:center"><code>setTimeout(Timer 2)</code> 入栈</td>
+<td>Let’s start!</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">1.8s 倒计时进行<br>1s 倒计时进行</td>
+<td style="text-align:left"><code>(anoymous)</code></td>
+<td style="text-align:center"><code>setTimeout(Timer 2)</code> 出栈</td>
+<td>Let’s start!</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">1.8s 倒计时进行<br>1s 倒计时进行</td>
+<td style="text-align:left"><code>(anoymous)</code></td>
+<td style="text-align:center"><code>console.log("World Ender")</code> <br>入栈，执行，出栈</td>
+<td>Let’s start<br>World Ender</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">1.8s 倒计时进行<br>1s 倒计时进行</td>
+<td style="text-align:left"></td>
+<td style="text-align:center">函数执行完毕，调用栈清空</td>
+<td>Let’s start<br>World Ender</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><strong><em>漫长的等待</em></strong></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Timer 2</td>
+<td style="text-align:center"><em>1s 倒计时结束</em><br>1.8s 倒计时进行</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><code>Timer 2</code> 进入待办队列，被事件循环监听到</td>
+<td>Let’s start!<br>World Ender</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">1.8s 倒计时进行</td>
+<td style="text-align:left"><code>Timer 2</code></td>
+<td style="text-align:center"><code>timer 2</code>入栈</td>
+<td>Let’s start!<br>World Ender</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">1.8s 倒计时进行</td>
+<td style="text-align:left"><code>Timer 2</code></td>
+<td style="text-align:center"><code>console.log("timer 2")</code> <br>入栈，执行，出栈</td>
+<td>Let’s start!<br>World Ender<br>timer 2</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">1.8s 倒计时进行<br><strong>1s 倒计时(2) 开始</strong></td>
+<td style="text-align:left"><code>setTimeout(Inside)</code> <br><code>Timer 2</code></td>
+<td style="text-align:center"><code>setTimeout(Inside)</code> 入栈</td>
+<td>Let’s start!<br>World Ender<br>timer 2</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">1.8s 倒计时进行<br>1s 倒计时(2) 进行</td>
+<td style="text-align:left"><code>Timer 2</code></td>
+<td style="text-align:center"><code>setTimeout(Inside)</code> 出栈</td>
+<td>Let’s start!<br>World Ender<br>timer 2</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">1.8s 倒计时进行<br>1s 倒计时(2) 进行</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><code>Timer 2</code> 执行完毕，出栈</td>
+<td>Let’s start!<br>World Ender<br>timer 2</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><strong><em>并不漫长的等待</em></strong></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Timer 1</td>
+<td style="text-align:center"><em>1.8 s 倒计时结束</em><br>1s 倒计时(2) 进行</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><code>Timer 1</code> 进入待办队列，被事件循环监听到</td>
+<td>Let’s start!<br>World Ender<br>timer 2</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">1s 倒计时(2) 进行</td>
+<td style="text-align:left"><code>Timer 1</code></td>
+<td style="text-align:center"><code>Timer 1</code> 入栈</td>
+<td>Let’s start!<br>World Ender<br>timer 2</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">1s 倒计时(2) 进行</td>
+<td style="text-align:left"><code>Timer 1</code></td>
+<td style="text-align:center"><code>console.log("timer 1")</code>  <br>入栈，执行，出栈</td>
+<td>Let’s start!<br>World Ender<br>timer 2<br>timer 1</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center">1s 倒计时(2) 进行</td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><code>Timer 1</code> 执行完毕，出栈</td>
+<td>Let’s start!<br>World Ender<br>timer 2<br>timer 1</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><strong><em>简短的等待</em></strong></td>
+<td></td>
+</tr>
+<tr>
+<td style="text-align:center">Inside</td>
+<td style="text-align:center"><em>1s 倒计时(2)结束</em></td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><code>Inside</code> 进入待办队列，被事件循环监听到</td>
+<td>Let’s start!<br>World Ender<br>timer 2<br>timer 1</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:left"><code>Inside</code></td>
+<td style="text-align:center"><code>Inside</code> 入栈</td>
+<td>Let’s start!<br>World Ender<br>timer 2<br>timer 1</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:left"><code>Inside</code></td>
+<td style="text-align:center"><code>console.log("Inside timer 2")</code><br>入栈，执行，出栈</td>
+<td>Let’s start!<br>World Ender<br>timer 2<br>timer 1<br>Inside timer 2</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><code>Inside</code> 出栈</td>
+<td>Let’s start!<br>World Ender<br>timer 2<br>timer 1<br>Inside timer 2</td>
+</tr>
+<tr>
+<td style="text-align:center"></td>
+<td style="text-align:center"></td>
+<td style="text-align:left"></td>
+<td style="text-align:center"><strong><em>完</em></strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>由于 <code>setTimeout()</code> 多层嵌套难以识别和维护，被称为“回调地狱”（callback hell） ，现在使用 <code>Promise</code> 代替。</p>
+<p>下面展示了一个多层嵌套的 <code>setTimeout()</code>，实际效果为每隔一秒进行一次输出。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-built_in">setTimeout</span>( <span class="hljs-function">() =&gt;</span> {<br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">1</span>);<br>	<span class="hljs-built_in">setTimeout</span>( <span class="hljs-function">() =&gt;</span> {<br>		<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">2</span>);<br>		<span class="hljs-built_in">setTimeout</span>( <span class="hljs-function">() =&gt;</span> {<br>			<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">3</span>);<br>		}, <span class="hljs-number">1000</span>);<br>	}, <span class="hljs-number">1000</span>);<br>}, <span class="hljs-number">1000</span>);<br></code></pre></td></tr></table></figure>
+<h3 id="Promise"><a href="#Promise" class="headerlink" title="Promise"></a><code>Promise</code></h3><p>一个承诺，有 <code>pending</code>（进行中），<code>fullfilled</code>（已成功），<code>rejected</code>（已失败）三种状态。视结果成功与否可以返回不同的值。</p>
+<p><code>Promise</code> 对象通过 <code>new</code> 来创建，有一个函数类型的参数。其基本形式如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> promise1 = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>( <span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {<br>	<span class="hljs-comment">/* 这里可以有一些操作，如setTimeout等 */</span><br>	<span class="hljs-title function_">resolve</span>(成功时的返回值);	<span class="hljs-comment">// 一般都要有,返回值空着也行</span><br>	<span class="hljs-title function_">reject</span>( <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(失败时弹出的提示) );	<span class="hljs-comment">// 可以没有</span><br>} )<br></code></pre></td></tr></table></figure>
+<p>也可以将其作为函数的返回值以传入一些参数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">promiseWithSetTimeout</span>(<span class="hljs-params">ms</span>) {<br>	<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>( <span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {<br>		<span class="hljs-built_in">setTimeout</span>( <span class="hljs-function">() =&gt;</span> {<br>			<span class="hljs-title function_">resolve</span>(<span class="hljs-string">"It's resolved."</span>);<br>			<span class="hljs-title function_">reject</span>( <span class="hljs-keyword">new</span> <span class="hljs-title class_">Error</span>(<span class="hljs-string">"It's rejected."</span>) );<br>		}, ms );	<br>	} );<br>}<br></code></pre></td></tr></table></figure>
+<p>我们通过 <code>.then</code> 来使用 <code>Promise</code>，<code>.catch</code> 来捕获 <code>Promise</code> 失败后的错误。</p>
+<p>简化一下上面的函数，返回值就不要了，使其永远触发 <code>resolved</code>：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">promiseWithSetTimeout</span>(<span class="hljs-params">ms</span>) {<br>	<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>( <span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {<br>		<span class="hljs-built_in">setTimeout</span>( resolve, ms );	<br>	} );<br>}<br></code></pre></td></tr></table></figure>
+<p><code>.then</code> 的参数为两个函数，当 <code>resolve</code> 时运行第一个，<code>reject</code> 时运行第二个（没有也行，就是会报错，直接弹出预设的错误提示），错误会先被第二个函数捕捉，不存在时才会被 <code>.catch</code> 捕捉。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-title function_">promiseWithSetTimeout</span>(<span class="hljs-number">1000</span>)<br>	.<span class="hljs-title function_">then</span>( <span class="hljs-function">() =&gt;</span> {<br>    	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"1st Resolved."</span>);<br>		},<br>         <span class="hljs-function">() =&gt;</span> {<br>    	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"1st Rejected."</span>);<br>		}<br>    )<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"World Ender"</span>);<br></code></pre></td></tr></table></figure>
+<p>输出：<code>World Ender</code>  <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="2.883ex" height="3.127ex" role="img" focusable="false" viewBox="0 -1300.3 1274.2 1382.3"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mover"><g data-mml-node="mstyle"><g data-mml-node="mo"><path data-c="2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z" transform="translate(274.2,0)"></path><svg width="374.2" height="865" x="0" y="-182" viewBox="93.6 -182 374.2 865"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" transform="scale(0.721,1)"></path></svg></g></g><g data-mml-node="mpadded" transform="translate(0,870.8) scale(0.707)"><g transform="translate(278,-200)"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mi" transform="translate(500,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mspace" transform="translate(969,0)"></g></g></g></g></g></g></svg></mjx-container>  <code>1st Resolved.</code></p>
+<p>改成 <code>setTimeout(rejected, ms)</code>：<code>World Ender</code>  <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="2.883ex" height="3.127ex" role="img" focusable="false" viewBox="0 -1300.3 1274.2 1382.3"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mover"><g data-mml-node="mstyle"><g data-mml-node="mo"><path data-c="2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z" transform="translate(274.2,0)"></path><svg width="374.2" height="865" x="0" y="-182" viewBox="93.6 -182 374.2 865"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" transform="scale(0.721,1)"></path></svg></g></g><g data-mml-node="mpadded" transform="translate(0,870.8) scale(0.707)"><g transform="translate(278,-200)"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mi" transform="translate(500,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mspace" transform="translate(969,0)"></g></g></g></g></g></g></svg></mjx-container>  <code>1st Rejected.</code></p>
+<p>我们可以在函数中再返回一次 <code>promiseWithSetTimeout()</code>，实现 <code>Promise</code> 的链式调用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs Js"><span class="hljs-title function_">promiseWithSetTimeout</span>(<span class="hljs-number">1000</span>)<br>	.<span class="hljs-title function_">then</span>( <span class="hljs-function">() =&gt;</span> {<br>    	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"1st Resolved."</span>);<br>    	<span class="hljs-keyword">return</span> <span class="hljs-title function_">promiseWithSetTimeout</span>(<span class="hljs-number">2000</span>);<br>	} )<br>	.<span class="hljs-title function_">then</span>( <span class="hljs-function">() =&gt;</span> {<br>		<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"2nd Resolved."</span>);<br>		<span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">resolve</span>(<span class="hljs-string">"More."</span>);<br>	} )<br>	.<span class="hljs-title function_">then</span>( <span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> {<br>		<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res + <span class="hljs-string">" 3rd Resolved."</span>);<br>		<span class="hljs-keyword">return</span> <span class="hljs-title class_">Promise</span>.<span class="hljs-title function_">reject</span>(<span class="hljs-string">"No more."</span>);<br>	} )<br>	.<span class="hljs-title function_">catch</span>( <span class="hljs-function">(<span class="hljs-params">value</span>) =&gt;</span> {<br>		<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(value + <span class="hljs-string">" Finally Rejected."</span>);<br>	} )<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"World Ender"</span>);<br></code></pre></td></tr></table></figure>
+<p>输出：<code>World Ender</code>  <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="2.883ex" height="3.127ex" role="img" focusable="false" viewBox="0 -1300.3 1274.2 1382.3"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mover"><g data-mml-node="mstyle"><g data-mml-node="mo"><path data-c="2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z" transform="translate(274.2,0)"></path><svg width="374.2" height="865" x="0" y="-182" viewBox="93.6 -182 374.2 865"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" transform="scale(0.721,1)"></path></svg></g></g><g data-mml-node="mpadded" transform="translate(0,870.8) scale(0.707)"><g transform="translate(278,-200)"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mi" transform="translate(500,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mspace" transform="translate(969,0)"></g></g></g></g></g></g></svg></mjx-container>  <code>1st Resolved.</code>  <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="2.883ex" height="3.127ex" role="img" focusable="false" viewBox="0 -1300.3 1274.2 1382.3"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mover"><g data-mml-node="mstyle"><g data-mml-node="mo"><path data-c="2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z" transform="translate(274.2,0)"></path><svg width="374.2" height="865" x="0" y="-182" viewBox="93.6 -182 374.2 865"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" transform="scale(0.721,1)"></path></svg></g></g><g data-mml-node="mpadded" transform="translate(0,870.8) scale(0.707)"><g transform="translate(278,-200)"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(500,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mspace" transform="translate(969,0)"></g></g></g></g></g></g></svg></mjx-container>  <code>2nd Resolved.</code>  <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="4.532ex" height="3.262ex" role="img" focusable="false" viewBox="0 -1359.7 2003.2 1441.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mover"><g data-mml-node="mstyle"><g data-mml-node="mo"><path data-c="2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z" transform="translate(1003.2,0)"></path><svg width="1103.2" height="865" x="0" y="-182" viewBox="275.8 -182 1103.2 865"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" transform="scale(2.127,1)"></path></svg></g></g><g data-mml-node="mpadded" transform="translate(0,870.8) scale(0.707)"><g transform="translate(278,-200)"><g data-mml-node="mi"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">立</text></g><g data-mml-node="mi" transform="translate(1000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">刻</text></g><g data-mml-node="mspace" transform="translate(2000,0)"></g></g></g></g></g></g></svg></mjx-container>  <code>More. 3rd Resolved.</code> <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="4.532ex" height="3.262ex" role="img" focusable="false" viewBox="0 -1359.7 2003.2 1441.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mover"><g data-mml-node="mstyle"><g data-mml-node="mo"><path data-c="2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z" transform="translate(1003.2,0)"></path><svg width="1103.2" height="865" x="0" y="-182" viewBox="275.8 -182 1103.2 865"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" transform="scale(2.127,1)"></path></svg></g></g><g data-mml-node="mpadded" transform="translate(0,870.8) scale(0.707)"><g transform="translate(278,-200)"><g data-mml-node="mi"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">立</text></g><g data-mml-node="mi" transform="translate(1000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">刻</text></g><g data-mml-node="mspace" transform="translate(2000,0)"></g></g></g></g></g></g></svg></mjx-container>  <code>No more. Finally Rejected.</code></p>
+<h3 id="Async-Await"><a href="#Async-Await" class="headerlink" title="Async / Await"></a><code>Async / Await</code></h3><p>在 <code>function</code> 前加上 <code>async</code>，函数会变为异步函数，返回值被自动包装为 <code>Promise</code> 对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">test</span> (<span class="hljs-params"></span>) {<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">42</span>;<br>}<br><span class="hljs-keyword">const</span> tmp = <span class="hljs-title function_">test</span>();<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(tmp);	<span class="hljs-comment">// Promise { 42 }</span><br></code></pre></td></tr></table></figure>
+<p><code>await</code> <strong>只能在 <code>async</code> 函数内</strong>工作，后面一般跟一个 <code>Promise</code> 对象，效果为等待，直到 <code>Promise</code> 完成并返回结果。 </p>
+<p>在 <code>await</code> 造成的等待中，<code>async</code> 函数内会暂停等待 <code>Promise</code> 对象的反应，但函数外的程序仍会正常进行。 </p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">function</span> <span class="hljs-title function_">promiseWithSetTimeout</span>(<span class="hljs-params">ms</span>) {<br>	<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>( <span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {<br>		<span class="hljs-built_in">setTimeout</span>( resolve, ms );	<br>	} );<br>}<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">test</span> (<span class="hljs-params"></span>) {<br>	<span class="hljs-keyword">return</span> <span class="hljs-number">42</span>;<br>}<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">run</span>(<span class="hljs-params"></span>) {<br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"Let's start!"</span>);<br>	<span class="hljs-keyword">await</span> <span class="hljs-title function_">promiseWithSetTimeout</span>(<span class="hljs-number">1000</span>);<br>	<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"Stop running."</span>);<br>}<br><br><span class="hljs-keyword">async</span> <span class="hljs-keyword">function</span> <span class="hljs-title function_">run2</span>(<span class="hljs-params"></span>) {<br>    <span class="hljs-keyword">const</span> res = <span class="hljs-keyword">await</span> <span class="hljs-title function_">test</span>();<br>    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(res);<br>}<br><br><span class="hljs-title function_">run</span>();<br><span class="hljs-title function_">run2</span>();<br><span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">"World Ender"</span>);<br></code></pre></td></tr></table></figure>
+<p>输出：<code>Let's start!</code>  <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="4.532ex" height="3.262ex" role="img" focusable="false" viewBox="0 -1359.7 2003.2 1441.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mover"><g data-mml-node="mstyle"><g data-mml-node="mo"><path data-c="2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z" transform="translate(1003.2,0)"></path><svg width="1103.2" height="865" x="0" y="-182" viewBox="275.8 -182 1103.2 865"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" transform="scale(2.127,1)"></path></svg></g></g><g data-mml-node="mpadded" transform="translate(0,870.8) scale(0.707)"><g transform="translate(278,-200)"><g data-mml-node="mi"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">立</text></g><g data-mml-node="mi" transform="translate(1000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">刻</text></g><g data-mml-node="mspace" transform="translate(2000,0)"></g></g></g></g></g></g></svg></mjx-container>   <code>World Ender</code>  <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="4.532ex" height="3.262ex" role="img" focusable="false" viewBox="0 -1359.7 2003.2 1441.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mover"><g data-mml-node="mstyle"><g data-mml-node="mo"><path data-c="2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z" transform="translate(1003.2,0)"></path><svg width="1103.2" height="865" x="0" y="-182" viewBox="275.8 -182 1103.2 865"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" transform="scale(2.127,1)"></path></svg></g></g><g data-mml-node="mpadded" transform="translate(0,870.8) scale(0.707)"><g transform="translate(278,-200)"><g data-mml-node="mi"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">立</text></g><g data-mml-node="mi" transform="translate(1000,0)"><text data-variant="normal" transform="scale(1,-1)" font-size="884px" font-family="serif">刻</text></g><g data-mml-node="mspace" transform="translate(2000,0)"></g></g></g></g></g></g></svg></mjx-container>  <code>42</code>  <mjx-container class="MathJax" jax="SVG"><svg style="vertical-align: -0.186ex;" xmlns="http://www.w3.org/2000/svg" width="2.883ex" height="3.127ex" role="img" focusable="false" viewBox="0 -1300.3 1274.2 1382.3"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mover"><g data-mml-node="mstyle"><g data-mml-node="mo"><path data-c="2192" d="M56 237T56 250T70 270H835Q719 357 692 493Q692 494 692 496T691 499Q691 511 708 511H711Q720 511 723 510T729 506T732 497T735 481T743 456Q765 389 816 336T935 261Q944 258 944 250Q944 244 939 241T915 231T877 212Q836 186 806 152T761 85T740 35T732 4Q730 -6 727 -8T711 -11Q691 -11 691 0Q691 7 696 25Q728 151 835 230H70Q56 237 56 250Z" transform="translate(274.2,0)"></path><svg width="374.2" height="865" x="0" y="-182" viewBox="93.6 -182 374.2 865"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z" transform="scale(0.721,1)"></path></svg></g></g><g data-mml-node="mpadded" transform="translate(0,870.8) scale(0.707)"><g transform="translate(278,-200)"><g data-mml-node="mn"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g><g data-mml-node="mi" transform="translate(500,0)"><path data-c="1D460" d="M131 289Q131 321 147 354T203 415T300 442Q362 442 390 415T419 355Q419 323 402 308T364 292Q351 292 340 300T328 326Q328 342 337 354T354 372T367 378Q368 378 368 379Q368 382 361 388T336 399T297 405Q249 405 227 379T204 326Q204 301 223 291T278 274T330 259Q396 230 396 163Q396 135 385 107T352 51T289 7T195 -10Q118 -10 86 19T53 87Q53 126 74 143T118 160Q133 160 146 151T160 120Q160 94 142 76T111 58Q109 57 108 57T107 55Q108 52 115 47T146 34T201 27Q237 27 263 38T301 66T318 97T323 122Q323 150 302 164T254 181T195 196T148 231Q131 256 131 289Z"></path></g><g data-mml-node="mspace" transform="translate(969,0)"></g></g></g></g></g></g></svg></mjx-container>  <code>Stop running.</code></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/js/" class="print-no-link">#js</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>javaScript笔记</div>
+      <div>http://example.com/2024/12/22/javaScript笔记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Victifa</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年12月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/01/12/ethers-js/" title="ethers.js">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">ethers.js</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/12/08/Solidity102/" title="Solidity102笔记">
+                        <span class="hidden-mobile">Solidity102笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"wHTYi0mKgiheGQgyxHkEi3nE-MdYXbMMI","appKey":"lkxJFZpLfQmmGvh5ogFI55hJ","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://whtyi0mk.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

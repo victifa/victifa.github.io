@@ -1,0 +1,1019 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#dae9f4">
+  <meta name="author" content="Victifa">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="15. 重载 即名字相同但参数不同的函数可以同时存在，并被视为不同的函数。  修饰器 不能 重载  原理：函数选择器  例： 1234567function me() external pure returns(string memory) &#123;	return (&quot;victifa&quot;);&#125;	&#x2F;&#x2F; 输出 &quot;victifa&quot;function me">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Solidity102笔记">
+<meta property="og:url" content="http://example.com/2024/12/08/Solidity102/index.html">
+<meta property="og:site_name" content="Victifa">
+<meta property="og:description" content="15. 重载 即名字相同但参数不同的函数可以同时存在，并被视为不同的函数。  修饰器 不能 重载  原理：函数选择器  例： 1234567function me() external pure returns(string memory) &#123;	return (&quot;victifa&quot;);&#125;	&#x2F;&#x2F; 输出 &quot;victifa&quot;function me">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images.mirror-media.xyz/publication-images/VgMR533pA8WYtE5Lr65mQ.png?height=698&amp;width=1860">
+<meta property="og:image" content="https://images.mirror-media.xyz/publication-images/JucQiWVixdlmJl6zHjCSI.png?height=702&amp;width=1862">
+<meta property="article:published_time" content="2024-12-08T07:27:58.000Z">
+<meta property="article:modified_time" content="2024-12-12T16:23:58.569Z">
+<meta property="article:author" content="Victifa">
+<meta property="article:tag" content="Solidity">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://images.mirror-media.xyz/publication-images/VgMR533pA8WYtE5Lr65mQ.png?height=698&amp;width=1860">
+  
+  
+  
+  <title>Solidity102笔记 - Victifa</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":3},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>myBlog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Solidity102笔记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-12-08 15:27" pubdate>
+          2024年12月8日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.8k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          40 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">Solidity102笔记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="15-重载"><a href="#15-重载" class="headerlink" title="15. 重载"></a>15. 重载</h2><ul>
+<li><p>即名字相同但参数不同的函数可以同时存在，并被视为不同的函数。</p>
+</li>
+<li><p>修饰器 <strong>不能</strong> 重载</p>
+</li>
+<li>原理：函数选择器</li>
+</ul>
+<p>例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function me() external pure returns(string memory) &#123;<br>	return (&quot;victifa&quot;);<br>&#125;	// 输出 &quot;victifa&quot;<br><br>function me(string memory _str) external pure returns(string memory) &#123;<br>	return (_str);<br>&#125;	// 输出 _str<br></code></pre></td></tr></table></figure>
+<h3 id="实参匹配（Argument-Matching）"><a href="#实参匹配（Argument-Matching）" class="headerlink" title="实参匹配（Argument Matching）"></a>实参匹配（Argument Matching）</h3><p>在调用重载函数时，会把输入的实际参数和函数参数的变量类型做匹配。 如果出现多个匹配的重载函数，则会报错。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function f(uint8 _in) public pure returns (uint8 out) &#123;<br>	out = _in;<br>&#125;<br><br>function f(uint256 _in) public pure returns (uint256 out) &#123;<br>	out = _in;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>理论上，输入50调用函数应该会报错，但是，实际使用时发现出现报错的条件比较严苛：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: MIT<br>pragma solidity ^0.8.0;<br><br>interface Test &#123;<br>    function f(uint256 _in) external returns (uint256 out);<br>    function f(uint8 _in) external returns (uint256 out);<br>&#125;<br><br>contract test &#123;<br>    function f(uint8 _in) public pure returns (uint8 out) &#123;<br>        out = _in;<br>    &#125;<br><br>    function f(uint256 _in) public pure returns (uint256 out) &#123;<br>        out = _in;<br>    &#125;<br>&#125;<br><br>contract A &#123;<br>    function AA(address from) public returns(uint rs) &#123;<br>        rs = Test(from).f(50);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>仅在以上情况下，会在编译界面直接画红线报错。</p>
+<p>以下是几种不会报错的情形：</p>
+<ol>
+<li><p>直接在部署栏调用函数 <code>f()</code></p>
+</li>
+<li><p>接口处仅有两个 <code>f()</code> 中的一个</p>
+</li>
+<li><p>使用参数输入50（如下）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract A &#123;<br>    function AA(address from, uint num) public returns(uint rs) &#123;<br>        rs = Test(from).f(num);<br>    &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="17-库合约"><a href="#17-库合约" class="headerlink" title="17. 库合约"></a>17. 库合约</h2><p>一种特殊的合约，是一系列函数的合集，有大佬制作，会用就行。</p>
+<ul>
+<li><p>你如果是大佬，就要知道：</p>
+<ul>
+<li><p>与普通合约区别：</p>
+<ol>
+<li><p>没有状态变量</p>
+</li>
+<li><p>不能继承或被继承</p>
+</li>
+<li><p>不能接受以太币</p>
+</li>
+<li><p>不能被销毁</p>
+</li>
+</ol>
+</li>
+<li><p>函数设置为 <code>public</code> 或 <code>external</code>，调用时会触发 <code>delegatecall</code>，<code>internal</code> 时无事发生，<code>private</code> 则仅在在库合约中可见</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Strings库合约"><a href="#Strings库合约" class="headerlink" title="Strings库合约"></a>Strings库合约</h3><p>主要包含两个函数：</p>
+<ol>
+<li><code>toString()</code> 将 <code>uint256</code> 转为<code>string</code></li>
+<li><code>toHexString</code> 将 <code>uint256</code> 转为 16进制 再转为<code>string</code></li>
+</ol>
+<h3 id="使用库合约"><a href="#使用库合约" class="headerlink" title="使用库合约"></a>使用库合约</h3><p>假设我们定义了如下库合约：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs solidity">library safeMath&#123;<br>    function add(uint a, uint b) public pure returns(uint256) &#123;<br>		uint256 c = a + b;<br>        assert(c &gt;= a);<br>        return c;<br>	&#125;<br>	<br>	function sub(uint256 a, uint256 b) public pure returns (uint256) &#123;<br>    	assert(b &lt;= a);<br>    	return a - b;<br>    &#125;<br> <br>&#125;<br></code></pre></td></tr></table></figure>
+<p>调用该库合约的方法有以下两种：</p>
+<ol>
+<li><p><code>using A for B</code></p>
+<p>附加库合约(A)到任意类型(B)，库 A 中的函数会自动添加 B 类型的变量成员，直接调用，这个变量作为第一个变量。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs solidity">using safeMath for uint256;<br>contract libraryUsage &#123;<br>    function usingTest(uint256 _num1, uint256 _num2) external pure returns(uint256)&#123;<br>        return _num1.add(_num2);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>如上，通过 <code>using safeMath for uint256;</code>，就相当于我们有了以下语句（假设我们已经定义了 <code>uint256</code> 类型的变量 a 和 b）：</p>
+<ul>
+<li><code>a.add(第二个参数);</code>，<code>b.add(第二个参数);</code></li>
+<li><code>a.sub(第二个参数);</code>，<code>b.sub(第二个参数);</code></li>
+</ul>
+</li>
+<li><p>直接调用</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function directlyUse (uint256 _num1, uint256 _num2) external pure returns(uint256)&#123;<br>	return safeMath.sub(_num1, _num2);<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="18-Import"><a href="#18-Import" class="headerlink" title="18. Import"></a>18. Import</h2><ol>
+<li><p>本地相对位置引入，如引入10中冒泡排序： <code>import &#39;./bubbleSort.sol&#39;;</code></p>
+</li>
+<li><p>通过网址导入 </p>
+<p><code>import &#39;https://github.com/OpenZeppelin/openzeppelincontracts/blob/master/contracts/utils/Address.sol&#39;;</code></p>
+</li>
+<li><p>通过 npm 导入 <code>*import* &#39;@openzeppelin/contracts/access/Ownable.sol&#39;;</code></p>
+</li>
+<li><p>仅导入本地某个特定的合约 <code>import &#123;Sort&#125; from &#39;./bubbleSort.sol&#39;;</code></p>
+</li>
+</ol>
+<ul>
+<li>位置：版本号后，其余代码前</li>
+<li><strong>注意：</strong>==本地合约名字不能有中文！！！==</li>
+</ul>
+<p>例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: MIT<br>pragma solidity ^0.8.21;<br><br>import &#123;Sort&#125; from &#x27;./bubbleSort.sol&#x27;;<br><br>contract importTest &#123;<br>    function test(uint[] memory arr) external &#123;<br>        Sort a = new Sort();<br>        a.bubbleSort(arr);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="19-接收ETH"><a href="#19-接收ETH" class="headerlink" title="19. 接收ETH"></a>19. 接收ETH</h2><p>主要使用 <code>receive()</code> 和 <code>fallback()</code></p>
+<p><strong>注意</strong>：0.6.x版本前只有 <code>fallback</code></p>
+<h3 id="接受函数-receive"><a href="#接受函数-receive" class="headerlink" title="接受函数 receive"></a>接受函数 receive</h3><ul>
+<li>一个合约最多一个</li>
+<li>食用方式：<code>receive() external payable&#123; ··· &#125;</code>，<strong>无参数</strong>，<strong>无返回值</strong>，<strong>必须是 </strong><code>external</code> 和 <code>payable</code></li>
+<li>最好不要执行太多逻辑（见 20. 发送ETH）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs solidity">event hasReceived(address Sender, uint Value);<br>receive() external payable &#123;<br>	emit hasReceived(msg.sender, msg.value);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="回退函数-fallback"><a href="#回退函数-fallback" class="headerlink" title="回退函数 fallback"></a>回退函数 fallback</h3><ul>
+<li>调用合约不存在的函数时使用（传达参数不同也被视为不存在的函数）。</li>
+<li>可用于接收 ETH，代理合约 <code>proxy contract</code></li>
+<li>食用方式：<code>fallback external payable &#123; ··· &#125;</code>，同样，<strong>无参数</strong>，<strong>无返回值</strong>，<strong>必须是</strong> <code>external</code> 和 <code>payable</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs solidity">event hasFallbacked(address Sender, uint Value, bytes Data);<br>fallback() external payable &#123;<br>        emit hasFallbacked(msg.sender, msg.value, msg.data);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="fallback-or-receive"><a href="#fallback-or-receive" class="headerlink" title="fallback or receive?"></a>fallback or receive?</h3><figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs gcode">             接收ETH<br>				|<br>		   msg.data是空？<br>          	 /      \<br>           是        否<br>       	  /           \<br>	receive<span class="hljs-comment">()</span>存在?   fallback<span class="hljs-comment">()</span><br>       /    \<br>      是     否<br>	 /        \<br>receive<span class="hljs-comment">()</span>   fallback<span class="hljs-comment">()</span><br></code></pre></td></tr></table></figure>
+<p>即：仅当 msg.data 为空且存在 receive() 时触发 receive()；否则触发 fallback()；</p>
+<p>​       均不存在时不能直接发送，可以用 <code>payable</code> 的 <code>function</code> 发送</p>
+<h2 id="间章：查询和部署时发送-ETH"><a href="#间章：查询和部署时发送-ETH" class="headerlink" title="间章：查询和部署时发送 ETH"></a>间章：查询和部署时发送 ETH</h2><h3 id="查询当前合约的-ETH"><a href="#查询当前合约的-ETH" class="headerlink" title="查询当前合约的 ETH"></a>查询当前合约的 ETH</h3><p>我们使用 <code>address(这里是地址).balance</code> 查询合约的 ETH 余额</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract receiveETH &#123;<br>    event log(uint amount, uint gas);<br>    receive() external payable &#123;<br>        emit log(msg.value, gasleft()); //返回ETH值与消耗的gas<br>    &#125;<br>    function getBalance() view public returns(uint) &#123;<br>        return address(this).balance;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="在部署合约时发送-ETH"><a href="#在部署合约时发送-ETH" class="headerlink" title="在部署合约时发送 ETH"></a>在部署合约时发送 ETH</h3><p>我们在合约中加入 <code>payable</code> 的构造函数，使部署合约时可以向其中转入 ETH</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract sendETTH&#123;<br>    constructor() payable &#123;&#125;<br>    receive() external payable &#123;&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="20-发送-ETH"><a href="#20-发送-ETH" class="headerlink" title="20. 发送 ETH"></a>20. 发送 ETH</h2><p>使用 <code>transfer()</code>, <code>send()</code> 或 <code>call()</code>，鼓励使用 <code>call()</code></p>
+<h3 id="transfer"><a href="#transfer" class="headerlink" title="transfer"></a>transfer</h3><ul>
+<li>用法：<code>接收方地址.transfer(数额)</code></li>
+<li>gas 限制 2300</li>
+<li>转账失败会自动 <code>revert</code>（回滚交易）</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function trans(address payable _to, uint _amount) external payable &#123;<br>	_to.transfer(_amount);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="send"><a href="#send" class="headerlink" title="send"></a>send</h3><ul>
+<li>用法：<code>接收方地址.send(数额)</code></li>
+<li>gas 限制 2300</li>
+<li>不会自动 <code>revert</code>，要手动判断</li>
+<li>返回值为 <code>bool</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs solidity">error sendFailed();<br>    function sends(address payable _to, uint _amount) external payable &#123;<br>        bool success = _to.send(_amount);<br>        if (!success) &#123;<br>            revert sendFailed();<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<h3 id="call"><a href="#call" class="headerlink" title="call"></a>call</h3><ul>
+<li>用法：<code>接收方地址.call&#123;value: 数额&#125;(&quot;&quot;)</code></li>
+<li>无 gas 限制，<code>receive</code> 可执行复杂逻辑</li>
+<li>不会自动 <code>revert</code>，要手动判断</li>
+<li>返回值为 <code>(bool, bytes)</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs solidity">error callFailed(string);<br>function calls(address payable _to, uint _amount) external payable &#123;<br>    (bool success, ) = _to.call&#123;value: _amount&#125;(&quot;&quot;);<br>        if (!success) &#123;<br>       		revert callFailed(&quot;Failed to call&quot;);<br>        &#125;   <br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="21-调用其他合约"><a href="#21-调用其他合约" class="headerlink" title="21. 调用其他合约"></a>21. 调用其他合约</h2><p>已知我们拥有如下合约：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract tar&#123;<br>    uint private _x;<br>    event log(uint amount, uint gas);<br><br>    function setX(uint x) external payable &#123;	// 调整 _x 的值，或往合约里转ETH，并记录转入值和 gas 剩余<br>        _x = x;<br>        if (msg.value &gt; 0) &#123;<br>            emit log(msg.value, gasleft());<br>        &#125;<br>    &#125;<br><br>    function getX() external view returns(uint x)&#123;	// 获得 _x 的值<br>        x = _x;<br>    &#125;<br><br>    function getBalance() external view returns(uint) &#123;		// 返回当前合约的ETH余额<br>        return address(this).balance;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="1-传入合约地址调用函数"><a href="#1-传入合约地址调用函数" class="headerlink" title="1. 传入合约地址调用函数"></a>1. 传入合约地址调用函数</h3><p>传入目标合约的地址，生成引用，调用目标函数</p>
+<p>格式：<code>合约名(合约地址).函数名(函数参数);</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract useTar&#123;<br>    // _addr 为 tar 合约的地址,y 为 setX 函数的参数(uint x)<br>    function callSetX(address _addr, uint y) external&#123;<br>        tar(_addr).setX(y);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>一般这种已经够用了。</p>
+<h4 id="调用函数的同时发送-ETH"><a href="#调用函数的同时发送-ETH" class="headerlink" title="调用函数的同时发送 ETH"></a>调用函数的同时发送 ETH</h4><p>若目标函数为 <code>payable</code>，可以通过以下方式调用它给合约转账：<code>_Name(_Address).f&#123;value: _Value&#125;();</code></p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs sqf"><span class="hljs-variable">_Name</span>			合约名<br><span class="hljs-variable">_Address</span>		合约地址<br>f				目标函数名<br><span class="hljs-variable">_Value</span>			ETH 数额，前一个 value: 为格式<br>()				传入目标函数的参数<br></code></pre></td></tr></table></figure>
+<p>也就是在上述调用方法里加个<code>&#123;&#125;</code>，注明发送数额。</p>
+<p>如下可以向 tar 合约中转账1 wei，并传入 y</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function sendETH(address _addr, uint y) external payable &#123;<br>    tar(_addr).setX&#123;value: 1&#125;(y);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="2-传入合约变量"><a href="#2-传入合约变量" class="headerlink" title="2. 传入合约变量"></a>2. 传入合约变量</h3><p>直接在函数的参数里传入合约的引用。</p>
+<p>方法：将 <code>address</code> 类型换为目标合约名。调用格式：<code>以合约名为类型的参数.目标函数(参数)；</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function callAndGetX(tar _addr, uint y) external returns(uint x)&#123;<br>	_addr.setX(y);		// 效果同上<br>	x = _addr.getX();	// 获得 x 的值<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>注：<code>tar _addr</code> 底层类型仍是 <code>address</code>，生成的 ABI 中，调用时传入的参数仍是 <code>address</code> 类型</p>
+<h3 id="3-创建合约变量"><a href="#3-创建合约变量" class="headerlink" title="3. 创建合约变量"></a>3. 创建合约变量</h3><p>创建一个新变量存储目标合约的引用。</p>
+<p>前置：<code>目标合约名 变量名 = 目标合约名(合约的地址);</code></p>
+<p>使用：<code>变量名.目标函数(参数);</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function newVar(address _addr, uint y) external returns(uint x) &#123;<br>    tar usetar = tar(_addr);	// 前置步骤，用变量 usetar 储存了 合约tar的引用，剩余步骤效果同上<br>    usetar.setX(y);<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="22-通过Call调用合约"><a href="#22-通过Call调用合约" class="headerlink" title="22. 通过Call调用合约"></a>22. 通过Call调用合约</h2><p><code>call</code> 是 <code>address</code> 类型的低级成员，返回 <code>(bool, bytes memory)</code>，对应 call 是否成功及函数返回值</p>
+<ul>
+<li>call 是推荐的发送 ETH 的方式，不推荐用来调用合约，因为这样会把控制权交给可能不安全的合约（推荐使用上述法3）</li>
+<li>当不知道对方源码或 ABI 时，无法生成合约变量，此时就可以用 call 调用对方的函数</li>
+</ul>
+<p>使用规则：<code>目标合约地址.call(字节码);</code></p>
+<ul>
+<li>字节码通过 <code>abi.encodeWithSignature(&quot;函数签名&quot;, 逗号分隔的具体参数)</code> 获得<ul>
+<li>函数签名为 <code>函数名(逗号分隔的参数类型)</code></li>
+<li>以 <code>callSetX</code> 为例：<code>abi.encodeWithSignature(&quot;callSetX(address,uint256)&quot;, _addr, y)</code></li>
+<li>==<strong>注意！！！</strong>==：在参数类型中 <strong>不能有</strong> 任何空格，即 <code>&quot;callSetX(address, uint)&quot;</code> 是错误的，因为逗号后存在空格</li>
+<li><code>uint</code> 应写作 <code>uint256</code></li>
+</ul>
+</li>
+<li>伴随 ETH 和 gas 进行调用：<code>地址.call&#123;value:发送数额, gas:gas数额&#125;(字节码);</code></li>
+</ul>
+<p>已知有如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs solidity">import &quot;./Use_Other_Contract.sol&quot;;<br>contract tarCall is tar &#123;<br>    fallback() external payable &#123;&#125;<br>    receive() external payable&#123;&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ol>
+<li>调用 <code>setX</code>并转一些 ETH</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract useCall &#123;<br>    event response(bool _success, bytes _data);		// 便于观察返回值<br>    receive() external payable&#123;&#125;<br><br>    function callSetX(address payable _addr, uint y) external payable&#123;<br>        (bool success, bytes memory data) = _addr.call&#123;value:msg.value&#125;(<br>            abi.encodeWithSignature(&quot;setX(uint256)&quot;, y)<br>        );<br>	// 假设我们转入了 23Wei, x设为234<br>        emit response(success, data);	// 结果为 true 和 0x<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ol>
+<li>调用 <code>getX</code></li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function callGetX(address _addr) external returns(uint) &#123;<br>	(bool success, bytes memory data) = _addr.call(<br>		abi.encodeWithSignature(&quot;getX()&quot;)<br>	);<br><br>	emit response(success, data);	<br>	// 结果为 true, 0x00000000000000000000000000000000000000000000000000000000000000ea<br>	return abi.decode(data,(uint));		// 解码后结果确实是 234<br>&#125;<br></code></pre></td></tr></table></figure>
+<ol>
+<li>调用不存在的函数 —-&gt; 触发 fallback</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function callNonexist(address _addr) external &#123;<br>	(bool success, bytes memory data) = _addr.call(<br>		abi.encodeWithSignature(&quot;Nonexist(uint)&quot;)<br>    );<br>	// 无法调用 Nonexist(uint)，实际触发的是fallback<br>    emit response(success, data);	// 结果为 true, 0x<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="23-Delegatecall"><a href="#23-Delegatecall" class="headerlink" title="23. Delegatecall"></a>23. Delegatecall</h2><p>简单的英语小知识：delegate v. 委托，授权，委派</p>
+<p><code>delegatecall</code>与 <code>call</code>  类似，是 <code>address</code> 类型的低级成员</p>
+<h3 id="call-与-delegatecall"><a href="#call-与-delegatecall" class="headerlink" title="call 与 delegatecall"></a>call 与 delegatecall</h3><h4 id="1-call"><a href="#1-call" class="headerlink" title="1. call"></a>1. call</h4><p>A 通过 contract B 来 call contract C，执行 C 的函数，上下文（contest,包含变量和状态的环境）为 C；msg.sender 为 B，改变状态变量的结果作用于 C</p>
+<p><img src="https://images.mirror-media.xyz/publication-images/VgMR533pA8WYtE5Lr65mQ.png?height=698&amp;width=1860" srcset="/img/loading.gif" lazyload alt="call"></p>
+<h4 id="2-delecatecall"><a href="#2-delecatecall" class="headerlink" title="2. delecatecall"></a>2. delecatecall</h4><p>A 通过 contract B 来 call contract C，执行 C 的函数，上下文仍为 B；msg.sender 为 A，改变状态变量的结果作用于 B</p>
+<p><img src="https://images.mirror-media.xyz/publication-images/JucQiWVixdlmJl6zHjCSI.png?height=702&amp;width=1862" srcset="/img/loading.gif" lazyload alt="delecatecall"></p>
+<h3 id="Delegatecall-的使用"><a href="#Delegatecall-的使用" class="headerlink" title="Delegatecall 的使用"></a>Delegatecall 的使用</h3><p>大致与 <code>call</code> 类似，区别在于 <code>delegatecall</code> 尽可以指定 gas，不能指定发送的 ETH 数额</p>
+<blockquote>
+<p><strong>注意</strong>：<code>delegatecall</code>有安全隐患，使用时要保证当前合约和目标合约的状态变量存储结构相同，并且目标合约安全，不然会造成资产损失。</p>
+</blockquote>
+<ul>
+<li>使用场景：<ol>
+<li>代理合约(Proxy Contract)：将存储合约与逻辑合约分开。代理合约存储相关变量和逻辑合约的地址，函数存在逻辑合约里，通过 <code>delecatecall</code> 执行。升级时只需将代理合约指向新的逻辑合约即可。</li>
+<li>EIP-2535 Diamonds(钻石)：详见<a target="_blank" rel="noopener" href="https://eip2535diamonds.substack.com/p/introduction-to-the-diamond-standard">钻石标准简介</a>（看不懂一点）</li>
+</ol>
+</li>
+</ul>
+<p>例，有如下合约使用：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: MIT<br>pragma solidity ^0.8.21;<br><br>contract Proxy &#123;<br>    struct player &#123;<br>        uint256 id;<br>        string name;<br>        uint256 level;<br>    &#125;<br>    player public Player;<br>    address public sender;<br><br>    event log(bool success, bytes data);<br>    <br>    function setLogic(address _addr) public &#123;<br>        sender = _addr;<br>    &#125;<br><br>    function SetPlayer(<br>        uint256 _id,<br>        string memory _name,<br>        uint256 _exp<br>        ) public &#123;<br>            (bool _success, bytes memory _data) = sender.delegatecall(<br>                abi.encodeWithSignature(&quot;setPlayer(uint256,string,uint256)&quot;, _id, _name, _exp)<br>            );<br>            <br>            emit log(_success, _data);<br>        &#125;<br>&#125;<br><br>contract Logic &#123;<br>    struct player &#123;<br>        uint256 id;<br>        string name;<br>        uint256 level;<br>    &#125;<br>    player public Player;<br>    address public sender;<br><br>    function setPlayer(<br>        uint256 _id,<br>        string memory _name,<br>        uint256 _exp<br>        ) public &#123;<br>            Player.id = _id;<br>            Player.name = _name;<br>            Player.level = _exp/1000;<br>        &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>若要更改经验与等级的转换公式，只需部署更改后的 Logic 合约，然后在代理合约中重新输入 Logic 合约的地址即可</p>
+<h2 id="24-在合约中创建新合约"><a href="#24-在合约中创建新合约" class="headerlink" title="24. 在合约中创建新合约"></a>24. 在合约中创建新合约</h2><p>有两种方法：<code>create</code> 和 <code>create2</code></p>
+<h3 id="create"><a href="#create" class="headerlink" title="create"></a>create</h3><p>用法：<code>Contract x = new Contract&#123;value: _value&#125;(params)</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs solidity">Contract 			合约名<br>x					接收合约地址的变量<br>&#123;value: _value&#125;		若有 payable 的 constructor，可在创建时转入 _value 的 ETH<br>(params)			新合约 constructor 的参数<br></code></pre></td></tr></table></figure>
+<p>create地址的计算：<code>新地址 = hash(创建者地址，nonce)</code></p>
+<ul>
+<li>创建者地址：通常为部署的钱包或合约地址</li>
+<li>nonce：该地址发送交易的总数，对用户而言是创建的合约总数 —-&gt; 每创建一个合约，nonce 就 +1</li>
+<li>即：nonce 会随未来的事件改变 —-&gt; create 创建的地址不好预测 —-&gt; 引入 create2</li>
+</ul>
+<h3 id="create2"><a href="#create2" class="headerlink" title="create2"></a>create2</h3><p>地址计算：<code>新地址 = hash(&quot;0xFF&quot;, 创建者地址, salt, initcode)</code></p>
+<ul>
+<li><code>&quot;0xFF&quot;</code>：一个常数，避免与 create 冲突</li>
+<li><code>salt</code>(盐)：一个创作者指定的 <code>bytes32</code> 类型的值，用来影响新创建的合约地址  </li>
+<li><code>initcode</code>：新合约的初始字节码（合约的 Creation Code和构造函数的参数 ）</li>
+</ul>
+<p>用法：<code>Contract x = new Contract&#123;salt: _salt, value: _value&#125;(params)</code></p>
+<h2 id="25-删除合约"><a href="#25-删除合约" class="headerlink" title="25. 删除合约"></a>25. 删除合约</h2><p><code>selfdestruct</code> 可以将该合约剩余的 ETH 转到指定地址（即使它没有receive 或 fallback）。坎昆升级前可用于删除合约自身，升级后不可，仍会保留该合约。</p>
+<p>目前来说：</p>
+<ol>
+<li>已部署的合约无法被 <code>selfdestruct</code></li>
+<li>要想使用删除合约的功能，必须在同一笔交易中创建并自毁合约</li>
+</ol>
+<p>食用方法：<code>selfdetruct(_addr);</code>，其中，<code>_addr</code> 为接收 ETH 的地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract deleteContract &#123;<br>    constructor() payable&#123;&#125;	// 部署时转入 1ETH<br>    receive() external payable&#123;&#125;<br><br>    function useDestruct() external &#123;<br>        selfdestruct( payable(msg.sender) );	// 调用后 1ETH 被返回msg.sender<br>    &#125;<br><br>    function getBalance() external view returns(uint balance) &#123;<br>        balance = address(this).balance;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>以下展示了删除合约自身</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract destroy &#123;<br>    constructor() payable&#123;&#125;<br><br>    struct demo &#123;<br>        uint _balance;<br>        address _addr;<br>        uint _value;<br>    &#125;<br><br>    function getBalance() external view returns(uint balance) &#123;<br>        balance = address(this).balance;<br>    &#125; <br><br>    function destruction() public payable returns(demo memory)&#123;<br>        deleteContract del = new deleteContract&#123;value: msg.value&#125;();<br>        demo memory res = demo(&#123;<br>            _balance: del.getBalance(),<br>            _addr: address(del), <br>            _value: del.value()<br>        &#125;);<br>        del.useDestruct();<br>        return res;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>部署并传入 1 ETH，调用 <code>destruction</code> 函数，得到返回值 <code>0,0xf7D2eCC586332F18fa249A9A65da252036dBb8EC,100</code>，表明 <code>del</code> 合约中ETH 剩余为 0，<code>del</code> 合约的地址，<code>value = 100</code>。将上述地址以 <code>DeleteContract</code> 合约导入（导入的 <code>contract</code> 即 <code>del</code>合约），调用 <code>value</code> 和 <code>getBalance</code> 均 <code>Error</code></p>
+<h2 id="26-ABI编码解码"><a href="#26-ABI编码解码" class="headerlink" title="26. ABI编码解码"></a>26. ABI编码解码</h2><p>即Application Binary Interface(应用二进制接口)，是与以太坊智能合约交互的基础。</p>
+<p>数据基于类型编码；由于编码后不包含类型信息，解码时需注明类型</p>
+<h3 id="ABI编码"><a href="#ABI编码" class="headerlink" title="ABI编码"></a>ABI编码</h3><p>对如下4个变量进行编码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs solidity">uint x = 22;<br>address addr = 0xf7D2eCC586332F18fa249A9A65da252036dBb8EC;<br>string name = &quot;victifa&quot;;<br>uint[2] = [11, 27];<br></code></pre></td></tr></table></figure>
+<ol>
+<li><code>abi.encode</code></li>
+</ol>
+<p>将给定参数按照<a target="_blank" rel="noopener" href="https://learnblockchain.cn/docs/solidity/abi-spec.html">ABI规则</a>编码。ABI将每个参数填充为32字节的数据，连接到一起。</p>
+<ul>
+<li>如果要和智能合约交互，就用 <code>abi.encode</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function encode()public view returns(bytes memory res) &#123;<br>	res = abi.encode(x, addr, name, arr);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>由于每个数据都被填充为32字节，中间有很多0。结果为 ：<code>0x0000000000000000000000000000000000000000000000000000000000000016000000000000000000000000f7d2ecc586332f18fa249a9a65da252036dbb8ec00000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000000b000000000000000000000000000000000000000000000000000000000000001b00000000000000000000000000000000000000000000000000000000000000077669637469666100000000000000000000000000000000000000000000000000</code></p>
+<ol>
+<li><code>abi.encodePacked</code></li>
+</ol>
+<p>将给定参数按所需最低空间编码（如用1字节编译uint8）。类似 <code>abi.encode</code>，但省去了很多0。</p>
+<ul>
+<li>如果要省空间，且不与合约交互，就用 <code>abi.encodePacked</code></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function encodePacked()public view returns(bytes memory res) &#123;<br>	res = abi.encodePacked(x, addr, name, arr);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>结果为：<code>0x0000000000000000000000000000000000000000000000000000000000000016f7d2ecc586332f18fa249a9a65da252036dbb8ec76696374696661000000000000000000000000000000000000000000000000000000000000000b000000000000000000000000000000000000000000000000000000000000001b</code></p>
+<ol>
+<li><p><code>abi.encodeWithSignature</code></p>
+<blockquote>
+<p>等同于 <code>abi.encodeWithSelector( bytes4( keccak256( bytes(signature) ) ), ... )</code></p>
+</blockquote>
+</li>
+</ol>
+<p>类似 <code>abi.encode</code>，但第一个参数为函数签名</p>
+<ul>
+<li><p>调用其他合约时使用。如通过 <code>call</code> 调用其他合约：</p>
+<p><code>_addr.call&#123;value: _value, gas: _amount&#125;( abi.encodeWithSignature(&quot;example(uint,string)&quot;, _num, _name) );</code></p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function encodeWithSignature()public view returns(bytes memory res) &#123;<br>	res = abi.encodeWithSignature(&quot;test(uint256,address,string,uint256[2])&quot;, x, addr, name, arr);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>仍然对上述4个参数编码（假定函数为<code>test</code>），结果为：<code>0x31ceee1e0000000000000000000000000000000000000000000000000000000000000016000000000000000000000000f7d2ecc586332f18fa249a9a65da252036dbb8ec00000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000000b000000000000000000000000000000000000000000000000000000000000001b00000000000000000000000000000000000000000000000000000000000000077669637469666100000000000000000000000000000000000000000000000000</code></p>
+<ul>
+<li>等同于在 <code>abi.encode</code> 结果前加上了4字节的函数选择器（见下29. 选择器）</li>
+</ul>
+<ol>
+<li><code>abi.encodeWithSelector</code></li>
+</ol>
+<p>与3类似，但第一个参数为函数选择器（函数签名Keccak哈希的前4个字节）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function encodeWithSelector()public view returns(bytes memory res) &#123;<br>	res = abi.encodeWithSelector(<br>		bytes4( keccak256(&quot;test(uint256,address,string,uint256[2])&quot;) ), <br> 		x, addr, name, arr<br>	);<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>结果为：<code>0x31ceee1e0000000000000000000000000000000000000000000000000000000000000016000000000000000000000000f7d2ecc586332f18fa249a9a65da252036dbb8ec00000000000000000000000000000000000000000000000000000000000000a0000000000000000000000000000000000000000000000000000000000000000b000000000000000000000000000000000000000000000000000000000000001b00000000000000000000000000000000000000000000000000000000000000077669637469666100000000000000000000000000000000000000000000000000</code></p>
+<h3 id="ABI解码"><a href="#ABI解码" class="headerlink" title="ABI解码"></a>ABI解码</h3><p>即：<code>abi.decode</code>，用于解码 <code>abi.encode</code> 生成的二进制编码，还原为原参数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function decode(bytes memory _res) public pure returns(<br>	uint deX, <br>	address deAddr, <br>	string memory deName, <br>	uint[2] memory deArr<br>	) &#123;<br>	(deX, deAddr, deName, deArr) = abi.decode(_res, (uint, address, string, uint[2]));<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>结果为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs solidity">uint256: 	deX 	22<br>address: 	deAddr 	0xf7D2eCC586332F18fa249A9A65da252036dBb8EC<br>string: 	deName 	victifa<br>uint256[2]: deArr	11,27<br></code></pre></td></tr></table></figure>
+<h3 id="ABI的使用场景"><a href="#ABI的使用场景" class="headerlink" title="ABI的使用场景"></a>ABI的使用场景</h3><ol>
+<li>配合 <code>call</code>，见 <code>3. abi.encodeWithSignature</code></li>
+<li>ether.js 中用 ABI 实现合约的导入和调用</li>
+<li>非开源合约反编译后，无法查到函数签名，只有编码后结果</li>
+</ol>
+<h2 id="27-Hash"><a href="#27-Hash" class="headerlink" title="27. Hash"></a>27. Hash</h2><p>一个好的哈希函数具有以下特性：</p>
+<ul>
+<li>单向性：正向简单且结果唯一，逆向只能靠暴力枚举</li>
+<li>灵敏性：混沌，对初值敏感，改变一点对结果影响大</li>
+<li>高效性</li>
+<li>均一性：每个哈希值被取到的概率基本相等</li>
+<li>碰撞抗性：<ul>
+<li>弱抗碰撞性：已知 <code>x</code>，求 <code>x&#39;</code> 使 <code>hash(x&#39;) = hash(x)</code> 是困难的</li>
+<li>强抗碰撞性：任取 <code>x</code> 和 <code>x&#39;</code>，使 <code>hash(x) = hash(s&#39;)</code> 是困难的</li>
+</ul>
+</li>
+</ul>
+<p>应用：生成数据唯一标识，加密签名，安全加密</p>
+<h3 id="Keccak256"><a href="#Keccak256" class="headerlink" title="Keccak256"></a>Keccak256</h3><p>是 solidity 常用的哈希函数</p>
+<p>用法：<code>bytes32 x = keccak256(数据);</code></p>
+<ul>
+<li>SHA3 与 keccak 计算结果不一样，但 solidity 中的 SHA3 是指 keccak256，而非标准的 NIST-SHA3 </li>
+</ul>
+<h3 id="碰撞抗性验证"><a href="#碰撞抗性验证" class="headerlink" title="碰撞抗性验证"></a>碰撞抗性验证</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract test &#123;<br>    string str;<br>    constructor(string memory _str) &#123;<br>        str = _str;<br>    &#125;<br><br>    function hash() public view returns(bytes32)&#123;<br>        return keccak256( abi.encodePacked(str) );<br>    &#125;<br><br>    function weak(string memory _str) public view returns(bool) &#123;<br>        return keccak256( abi.encodePacked(_str) ) == hash();<br>    &#125;<br><br>    function strong(string memory _str1, string memory _str2) public pure returns(bool) &#123;<br>        return keccak256( abi.encodePacked(_str1) ) == keccak256( abi.encodePacked(_str2) );<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="28-Try-Catch"><a href="#28-Try-Catch" class="headerlink" title="28. Try Catch"></a>28. Try Catch</h2><p>处理异常的一种标准方式。</p>
+<p>基本语法：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs solidity">try externalContract.function() &#123;<br>	// call 成功执行<br>&#125; catch &#123;<br>	// call 失败执行<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li>可以用 <code>this.function()</code> 替代 <code>externalContract.function()</code>，被视为外部调用，但不能在构造函数中使用，因为此时 contract 未创建</li>
+</ul>
+<p>若调用函数有返回值必须声明 <code>returns(returnType val)</code>；如果是创建合约，返回值为新创建的合约变量</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs solidity">try externalContract.function() &#123;<br>	// call 成功执行<br>&#125; catch Error(string memory) &#123;	 	// reason<br>    // 捕获revert(&quot;reasonString&quot;) 和 require(false, &quot;reasonString&quot;)<br>&#125; catch Panic(uint) &#123; 				// errorCode<br>    // 捕获Panic导致的错误 例如assert失败 溢出 除零 数组访问越界<br>&#125; catch (bytes memory) &#123; 			//lowLevelData<br>    // 如果发生了revert且上面2个异常类型匹配都失败了 会进入该分支<br>    // 例如revert() require(false) revert自定义类型的error<br>&#125;<br><br></code></pre></td></tr></table></figure>
+<h2 id="29-选择器"><a href="#29-选择器" class="headerlink" title="29. 选择器"></a>29. 选择器</h2><p>已知：当我们调用合约中的函数时，本质上是向目标合约发送了一段 <code>calldata</code>，以 <code>hash</code> 中的 <code>weak</code> 函数为例：</p>
+<p>调用函数后，在 <code>input</code>栏中可以找到此次交易的 <code>calldata</code>：<code>0xd6abfc7b000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000077669637469666100000000000000000000000000000000000000000000000000</code></p>
+<p>其中，前4个字节（即 <code>0xd6abfc7b</code>）就是 <code>selector</code>，函数选择器</p>
+<ul>
+<li><p>除此以外，我们还可以通过 <code>msg.data</code> 来获得函数完整的 <code>calldata</code></p>
+<p>我们简单修改一下 <code>weak</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs solidity">event log(bytes data);  <br>function weak(string memory _str) public returns(bool) &#123;<br>	emit log(msg.data);<br>    return keccak256( abi.encodePacked(_str) ) == hash();<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>输入同样的值，我们在Logs中得到如下如下 <code>calldata</code>：</p>
+<p><code>0xd6abfc7b000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000077669637469666100000000000000000000000000000000000000000000000000</code></p>
+</li>
+</ul>
+<p>将所得 <code>calldata</code> 分为两部分：</p>
+<ul>
+<li><p>前4个字节：函数选择器 <code>selector</code></p>
+<p><code>0xd6abfc7b</code></p>
+</li>
+<li><p>后面32个字节：输入的参数</p>
+<p><code>0x000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000077669637469666100000000000000000000000000000000000000000000000000</code></p>
+</li>
+</ul>
+<p>从这里可以看出，<code>calldata</code> 就是指明了调用的函数及其参数。</p>
+<h3 id="函数签名-，method-id-和-函数选择器selector"><a href="#函数签名-，method-id-和-函数选择器selector" class="headerlink" title="函数签名 ，method id 和 函数选择器selector"></a>函数签名 ，method id 和 函数选择器selector</h3><p>函数签名：<code>&quot;函数名(函数的参数类型)&quot;</code></p>
+<p><code>method id</code>：函数签名 通过 <code>Keccak哈希</code> 后的前4字节（<code>bytes4( keccak256( 函数名(参数类型) ) )</code>），当 <code>method id</code> 与 <code>selector</code> 一致时就调用该函数。</p>
+<p><code>method id</code> 是通过函数名及参数类型计算的，参数类型分为3种：基础类型参数，固定长度类型参数，可变长度类型参数，映射类型参数。</p>
+<h4 id="基础类型参数"><a href="#基础类型参数" class="headerlink" title="基础类型参数"></a>基础类型参数</h4><p>包括但不限于：<code>uint</code>，<code>bool</code> ，<code>address</code>（基本上就是除去定长字节数组的值类型）</p>
+<p>基础类型参数在处理 <code>method id</code> 时，计算 <code>bytes4( keccak256(&quot;函数名(类型1,类型2,···)&quot;) )</code></p>
+<p>例：有如下合约</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract Test&#123;<br>    event calldt(bytes);<br>    event selector(bytes4);<br>    function test1 (uint256 a, bool b) public returns(bytes4 res)&#123;<br>       emit calldt(msg.data);<br>       emit selector(this.test1.selector);<br>       res = bytes4( keccak256((&quot;test1(uint256,bool)&quot;)) );<br>    &#125;<br>&#125;<br>/* <br>  calldt：<br>  0x2cd42d4b000000000000000000000000000000000000000000000000000000000001bf520000000000000000000000000000000000000000000000000000000000000001<br>  <br>  selector:0x2cd42d4b<br>  res:0x2cd42d4b<br>*/<br></code></pre></td></tr></table></figure>
+<h4 id="固定长度类型参数"><a href="#固定长度类型参数" class="headerlink" title="固定长度类型参数"></a>固定长度类型参数</h4><p>一般为定长数组，如 <code>uint256[11]</code>。</p>
+<p>固定长度类型参数在处理 <code>method id</code> 时，计算 <code>bytes4( keccak256(&quot;函数名(类型1[长度],类型2[长度],···)&quot;) )</code></p>
+<p>例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function test2(uint256[3] memory a) public returns(bytes4 res) &#123;<br>    emit calldt(msg.data);<br>    emit selector(this.test2.selector);<br>    res = bytes4( keccak256(&quot;test2(uint256[3])&quot;) );<br>&#125;<br>/*<br>  calldt:<br>  0x29c0be99000000000000000000000000000000000000000000000000000000000000000100000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000003<br>  <br>  selector:0x29c0be99<br>  res:0x29c0be99<br>*/<br></code></pre></td></tr></table></figure>
+<h4 id="可变长度类型参数"><a href="#可变长度类型参数" class="headerlink" title="可变长度类型参数"></a>可变长度类型参数</h4><p>一般为可变长的数组，如：<code>uint256[]</code>，<code>address[]</code>，<code>string</code> 等都是。</p>
+<p>可变长度类型参数在处理 <code>method id</code> 时，计算 <code>bytes4( keccak256(&quot;函数名(类型1[],类型2[],···)&quot;) )</code></p>
+<p>例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function test3(uint256[] memory a, address[] memory b, string memory c) public returns(bytes4 res) &#123;<br>	emit calldt(msg.data);<br>	emit selector(this.test3.selector);<br>    res = bytes4( keccak256(&quot;test3(uint256[],address[],string)&quot;) );<br>&#125;<br>/*<br>  calldt:<br>  0x6855a474000000000000000000000000000000000000000000000000000000000000006000000000000000000000000000000000000000000000000000000000000000e0000000000000000000000000000000000000000000000000000000000000012000000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000030000000000000000000000000000000000000000000000000000000000000001000000000000000000000000d9145cce52d386f254917e481eb44e9943f3913800000000000000000000000000000000000000000000000000000000000000036162630000000000000000000000000000000000000000000000000000000000<br>  <br>  selector:0x6855a474<br>  res:0x6855a474<br>*/<br></code></pre></td></tr></table></figure>
+<h4 id="映射类型参数"><a href="#映射类型参数" class="headerlink" title="映射类型参数"></a>映射类型参数</h4><p>一般指 <code>contract</code>（底层为 <code>address</code>），<code>enum</code>（底层为 <code>uint8</code>），<code>struct</code>（底层为结构体内各元素的类型）等。</p>
+<p>映射类型参数在处理 <code>method id</code> 时，将其转化为 <code>ABI</code> 类型。</p>
+<p>例：下方函数中，结构体 <code>user</code> 转化为 <code>tuple</code> 类型 <code>(uint32,bytes)</code>，枚举 <code>school</code> 转化为 <code>uint8</code>，合约 <code>aSimpleDemo</code> 转化为 <code>address</code></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract Test &#123;    <br>    /******************<br>        前方各函数省略  <br>     ******************/<br>    struct user &#123;<br>        uint32 id;<br>        bytes name;<br>    &#125;<br>    <br>    enum school &#123; LongQuan, KongGang, XinGu&#125;<br>    <br>    function test4(user memory userA, school cuit, aSimpleDemo demo) public returns(bytes4 res) &#123;<br>        emit calldt(msg.data);<br>        emit selector(this.test3.selector);<br>        res = bytes4( keccak256(&quot;test4((uint32,bytes),uint8,address)&quot;) );<br>    &#125;<br><br>&#125;<br><br>contract aSimpleDemo &#123;&#125;<br>/*<br>  calldt:<br>  0xa595d89900000000000000000000000000000000000000000000000000000000000000600000000000000000000000000000000000000000000000000000000000000001000000000000000000000000cd6a42782d230d7c13a74ddec5dd140e55499df9000000000000000000000000000000000000000000000000000000000000000c000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000000<br>  <br>  selector:0xa595d899<br>  res:0xa595d899<br>*/<br></code></pre></td></tr></table></figure>
+<h3 id="selector-的使用"><a href="#selector-的使用" class="headerlink" title="selector 的使用"></a>selector 的使用</h3><p>主要运用在通过call调用函数中。</p>
+<p>一般用 <code>abi.encodeWithSelector</code> 将函数的 <code>method id</code> 作为 <code>selector</code>（也就是上方的 <code>selector</code> 或 <code>res</code>），和函数的参数一起打包，作为 call 的参数。</p>
+<p>形如： <code>目标函数所在合约地址.call( abi.encodeWithSelecor(selector,参数1,参数2,···) );</code></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/Solidity/" class="print-no-link">#Solidity</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Solidity102笔记</div>
+      <div>http://example.com/2024/12/08/Solidity102/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Victifa</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年12月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/12/22/javaScript%E7%AC%94%E8%AE%B0/" title="javaScript笔记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">javaScript笔记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/11/30/Solidity101/" title="Solidity101笔记">
+                        <span class="hidden-mobile">Solidity101笔记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"wHTYi0mKgiheGQgyxHkEi3nE-MdYXbMMI","appKey":"lkxJFZpLfQmmGvh5ogFI55hJ","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://whtyi0mk.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
