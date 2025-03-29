@@ -28,7 +28,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://www.wtf.academy/_next/image?url=https%3A%2F%2Fstatic.wtf.academy%2Fimage%2F4bce0eaa45bd9f64525f1454f2f65d5f.png&amp;w=2048&amp;q=75">
 <meta property="article:published_time" content="2025-03-22T15:05:58.000Z">
-<meta property="article:modified_time" content="2025-03-22T15:06:23.232Z">
+<meta property="article:modified_time" content="2025-03-29T12:12:38.678Z">
 <meta property="article:author" content="Victifa">
 <meta property="article:tag" content="EVM">
 <meta name="twitter:card" content="summary_large_image">
@@ -237,7 +237,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          3.5k 字
         
       </span>
     
@@ -248,7 +248,7 @@
         
         
         
-          19 分钟
+          30 分钟
         
       </span>
     
@@ -309,7 +309,7 @@
 <li>控制流指令：执行控制流操作。包括 <code>JUMP</code> 跳转，<code>JUMPDEST</code> 跳转目标，等。</li>
 <li>上下文指令：获取上下文信息。包括 <code>CALLER</code>（<code>msg.sender</code>），<code>GAS</code> 获取当前可用的 gas。</li>
 </ul>
-<h2 id="2-堆栈指令"><a href="#2-堆栈指令" class="headerlink" title="2. 堆栈指令"></a>2. 堆栈指令</h2><h3 id="PUSH"><a href="#PUSH" class="headerlink" title="PUSH"></a>PUSH</h3><div class="table-container">
+<h2 id="2-堆栈指令"><a href="#2-堆栈指令" class="headerlink" title="2. 堆栈指令"></a>2. 堆栈指令</h2><div class="table-container">
 <table>
 <thead>
 <tr>
@@ -321,33 +321,38 @@
 </thead>
 <tbody>
 <tr>
+<td style="text-align:center">POP</td>
+<td style="text-align:center">0x50</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">弹出栈顶元素，不存在时抛出异常</td>
+</tr>
+<tr>
 <td style="text-align:center">PUSH0</td>
 <td style="text-align:center">0x5F</td>
 <td style="text-align:center">2</td>
 <td style="text-align:center">向栈中压入0，比用PUSH1压入0省 gas</td>
 </tr>
 <tr>
-<td style="text-align:center">PUSH1</td>
-<td style="text-align:center">0x60</td>
+<td style="text-align:center">PUSH1~32</td>
+<td style="text-align:center">0x60~0x7F</td>
 <td style="text-align:center">3</td>
-<td style="text-align:center">向栈中压入接下来的1B（16进制2位数字）数据</td>
+<td style="text-align:center">向栈中压入接下来的1~32B（16进制2位数字为1B）数据</td>
 </tr>
 <tr>
-<td style="text-align:center">···</td>
-<td style="text-align:center">···</td>
-<td style="text-align:center">···</td>
-<td style="text-align:center">···</td>
+<td style="text-align:center">DUP1~16</td>
+<td style="text-align:center">0x80~0x8F</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">将栈顶开始第 i 个数据复制（1 为栈顶，以此类推），压入栈顶</td>
 </tr>
 <tr>
-<td style="text-align:center">PUSH32</td>
-<td style="text-align:center">0x7F</td>
+<td style="text-align:center">SWAP1~16</td>
+<td style="text-align:center">0x90~0x9F</td>
 <td style="text-align:center">3</td>
-<td style="text-align:center">向栈中压入接下来的32B（62位数字）数据</td>
+<td style="text-align:center">交换栈顶元素与次顶开始第 i 个元素（1为交换栈顶与次顶，2为交换栈顶与第三个元素，以此类推）</td>
 </tr>
 </tbody>
 </table>
 </div>
-<h3 id="POP"><a href="#POP" class="headerlink" title="POP"></a>POP</h3><p>操作码 <code>0x50</code>，消耗 2gas，弹出栈顶元素，不存在时抛出异常。</p>
 <p>例：</p>
 <figure class="highlight xl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs xl"><span class="hljs-number">0</span><span class="hljs-function"><span class="hljs-title">x5F600050</span>		-&gt;</span> stack: [<span class="hljs-number">0</span>]<br><span class="hljs-number">0</span><span class="hljs-function"><span class="hljs-title">x61FFFF600F</span>	-&gt;</span> stack: [<span class="hljs-number">65535</span>, <span class="hljs-number">15</span>]<br><span class="hljs-number">0</span><span class="hljs-function"><span class="hljs-title">x5F5050</span>		-&gt;</span> [Error] stack underflow<br></code></pre></td></tr></table></figure>
 <h2 id="3-算数指令"><a href="#3-算数指令" class="headerlink" title="3. 算数指令"></a>3. 算数指令</h2><ul>
@@ -530,7 +535,7 @@
 <td style="text-align:center">OR</td>
 <td style="text-align:center">0x17</td>
 <td style="text-align:center">3</td>
-<td style="text-align:center">或运算，弹出栈顶两个元素 a, b，返回 `a</td>
+<td style="text-align:center">或运算，弹出栈顶两个元素 a, b，返回 `a \</td>
 <td>b`，结果入栈</td>
 </tr>
 <tr>
@@ -866,6 +871,233 @@
 </tbody>
 </table>
 </div>
+<h2 id="10-SHA3-指令"><a href="#10-SHA3-指令" class="headerlink" title="10. SHA3 指令"></a>10. SHA3 指令</h2><p>算哈希值的。</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作</th>
+<th style="text-align:center">操作码</th>
+<th style="text-align:center">gas</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">KECCAK256</td>
+<td style="text-align:center">0x20</td>
+<td style="text-align:center">30 + 6* (size + 31) / 32 + 扩展内存成本</td>
+<td style="text-align:center">将每 32B 看为一个元素，<br />弹出栈顶两个元素 offset, size,<br />从 <code>M[offset]</code> 开始读取 size Byte 的数据，哈希后压入栈</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="11-账户指令"><a href="#11-账户指令" class="headerlink" title="11. 账户指令"></a>11. 账户指令</h2><p>以太坊账户分为外部账户（EOA）和合约账户。外部账户是用户的代表，合约账户是存储和执行智能合约的实体。它们都可以拥有和发送ETH，但只有外部账户可以执行交易以及和合约交互。</p>
+<p>以太坊账户结构相当于地址（20B 的数据）到账户状态的映射。账户状态有4种属性：</p>
+<ol>
+<li><code>Balace</code>：账户余额，单位是 wei</li>
+<li><code>Nouncce</code>：对外部账户，是发起的交易数；对合约账户，是创建的合约数量。</li>
+</ol>
+<p>剩下两种只用合约账户有：</p>
+<ol>
+<li><code>Storage</code>：合约账户的存储空间</li>
+<li><code>Code</code>：合约账户的字节码<br>|    操作     | 操作码 |                     gas                     |                             功能                             |<br>| :————-: | :——: | :————————————————————-: | :—————————————————————————————: |<br>|   BALANCE   |  0x31  | 100 (address warm)<br />2600 (address cold) |         弹出栈顶 20B 的地址，返回该地址的余额并压栈          |<br>| EXTCODESIZE |  0x3B  |                    同上                     |     弹出栈顶 20B 的地址，返回该地址的代码长度（B）并压栈     |<br>| EXTCODECOPY |  0x3C  | 3 * (size + 31) / 32 + 扩展内存成本 + 同上  | 弹出栈顶4个元素address, dest_offset, offset, size，分别为<br />合约地址，拷贝到的地址，读取代码的偏移量和读取长度，<br />读取结果复制到内存中 dest_offset 的地方 |<br>| EXTCODEHASH |  0x3F  |                 同 BALANCE                  | 弹出栈顶 20B 的地址，返回该地址的代码哈希并压栈<br />若合约无代码，返回0的哈希；若合约不存在或被销毁，返回0 |</li>
+</ol>
+<h2 id="12-交易指令"><a href="#12-交易指令" class="headerlink" title="12. 交易指令"></a>12. 交易指令</h2><p>用于 gas 计算：<code>minimum_word_size = (size + 31) / 32</code></p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作</th>
+<th style="text-align:center">操作码</th>
+<th style="text-align:center">gas</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">ADDRESS</td>
+<td style="text-align:center">0x30</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">将当前合约的地址（<code>address(this)</code>）压入栈，当合约要知道自己地址时用</td>
+</tr>
+<tr>
+<td style="text-align:center">ORIGIN</td>
+<td style="text-align:center">0x32</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">将交易原始发送者的地址（<code>tx.origin</code>）压入栈，区分合约调用者和交易发起者</td>
+</tr>
+<tr>
+<td style="text-align:center">CALLER</td>
+<td style="text-align:center">0x33</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">将直接调用合约的地址（<code>msg.sender</code>）压入栈</td>
+</tr>
+<tr>
+<td style="text-align:center">CALLVALUE</td>
+<td style="text-align:center">0x34</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">将发送给合约的ETH数量（<code>msg.value</code>，单位 wei）压入栈</td>
+</tr>
+<tr>
+<td style="text-align:center">CALLDATALOAD</td>
+<td style="text-align:center">0x35</td>
+<td style="text-align:center">3</td>
+<td style="text-align:center">弹出栈顶元素 i 作为 calldata的偏移量 <br />从 calldata 的 i 位置开始读 32B 压入栈</td>
+</tr>
+<tr>
+<td style="text-align:center">CALLDATASIZE</td>
+<td style="text-align:center">0x36</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">将 calldata 的大小(B)压入栈</td>
+</tr>
+<tr>
+<td style="text-align:center">CALLDATACOPY</td>
+<td style="text-align:center">0x37</td>
+<td style="text-align:center">3 * minimum_word_size <br />+扩展内存成本</td>
+<td style="text-align:center">弹出栈顶3个元素 destOffset, offset, size，<br />从 calldata 的 offset 开始，拷贝 size(B) 的数据到内存 destOffset 位置</td>
+</tr>
+<tr>
+<td style="text-align:center">CODESIZE</td>
+<td style="text-align:center">0x38</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">将当前合约代码的大小(B)压入栈</td>
+</tr>
+<tr>
+<td style="text-align:center">CODECOPY</td>
+<td style="text-align:center">0x39</td>
+<td style="text-align:center">同上上</td>
+<td style="text-align:center">弹出栈顶3个元素 destOffset, offset, size，<br />同 CALLDATACOPY，将当前合约的代码拷贝到内存</td>
+</tr>
+<tr>
+<td style="text-align:center">GASPRICE</td>
+<td style="text-align:center">0x3A</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">将交易的gas价格压入栈</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="13-LOG-指令"><a href="#13-LOG-指令" class="headerlink" title="13. LOG 指令"></a>13. LOG 指令</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作</th>
+<th style="text-align:center">操作码</th>
+<th style="text-align:center">gas</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">LOGn<br />0 &lt;= n &lt;= 4</td>
+<td style="text-align:center">0xA0~0xA4</td>
+<td style="text-align:center">$375 \times  n + 8\times size + 内存扩展成本$</td>
+<td style="text-align:center">弹出栈顶2 + n个元素 offset, size,  n 个主题(32B)，<br />从内存 offset 开始读取 size 数据，作为日志的 data，创建并输出日志</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="14-Return-指令"><a href="#14-Return-指令" class="headerlink" title="14. Return 指令"></a>14. Return 指令</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作</th>
+<th style="text-align:center">操作码</th>
+<th style="text-align:center">gas</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">RETURN</td>
+<td style="text-align:center">0xF3</td>
+<td style="text-align:center">扩展内存成本</td>
+<td style="text-align:center">弹出栈顶2个元素 offset, size，<br />从内存 offset 开始读取 size 长度作为返回值，<br />存储到 <code>Return Data</code> 中，并终止当前操作</td>
+</tr>
+<tr>
+<td style="text-align:center">RETURNDATASIZE</td>
+<td style="text-align:center">0x3D</td>
+<td style="text-align:center">2</td>
+<td style="text-align:center">将 <code>Return Data</code> 的大小压入栈</td>
+</tr>
+<tr>
+<td style="text-align:center">RETURNDATACOPY</td>
+<td style="text-align:center">0x3E</td>
+<td style="text-align:center">3 * minimum_word_size <br />+扩展内存成本</td>
+<td style="text-align:center">弹出栈顶3个元素 destOffset, offset, size，<br />同 CALLDATACOPY，将部分 <code>Return Data</code>拷贝到内存</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="15-Revert-指令"><a href="#15-Revert-指令" class="headerlink" title="15. Revert 指令"></a>15. Revert 指令</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">操作</th>
+<th style="text-align:center">操作码</th>
+<th style="text-align:center">gas</th>
+<th style="text-align:center">功能</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">REVERT</td>
+<td style="text-align:center">0xFD</td>
+<td style="text-align:center">0</td>
+<td style="text-align:center">终止交易执行，回滚所有状态更改<br />弹出栈顶2个元素 offset, offset，<br />作为内存中错误消息的起始和长度</td>
+</tr>
+<tr>
+<td style="text-align:center">INVALID</td>
+<td style="text-align:center">0xFE</td>
+<td style="text-align:center">剩余所有</td>
+<td style="text-align:center">指代无效操作，所有状态更改失效，并消耗所有 gas</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="16-Call-指令"><a href="#16-Call-指令" class="headerlink" title="16. Call 指令"></a>16. Call 指令</h2><h3 id="16-1-CALL"><a href="#16-1-CALL" class="headerlink" title="16.1 CALL"></a>16.1 CALL</h3><p><code>0xF1</code>，创造一个子环境去运行指定地址的代码，成功压入1，失败压入0（没有代码视为成功，发送余额不足视为失败，但不会回滚交易）。共弹出7个元素：</p>
+<ol>
+<li><code>gas</code>：给子环境的 gas，用剩的会返还。</li>
+<li><code>address</code>：环境执行代码的账户地址</li>
+<li><code>value</code>：发送的 ETH</li>
+<li><code>argsOffset</code>：输入数据（calldata）在内存的起始位置</li>
+<li><code>argsSize</code>：输入数据的大小（B）</li>
+<li><code>retOffset</code>：返回数据在内存的存储的起始位置</li>
+<li><code>retSize</code>：返回数据的长度</li>
+</ol>
+<h3 id="16-2-DELEGATCALL"><a href="#16-2-DELEGATCALL" class="headerlink" title="16.2 DELEGATCALL"></a>16.2 DELEGATCALL</h3><p><code>Solidity</code> 里 <code>delegatecall</code> 的底层。</p>
+<p><code>0xF4</code>，创造一个和当前环境完全一样的子环境，但执行来自指定地址的代码（就像创建了一个引用）。共弹出6个元素，除没有 <code>value</code> 外，同上。</p>
+<h3 id="16-3-STATICCALL"><a href="#16-3-STATICCALL" class="headerlink" title="16.3 STATICCALL"></a>16.3 STATICCALL</h3><p><code>0xFA</code>，创建一个子环境去运行指定地址的代码，但代码中不允许包含以下更改状态和发送 ETH 的指令：</p>
+<ul>
+<li><code>CREATE</code> 系</li>
+<li><code>LOG</code> 系</li>
+<li><code>SSTORE</code></li>
+<li><code>SELFDESTRUCT</code></li>
+<li><code>value</code> 不为 0 的 <code>CALL</code></li>
+</ul>
+<p>共弹出6个元素，同上。</p>
+<h2 id="17-CREATE-指令"><a href="#17-CREATE-指令" class="headerlink" title="17. CREATE 指令"></a>17. CREATE 指令</h2><h3 id="17-1-CREATE"><a href="#17-1-CREATE" class="headerlink" title="17.1 CREATE"></a>17.1 CREATE</h3><p><code>0xF0</code>，创建一个新的合约。共弹出3个元素，分别是：</p>
+<ol>
+<li><code>value</code>：发送给新合约的 ETH</li>
+<li><code>offset</code>：新合约执行的 <code>initcode</code> 的起始地址</li>
+<li><code>size</code>：<code>inicode</code> 的长度</li>
+</ol>
+<p>创建合约的简化流程：</p>
+<ol>
+<li>弹出3个元素</li>
+<li>计算合约地址</li>
+<li>更新 ETH 余额</li>
+<li>初始化执行 <code>initcode</code> 的新的上下文 <code>evm_create</code></li>
+<li>执行 <code>initcode</code> </li>
+<li>若执行成功，更新账户状态：<ul>
+<li>更新 <code>balance</code>，<code>nounce = 0</code>，将 <code>code</code> ，<code>storage</code>设为 <code>evm_create</code> 的返回值和 <code>storage</code></li>
+</ul>
+</li>
+<li>成功，将新地址压入栈；否则压入0</li>
+</ol>
+<h3 id="17-2-CREATE2"><a href="#17-2-CREATE2" class="headerlink" title="17.2 CREATE2"></a>17.2 CREATE2</h3><p><code>0xF5</code>，大致同上，但弹出4个元素（追加一个 <code>salt</code>）。</p>
+<p>地址计算变更为如下：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs stylus"><span class="hljs-selector-tag">address</span> = <span class="hljs-built_in">keccak256</span>( <span class="hljs-number">0</span>xff + sender_address + salt + <span class="hljs-built_in">keccak256</span>(initialisation_code) ) 的后<span class="hljs-number">20</span>字节<br></code></pre></td></tr></table></figure></p>
 
                 
               </div>
