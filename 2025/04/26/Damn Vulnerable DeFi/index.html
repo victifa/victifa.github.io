@@ -26,13 +26,13 @@
 <meta property="og:site_name" content="Victifa">
 <meta property="og:description" content="01. Unstoppable提示有一个代币化金库，它里面已经存了 100万 DVT。它将提供免费的闪电贷，直到你的宽限期结束。 为了在 100% 免许可化前捕获任何可能的 bug，开发者决定在测试网上运行一个在线的 beta 版。有一个监控合约用于检查闪电贷功能的有效性。 以初始10个 DVT 余额开始，证明停止金库运行是可能的。它必须停止提供闪电贷。 说人话：你初始有10个 DVT，对合约 U">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2025/04/26/Damn%20Vulnerable%20DeFi/pics/Damn%20Vulnerable%20DeFi/01/result.png">
+<meta property="og:image" content="http://example.com/img/pics/Damn%20Vulnerable%20DeFi/01/result.png">
 <meta property="article:published_time" content="2025-04-26T13:34:57.000Z">
-<meta property="article:modified_time" content="2025-04-26T13:42:34.024Z">
+<meta property="article:modified_time" content="2025-04-26T13:53:17.449Z">
 <meta property="article:author" content="Victifa">
 <meta property="article:tag" content="Damn Vulnerable DeFi">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2025/04/26/Damn%20Vulnerable%20DeFi/pics/Damn%20Vulnerable%20DeFi/01/result.png">
+<meta name="twitter:image" content="http://example.com/img/pics/Damn%20Vulnerable%20DeFi/01/result.png">
   
   
   
@@ -296,7 +296,7 @@
 <p>说人话：你初始有10个 DVT，对合约 <code>UnstoppableVault</code> 干一些事儿，使得之后所有对 <code>flashLoan()</code> 的调用全部失败。</p>
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>直接看关键函数 <code>flashLoan()</code>，要想让它无条件停止运行，肯定要依赖里面的几个 <code>require</code>。问题出在 <code>convertToShares(totalSupply) != balanceBefore  // enforce ERC4626 requirement</code>，由于该金库使用的是普通的 ERC-4626，并没有禁止我们手动向它 <code>transfer</code> 资产，因此强制使用 ERC-4626 是不可能的。因此，当我们绕过 <code>mint</code> 和 <code>deposit</code>，直接传入 DVT 时，asset 增加而 share 却不变，就可以触发一个 revert，从而触发监控合约中 <code>checkFlashLoan</code> 函数的 catch，然后把金库暂停，把 ownership 给我们。</p>
 <h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs solidity">function test_unstoppable() public checkSolvedByPlayer &#123;<br>    token.transfer(address(vault), 1);<br>&#125;<br></code></pre></td></tr></table></figure>
-<p><img src="./pics/Damn%20Vulnerable%20DeFi/01/result.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="/img/pics/Damn%20Vulnerable%20DeFi/01/result.png" srcset="/img/loading.gif" lazyload alt=""></p>
 
                 
               </div>

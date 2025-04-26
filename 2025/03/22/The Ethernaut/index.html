@@ -26,15 +26,15 @@
 <meta property="og:site_name" content="Victifa">
 <meta property="og:description" content="The Ethernaut00. Hello Ethernaut 在控制台输入 await contract.info()，获得提示：&#x3D;&#x3D;You will find what you need in info1().&#x3D;&#x3D;  输入 await contract.info1()，得到&#x3D;&#x3D;Try info2(), but with “hello” as a parameter.&#x3D;&#x3D;，即以 “hello”">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2025/03/22/The%20Ethernaut/pics/Ethernaut/00/00.01.png">
-<meta property="og:image" content="http://example.com/2025/03/22/The%20Ethernaut/pics/Ethernaut/00/00.02.png">
-<meta property="og:image" content="http://example.com/2025/03/22/The%20Ethernaut/pics/Ethernaut/03/03.01.png">
-<meta property="og:image" content="http://example.com/2025/03/22/The%20Ethernaut/pics/Ethernaut/08/08.01.png">
+<meta property="og:image" content="http://example.com/img/pics/Ethernaut/00/00.01.png">
+<meta property="og:image" content="http://example.com/img/pics/Ethernaut/00/00.02.png">
+<meta property="og:image" content="http://example.com/img/pics/Ethernaut/03/03.01.png">
+<meta property="og:image" content="http://example.com/img/pics/Ethernaut/08/08.01.png">
 <meta property="article:published_time" content="2025-03-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-26T13:43:00.068Z">
+<meta property="article:modified_time" content="2025-04-26T13:54:20.600Z">
 <meta property="article:author" content="Victifa">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2025/03/22/The%20Ethernaut/pics/Ethernaut/00/00.01.png">
+<meta name="twitter:image" content="http://example.com/img/pics/Ethernaut/00/00.01.png">
   
   
   
@@ -299,7 +299,7 @@
 </li>
 <li><p>输入 <code>await contract.info2(&quot;hello&quot;)</code>，得到==The property infoNum holds the number of the next info method to call ”==</p>
 </li>
-<li><p>输入 <code>await contract.infoNum()</code>，查看详细数据，结果如下，说明下一个查看的是 <code>info42()</code>(宇宙的终极答案)<img src="./pics/Ethernaut/00/00.01.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<li><p>输入 <code>await contract.infoNum()</code>，查看详细数据，结果如下，说明下一个查看的是 <code>info42()</code>(宇宙的终极答案)<img src="/img/pics/Ethernaut/00/00.01.png" srcset="/img/loading.gif" lazyload alt=""></p>
 </li>
 <li><p>输入 <code>await contract.info42()</code>，得到==theMethodName is the name of the next method.==，即下一个函数的名字为 <code>theMethodName（）</code></p>
 </li>
@@ -317,7 +317,7 @@
 <ul>
 <li>摊牌了，在最开始输入 <code>await contract</code> 时就获得了该关的所有函数，实际可以跳着走</li>
 </ul>
-<p><img src="./pics/Ethernaut/00/00.02.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="/img/pics/Ethernaut/00/00.02.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <h2 id="01-Fallback"><a href="#01-Fallback" class="headerlink" title="01. Fallback"></a>01. Fallback</h2><p>过关条件：</p>
 <ol>
 <li>获得这个合约的所有权</li>
@@ -356,7 +356,7 @@
 <h3 id="实操-2"><a href="#实操-2" class="headerlink" title="实操"></a>实操</h3><p>通过如下代码，一键计算并调用函数：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs solidity">interface CoinFlip &#123;<br>    function flip(bool _guess) external returns (bool);<br>&#125;<br><br>contract Coin &#123;<br>    uint256 FACTOR = 57896044618658097711785492504343953926634992332820282019728792003956564819968;<br>    address addr;<br>    constructor (address _addr) &#123;<br>        addr = _addr;<br>    &#125;<br>    function getNum() public &#123;<br>        uint256 blockValue = uint256(blockhash(block.number - 1));<br>        uint256 coinFlip = blockValue / FACTOR;<br>        bool side = coinFlip == 1 ? true : false;<br>        CoinFlip(addr).flip(side);<br>    &#125; <br>&#125;<br></code></pre></td></tr></table></figure>
 <p>调用两次后，调用 <code>getter</code> 函数 <code>await contract.consecutiveWins()</code>，结果如下：</p>
-<p><img src="./pics/Ethernaut/03/03.01.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="/img/pics/Ethernaut/03/03.01.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p>正确，慢慢执行十次就行了。</p>
 <ul>
 <li>注：两次执行间要有一定间隔，否则会报错 <code>Gas estimation failed</code>。</li>
@@ -420,7 +420,7 @@
 <p>如果上一个变量没把槽占满，下一个变量又刚好塞得进去，那两个变量就塞一个槽里，直到剩余空间塞不下下一个变量。</p>
 <p>若变量 a 在槽1，变量 b 塞不进槽1，那么变量 b 就存在槽2（槽1的顺位）；此时变量 c 能塞进槽1，就和变量 a 一起存在槽1中，尽管变量的声明顺序为a, b, c。</p>
 <p>可以借助以下图示理解（<a target="_blank" rel="noopener" href="https://s.foresightnews.pro/article/detail/1511">来自这里</a>）</p>
-<p><img src="./pics/Ethernaut/08/08.01.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="/img/pics/Ethernaut/08/08.01.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <ul>
 <li>详见<a target="_blank" rel="noopener" href="https://learnblockchain.cn/docs/solidity/internals/layout_in_storage.html">官方文档</a>，或<a target="_blank" rel="noopener" href="https://s.foresightnews.pro/article/detail/1511">智能合约安全审计入门篇 —— 访问私有数据</a></li>
 </ul>
