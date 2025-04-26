@@ -19,22 +19,24 @@
   <meta name="author" content="Victifa">
   <meta name="keywords" content="">
   
-    <meta name="description" content="ERC-1967 A consistent location where proxies store the address of the logic contract they delegate to, as well as other proxy-specific information.  指明了 “代理合约” 的持续使用的地址，它可以存储 “代理合约” delegatecall 的 “逻辑">
+    <meta name="description" content="ERC-4626 代币化金库仅有一种底层 EIP-20 代币的代币化金库。 金库是 DeFi 的基础，它允许你将一种基础代币质押到该合约中，从而换取一定的收益，ERC-4626 统一了这种金库合约的接口，字如其名，这种金库继承了 ERC-20，因此本身也是一种 ERC-20 代币。 一些定义 asset：以下也称为基础资产（代币）。是受金库合约管理的一种底层代币，也是“你”原本拥有的一种 ERC-">
 <meta property="og:type" content="article">
-<meta property="og:title" content="EIP-1967_代理相关的存储槽">
-<meta property="og:url" content="http://example.com/2025/04/05/EIP-1967/index.html">
+<meta property="og:title" content="ERC-4626_代币化金库">
+<meta property="og:url" content="http://example.com/2025/04/26/ERC-4626/index.html">
 <meta property="og:site_name" content="Victifa">
-<meta property="og:description" content="ERC-1967 A consistent location where proxies store the address of the logic contract they delegate to, as well as other proxy-specific information.  指明了 “代理合约” 的持续使用的地址，它可以存储 “代理合约” delegatecall 的 “逻辑">
+<meta property="og:description" content="ERC-4626 代币化金库仅有一种底层 EIP-20 代币的代币化金库。 金库是 DeFi 的基础，它允许你将一种基础代币质押到该合约中，从而换取一定的收益，ERC-4626 统一了这种金库合约的接口，字如其名，这种金库继承了 ERC-20，因此本身也是一种 ERC-20 代币。 一些定义 asset：以下也称为基础资产（代币）。是受金库合约管理的一种底层代币，也是“你”原本拥有的一种 ERC-">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2025-04-05T12:47:07.000Z">
-<meta property="article:modified_time" content="2025-04-05T12:49:11.735Z">
+<meta property="og:image" content="https://ethereum.org/content/developers/docs/standards/tokens/erc-4626/map-of-erc-4626.png">
+<meta property="article:published_time" content="2025-04-26T13:33:28.000Z">
+<meta property="article:modified_time" content="2025-04-26T13:34:35.469Z">
 <meta property="article:author" content="Victifa">
 <meta property="article:tag" content="EIP">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://ethereum.org/content/developers/docs/standards/tokens/erc-4626/map-of-erc-4626.png">
   
   
   
-  <title>EIP-1967_代理相关的存储槽 - Victifa</title>
+  <title>ERC-4626_代币化金库 - Victifa</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -212,7 +214,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="EIP-1967_代理相关的存储槽"></span>
+            <span id="subtitle" data-typed-text="ERC-4626_代币化金库"></span>
           
         </div>
 
@@ -223,8 +225,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2025-04-05 20:47" pubdate>
-          2025年4月5日 晚上
+        <time datetime="2025-04-26 21:33" pubdate>
+          2025年4月26日 晚上
         </time>
       </span>
     
@@ -235,7 +237,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          854 字
+          1.1k 字
         
       </span>
     
@@ -246,7 +248,7 @@
         
         
         
-          8 分钟
+          9 分钟
         
       </span>
     
@@ -283,33 +285,27 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">EIP-1967_代理相关的存储槽</h1>
+            <h1 id="seo-header">ERC-4626_代币化金库</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="ERC-1967"><a href="#ERC-1967" class="headerlink" title="ERC-1967"></a>ERC-1967</h1><blockquote>
-<p><strong>A consistent location where proxies store the address of the logic contract they delegate to, as well as other proxy-specific information.</strong></p>
-</blockquote>
-<p>指明了 “代理合约” 的持续使用的地址，它可以存储 “代理合约” <code>delegatecall</code> 的 “逻辑合约” 以及 “代理合约” 的其他特定信息。</p>
-<h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>委托 “代理合约” 这一方法被广泛运用于 “可升级合约” 和 节省燃气费。这些代理依赖于 <code>delegatecall</code> <strong>逻辑（实现）合约</strong> 来实现。这允许 “代理合约” 保持一个持久的状态（在 <code>storage</code> 和 <code>balance</code> 方面），同时代码被委托给逻辑合约。</p>
-<p>为避免代理和逻辑合约在存储（<code>storage</code>） 上的冲突，逻辑合约的地址通常被保存在一个特定的存储槽，并保证这段空间永远不会被编译器分配到。这一 EIP 提议：使用一组标准的插槽来存放代理方的信息。这使得像区块链浏览器之类的客户端可以正确提取并向用户们展示这些信息，也使逻辑合约可以选择性地基于逻辑合约操作。</p>
-<h2 id="规范"><a href="#规范" class="headerlink" title="规范"></a>规范</h2><h3 id="逻辑合约（Logic-Contract）地址"><a href="#逻辑合约（Logic-Contract）地址" class="headerlink" title="逻辑合约（Logic Contract）地址"></a>逻辑合约（Logic Contract）地址</h3><p>槽 <code>0x360894a13ba1a3210667c828492db98dca3e2076cc3735a920a3ca505d382bbc</code>，也可以通过：<code>bytes32(uint256(keccak256(&#39;eip1967.proxy.implementation&#39;)) - 1)</code> 获得。</p>
-<p>这个槽存储该代理合约 <code>delegatecall</code> 的逻辑合约的地址。若使用 “信标”，则该槽为空。对该插槽的任何改变都应通过事件：<code>event Upgraded(address indexed implementation);</code>，来进行通知。</p>
-<h3 id="信标合约（Beacon-Contract）地址"><a href="#信标合约（Beacon-Contract）地址" class="headerlink" title="信标合约（Beacon Contract）地址"></a>信标合约（Beacon Contract）地址</h3><p>槽 <code>0xa3f0ad74e5423aebfd80d3ef4346578335a9a72aeaee59ff6cb3582b35133d50</code>，也可以通过：<code>bytes32(uint256(keccak256(&#39;eip1967.proxy.beacon&#39;)) - 1</code> 获得。</p>
-<p>这个槽存储该代理合约依赖的（<code>fallback</code> 调用的）信标合约。若使用 “代理合约”，则该槽为空。当且仅当逻辑合约的槽为空时使用该槽位。对该插槽的任何改变都应通过事件：<code>event BeaconUpgraded(address indexed beacon);</code>，来进行通知。</p>
-<p>信标被用于将多个代理合约的逻辑部分的地址存在一个地方，从而可以通过更改单个插槽开始先对多个代理合约的批量升级。信标合约必须实现这个函数：<code>function implementation() returns (address)</code>。</p>
-<p>基于信标的 “代理合约” 不使用 “逻辑合约” 的那个槽位。相反，“代理合约” 通过 “信标合约” 的槽位来存储它衣服的信标（也就是逻辑合约）。为了知道 “使用信标的代理合约” 的逻辑合约，客户端应该：</p>
-<ul>
-<li>读取 “信标合约” 的地址，来获取它的逻辑合约的存储槽。</li>
-<li>调用 “信标合约” 的 <code>implementation()</code> 函数。</li>
+                <h1 id="ERC-4626-代币化金库"><a href="#ERC-4626-代币化金库" class="headerlink" title="ERC-4626 代币化金库"></a>ERC-4626 代币化金库</h1><p>仅有一种底层 EIP-20 代币的代币化金库。</p>
+<p>金库是 DeFi 的基础，它允许你将一种基础代币质押到该合约中，从而换取一定的收益，ERC-4626 统一了这种金库合约的接口，字如其名，这种金库继承了 ERC-20，因此本身也是一种 ERC-20 代币。</p>
+<h2 id="一些定义"><a href="#一些定义" class="headerlink" title="一些定义"></a>一些定义</h2><ul>
+<li><strong>asset</strong>：以下也称为基础资产（代币）。是受金库合约管理的一种底层代币，也是“你”原本拥有的一种 ERC-20 代币，你可以将它存入金库以换取一些 share。</li>
+<li><strong>share</strong>：以下也称为金库份额（股份）。是金库代表的代币。当你存入 asset 时可以获得一定比例的 share（这种关系可以是线性的，比如等价，也可以是任意一种函数关系）。</li>
+<li><strong>yield</strong>：（原文里没有）额外收益。金库方通过你存入的代币进行操作获得的收益，该收益不会直接增加你的 share，而是增加 AUM。（从而实现类似于汇率提高，可能在提取时能获得更多 asset，有点像把钱存银行里每个月拿到的一点点利息，好吧其实更像股票）</li>
+<li><strong>AUM(Assets Under Management)</strong>：（原文里没有）资产管理规模。就是金库手里所有 asset 的总价值，包括你存的和它赚的，可以决定 share 的价值。</li>
+<li><strong>fee</strong>：费用。由金库收取的 asset 或 share，这种费用可能出现在：存款、提取、AUM、yield，或任何金库规定的地方。</li>
+<li><strong>slippage</strong>：滑点。不由费用造成的，任何预期的 share 价格和实际从金库存入取出的资金在经济上的差异。人话：预期价格与实际执行价格之间的差异。通常由低流动性 + 大额交易或恶意攻击产生。</li>
 </ul>
-<p>“信标合约” 中 <code>implementation()</code> 函数的结果 <strong>不应该</strong> 依赖于调用者（<code>msg.sender</code>）。</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs 1c">注：就是 <br>  所有使用 逻辑合约A 的代理合约的那个槽<br>               <span class="hljs-string">| 指向</span><br>               v<br>         同一个信标合约地址<br>               <span class="hljs-string">| 调用 implementation() 函数</span><br>               v<br>           逻辑合约A 地址<br><br>因此，对于使用同一 逻辑合约 的无数个不同的 代理合约，<br>只要 代理合约 的那个槽存的是同一个 信标合约的地址，<br>那我们只需要更新那一个 信标合约 里 implementation<span class="hljs-punctuation">(</span><span class="hljs-punctuation">)</span>的返回值，<br>就能实现所有 代理合约的逻辑部分 的批量更新。<br></code></pre></td></tr></table></figure>
-<h3 id="管理员（admin）-地址"><a href="#管理员（admin）-地址" class="headerlink" title="管理员（admin） 地址"></a>管理员（admin） 地址</h3><p>槽 <code>0xb53127684a568b3173ae13b9f8a6016e243e63b6e8ee1178d6a717850b5d6103</code>，也可以通过：<code>bytes32(uint256(keccak256(&#39;eip1967.proxy.admin&#39;)) - 1)</code> 获得。</p>
-<p>这个槽存储允许为该 “代理合约” 更新它的 “逻辑合约” 地址的管理员账户（一串地址）。这仅仅是一个可选项。</p>
-<p>对该插槽的任何改变都应通过事件：<code>event AdminChanged(address previousAdmin, address newAdmin);</code>，来进行通知。</p>
-
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>所有 EIP-4626 代币化金库合约 <strong>必须</strong> 实现 EIP-20，来将自己本身代表为 share。如果该金库禁止对自身 share 的转移，它 <strong>可能</strong> 会 revert <code>transfer</code> 和 <code>transferFrom</code> 这两个函数。EIP-20 操作 <code>balanceOf</code>，<code>transfer</code>，<code>totalSupply</code> 是针对金库的 share 的操作，share 代表你对金库底层资产的所有权。</p>
+<p>所有的 EIP-4626 代币化金库 <strong>必须</strong> 实现 EIP-20 的可选的元数据扩展。它的 <code>name</code> 和 <code>symbol</code> 函数 <strong>应该要</strong> 反应底层代币的 <code>name</code> 和 <code>symbol</code>。</p>
+<p>EIP-4626 代币化金库 <strong>可以</strong> 实现 EIP-2612，以优化用户在集成场景中批准 share 的操作体验。</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><p>接口一览（来自<a target="_blank" rel="noopener" href="https://ethereum.org/en/developers/docs/standards/tokens/erc-4626/#events">ERC-4626 Tokenized Vault Standard</a>）：</p>
+<p><img src="https://ethereum.org/content/developers/docs/standards/tokens/erc-4626/map-of-erc-4626.png" srcset="/img/loading.gif" lazyload alt=""></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><code class="hljs solidity">interface IERC4626 is IERC20 &#123;<br>	// ======================================== 基础信息 ========================================<br>    <br>    /**<br>     * @dev 获取 asset 的地址<br>    **/<br>    function asset() external view returns (address);<br><br>    /**<br>     * @dev 返回 AUM <br>    **/<br>    function totalAssets() external view returns (uint256);<br><br><br>    // ======================================== 资产与份额转换 ========================================<br>    <br>    /**<br>     * @dev 将 asset 转换为对应的 share 数量： shares = assets * totalSupply() / totalAssets();<br>    **/<br>    function convertToShares(uint256 assets) external view returns (uint256 shares);<br><br>    /**<br>     * @dev 将 share 转换为对应的 asset 数量： assets = shares * totalAssets() / totalSupply();<br>    **/<br>    function convertToAssets(uint256 shares) external view returns (uint256 assets);<br><br><br>    // ======================================== 存款（Deposit事件） ========================================<br>    <br>    /**<br>     * @dev 用户指定想获取的 share 份额，计算后从用户转出对应的 asset ，并将 share 发给 receiver<br>    **/<br>    function mint(uint256 shares, address receiver) external returns (uint256 assets);<br>    <br>    /**<br>     * @dev 用户指定想存入的 asset 资产，从用户转出对应的 asset ，并将计算后对应的 share 发给 receiver<br>    **/<br>    function deposit(uint256 assets, address receiver) external returns (uint256 shares);<br>    <br>    <br>    // ======================================== 取款（Withdraw事件） ========================================<br>    <br>    /**<br>     * @dev 用户指定想取出的 asset 资产，销毁 owner 对应 share，将指定的 asset 发给 receiver<br>    **/<br>    function withdraw(<br>        uint256 assets,<br>        address receiver,<br>        address owner<br>    ) external returns (uint256 shares);<br>    <br>    /**<br>     * @dev 用户指定想销毁的 share 份额，销毁 owner share份额，将对应的 asset 发给 receiver<br>    **/<br>    function redeem(<br>        uint256 shares,<br>        address receiver,<br>        address owner<br>    ) external returns (uint256 assets);<br>    <br>    <br>	// ======================================== 会计逻辑（最大值相关） ========================================<br>	<br>	/**<br>     * @dev 某地址用户单次存款最多存入的 asset 资产<br>    **/<br>    function maxDeposit(address) external view returns (uint256);<br>    <br>    /**<br>     * @dev 某地址用户单次存款最多获得的 share 份额<br>    **/<br>    function maxMint(address) external view returns (uint256);<br><br>	/**<br>     * @dev 某地址用户单次取款最多销毁的 share 份额<br>    **/<br>    function maxRedeem(address owner) external view returns (uint256 shares);<br>	<br>	/**<br>     * @dev 某地址用户单次取款最多获得的 asset 资产<br>    **/<br>	function maxWithdraw(address owner) external view returns (uint256 assets);<br>    <br>	<br>	// ======================================== 会计逻辑（预言相关） ========================================<br>   <br>    /**<br>     * @dev 模拟用户在当前链上、链下环境存款时铸造 shares 份额需要的 assets 资产<br>    **/<br>    function previewMint(uint256 shares) external view returns (uint256 assets);<br><br>	/**<br>     * @dev 模拟用户在当前链上、链下环境存款时存入 assets 资产可以获得的 shares 份额<br>    **/<br>	function previewDeposit(uint256 assets) external view returns (uint256 shares);<br>	<br>	/**<br>     * @dev 模拟用户在当前链上、链下环境存款时取出 assets 资产需要销毁的 shares 份额<br>    **/<br>    function previewWithdraw(uint256 assets) external view returns (uint256 shares);<br><br>    /**<br>     * @dev 模拟用户在当前链上、链下环境存款时销毁 shares 份额可以获得的 assets 资产<br>    **/<br>    function previewRedeem(uint256 shares) external view returns (uint256 assets);<br><br><br>    // ============================================== 事件 ==============================================<br>    event Deposit(<br>        address indexed sender,<br>        address indexed owner,<br>        uint256 assets,<br>        uint256 shares<br>    );<br><br>    event Withdraw(<br>        address indexed sender,<br>        address indexed receiver,<br>        address indexed owner,<br>        uint256 assets,<br>        uint256 shares<br>    );<br>&#125;<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -333,8 +329,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>EIP-1967_代理相关的存储槽</div>
-      <div>http://example.com/2025/04/05/EIP-1967/</div>
+      <div>ERC-4626_代币化金库</div>
+      <div>http://example.com/2025/04/26/ERC-4626/</div>
     </div>
     <div class="license-meta">
       
@@ -346,7 +342,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2025年4月5日</div>
+          <div>2025年4月26日</div>
         </div>
       
       
@@ -378,9 +374,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2025/04/26/ERC-4626/" title="ERC-4626_代币化金库">
+                      <a href="/2025/04/26/Damn%20Vulnerable%20DeFi/" title="Damn Vulnerable DeFi">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">ERC-4626_代币化金库</span>
+                        <span class="hidden-mobile">Damn Vulnerable DeFi</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -388,8 +384,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2025/03/22/EVMopcodes/" title="EVMopcodes">
-                        <span class="hidden-mobile">EVMopcodes</span>
+                      <a href="/2025/04/05/EIP-1967/" title="EIP-1967_代理相关的存储槽">
+                        <span class="hidden-mobile">EIP-1967_代理相关的存储槽</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
